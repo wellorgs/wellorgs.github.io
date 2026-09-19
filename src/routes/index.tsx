@@ -88,6 +88,13 @@ function Landing() {
               <p className="mx-auto mt-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground sm:text-xs">
                 Routine → Handled · Important → Summarized · Escalated → Escalated
               </p>
+              {/* PRICING PENDING - "First 7 days free at launch" pill removed until pricing is finalised. Original:
+              <p className="shine-pill mx-auto mt-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold tracking-tight text-foreground sm:text-sm">
+                <Sparkles className="animate-spark size-4 text-primary" strokeWidth={2} />
+                First 7 days free at launch
+                <span className="font-normal text-muted-foreground">No spam, ever.</span>
+              </p>
+              (also re-add: import { Sparkles } from "lucide-react") */}
             </div>
 
             <div className="mx-auto mt-10 max-w-[1200px] sm:mt-12">

@@ -66,6 +66,11 @@ export function BoardSignupDialog({ open, onOpenChange, reason }: DialogProps) {
             <Bell className="mt-0.5 size-4 shrink-0 text-foreground/70" />
             An email when the feature you voted for ships
           </li>
+          {/* PRICING PENDING - "First 7 days free at launch" line removed until pricing is finalised. Original:
+          <li className="flex gap-2">
+            <Sparkles className="mt-0.5 size-4 shrink-0 text-foreground/70" />
+            First 7 days free at launch
+          </li> */}
         </ul>
 
         <WaitlistForm compact />
@@ -91,6 +96,11 @@ export function BoardSignupCard({ className }: { className?: string }) {
         className,
       )}
     >
+      {/* PRICING PENDING - "First 7 days free at launch" chip above this heading removed until pricing is finalised. Original:
+      <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-primary">
+        <Sparkles className="size-3.5" strokeWidth={1.75} />
+        First 7 days free at launch
+      </span> */}
       <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
         Voting is anonymous. Leave your email so we can tell you when it ships.
       </h2>

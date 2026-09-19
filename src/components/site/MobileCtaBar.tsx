@@ -64,6 +64,15 @@ export function MobileCtaBar() {
       )}
     >
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-3">
+        {/* PRICING PENDING - "First 7 days free, no card needed" line removed until pricing is finalised. Original:
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-semibold tracking-tight">Join the Waitlist</p>
+          <span className="mt-1 inline-flex max-w-full items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-tight text-foreground">
+            <Sparkles className="animate-spark size-3 shrink-0 text-primary" strokeWidth={2.2} />
+            <span className="truncate">First 7 days free, no card needed</span>
+          </span>
+        </div>
+        (also re-add Sparkles to the lucide-react import) */}
 
         <a
           href="#waitlist"
