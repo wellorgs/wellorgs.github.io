@@ -70,7 +70,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-5">
         <Link
           to="/"
-          aria-label="MyAssistant home"
+          aria-label="Assisty AI home"
           onClick={() => {
             setOpen(false);
             if (onLanding) {
@@ -80,10 +80,7 @@ export function SiteHeader() {
           }}
           className="flex min-w-0 items-center gap-2.5"
         >
-          <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-primary text-sm font-bold text-primary-foreground">
-            M
-          </span>
-          <span className="truncate text-[17px] font-semibold tracking-tight">MyAssistant</span>
+          <img src="/logo-lockup.png" alt="Assisty AI" className="h-10 w-auto max-w-none shrink-0 sm:h-[52px]" />
         </Link>
 
         {/* Section nav — desktop */}

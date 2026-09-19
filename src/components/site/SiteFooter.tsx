@@ -6,7 +6,7 @@ export function SiteFooter() {
           <span className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-primary text-[11px] font-bold text-primary-foreground">
             M
           </span>
-          <span>© {new Date().getFullYear()} MyAssistant. Someone should always pick up.</span>
+          <span>© {new Date().getFullYear()} Assisty AI. Someone should always pick up.</span>
         </p>
         <a
           href="mailto:hello@myassistant.app"

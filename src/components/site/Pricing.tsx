@@ -145,7 +145,7 @@ const scenarios = [
   {
     flag: "🇺🇸",
     where: "New York to Delhi",
-    line: "A shop owner manages her family business from New York while MyAssistant answers supplier calls on Delhi hours. The summary is waiting in the app with her morning coffee.",
+    line: "A shop owner manages her family business from New York while Assisty AI answers supplier calls on Delhi hours. The summary is waiting in the app with her morning coffee.",
   },
   {
     flag: "🇬🇧",
@@ -155,12 +155,12 @@ const scenarios = [
   {
     flag: "🇦🇪",
     where: "Dubai to Jaipur",
-    line: "A consultant's old Jaipur number still gets client calls out of habit. MyAssistant handles them, and one tidy summary lands in the app each day.",
+    line: "A consultant's old Jaipur number still gets client calls out of habit. Assisty AI handles them, and one tidy summary lands in the app each day.",
   },
   {
     flag: "🇨🇦",
     where: "Toronto to Lucknow",
-    line: "A family's old Lucknow number still gets passed around to relatives. MyAssistant now answers those calls, so no one is woken at 3am for something that can wait.",
+    line: "A family's old Lucknow number still gets passed around to relatives. Assisty AI now answers those calls, so no one is woken at 3am for something that can wait.",
   },
 ];
 
@@ -441,7 +441,7 @@ export function Pricing() {
             </h3>
             <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-background/70">
               Running a business or keeping in touch with home while you live abroad means
-              missed calls land at the worst hours. MyAssistant answers on Indian time while
+              missed calls land at the worst hours. Assisty AI answers on Indian time while
               you sleep, and the summary is waiting when you wake up.
             </p>
 
@@ -465,7 +465,7 @@ export function Pricing() {
 
           <div className="rounded-3xl bg-background p-6 text-foreground shadow-soft sm:p-8 lg:sticky lg:top-24">
             <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-              MyAssistant Global
+              Assisty AI Global
             </p>
             <div className="mt-4 flex flex-wrap items-end gap-1">
               <span className="text-[40px] font-bold leading-none tracking-tight sm:text-[46px]">
@@ -503,7 +503,7 @@ export function Pricing() {
             </div>
             <a
               href="#waitlist"
-              onClick={() => setPlanIntent("MyAssistant Global")}
+              onClick={() => setPlanIntent("Assisty AI Global")}
               className="btn-glow btn-sheen mt-6 inline-flex h-14 w-full items-center justify-center rounded-2xl bg-foreground px-6 text-base font-semibold text-background"
             >
               Request the Global plan

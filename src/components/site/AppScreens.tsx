@@ -30,7 +30,7 @@ import {
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 
 /**
- * Faithful, static recreations of real MyAssistant app screens, rendered inside
+ * Faithful, static recreations of real Assisty AI app screens, rendered inside
  * true-to-platform iPhone and Android device frames so visitors can see the
  * app is native-feeling on both.
  */
@@ -549,7 +549,7 @@ function AiCompanionScreen() {
   return (
     <div className="flex h-full flex-col">
       <div className="mb-3 px-1">
-        <p className="text-lg font-bold">Ask MyAssistant</p>
+        <p className="text-lg font-bold">Ask Assisty AI</p>
         <p className="text-[11px] text-muted-foreground">
           Speaks Hindi, English, and regional Indian languages
         </p>
@@ -701,7 +701,7 @@ export function NativeCallScreen({ minimal, timerKey }: { minimal?: boolean; tim
     >
       <div>
         <p className={`${minimal ? "text-[20px]" : "text-[13px]"} font-medium text-white/55`}><CallTimer key={timerKey} live={minimal} /></p>
-        <p className={`mt-1 ${minimal ? "text-[36px]" : "text-[26px]"} font-semibold tracking-tight`}>MyAssistant</p>
+        <p className={`mt-1 ${minimal ? "text-[36px]" : "text-[26px]"} font-semibold tracking-tight`}>Assisty AI</p>
         <p className={`mt-1 ${minimal ? "text-[17px]" : "text-[13px]"} text-white/60`}>+91 98765 43210</p>
         {!minimal && <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium text-white/80">
           <span className="size-1.5 animate-pulse rounded-full bg-success" />
@@ -766,7 +766,7 @@ const screens: {
 }[] = [
   {
     label: "Answering",
-    caption: "The real call screen. MyAssistant answers and greets the caller live.",
+    caption: "The real call screen. Assisty AI answers and greets the caller live.",
     platform: "ios",
     chrome: false,
     statusBarLight: true,
@@ -1052,7 +1052,7 @@ export function AppScreens() {
             <span className="text-muted-foreground"> On iPhone and Android.</span>
           </h2>
           <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground sm:text-base">
-            Real screens from MyAssistant: what happens when a call comes in, and what you
+            Real screens from Assisty AI: what happens when a call comes in, and what you
             see afterward. Same experience on both platforms.
           </p>
         </div>

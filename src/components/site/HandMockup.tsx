@@ -57,7 +57,7 @@ function Phone({ className, timerKey }: { className: string; timerKey: number })
       </div>
       <img
         src={handMockup}
-        alt="A hand holding a phone showing MyAssistant answering a call"
+        alt="A hand holding a phone showing Assisty AI answering a call"
         className="pointer-events-none absolute inset-0 h-full w-full select-none"
         draggable={false}
       />

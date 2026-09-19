@@ -219,7 +219,7 @@ const sections: Section[] = [
     tint: "bg-tint-blue",
     title: "A real conversation,",
     emphasis: "not a phone tree.",
-    body: "When you cannot pick up, MyAssistant does. It greets the caller naturally, asks who they are and why they are calling, and handles the conversation like a person would, not a robotic menu.",
+    body: "When you cannot pick up, Assisty AI does. It greets the caller naturally, asks who they are and why they are calling, and handles the conversation like a person would, not a robotic menu.",
     points: [
       "Natural, warm conversation, never a scripted menu",
       "Confirms the caller's name and reason, every time",
@@ -235,7 +235,7 @@ const sections: Section[] = [
     tint: "bg-tint-green",
     title: "Speaks their language.",
     emphasis: "Automatically.",
-    body: "If a caller speaks Marathi, Punjabi, Tamil, or another Indian language, MyAssistant detects it mid-call and switches to reply in that language, without being asked.",
+    body: "If a caller speaks Marathi, Punjabi, Tamil, or another Indian language, Assisty AI detects it mid-call and switches to reply in that language, without being asked.",
     points: [
       "Detects the caller's language automatically, mid-call",
       "Replies naturally in Hindi, English, and regional languages",
@@ -267,7 +267,7 @@ const sections: Section[] = [
     tint: "bg-tint-red",
     title: "When it's real,",
     emphasis: "you hear about it live.",
-    body: "MyAssistant judges whether a call is a genuine emergency, not just someone saying it is urgent. If it is, the caller is put on hold and MyAssistant calls you directly, right then, to relay it live.",
+    body: "Assisty AI judges whether a call is a genuine emergency, not just someone saying it is urgent. If it is, the caller is put on hold and Assisty AI calls you directly, right then, to relay it live.",
     points: [
       "Only a confirmed emergency triggers a live call to you",
       "The caller is put on hold while you are reached",
@@ -283,7 +283,7 @@ const sections: Section[] = [
     tint: "bg-tint-amber",
     title: "Mark someone priority,",
     emphasis: "and they get tried twice.",
-    body: "Every escalation gets one call, by design. Contacts you mark as priority are the exception: miss their call and MyAssistant automatically tries you again once before it sends an alert instead of leaving them on hold.",
+    body: "Every escalation gets one call, by design. Contacts you mark as priority are the exception: miss their call and Assisty AI automatically tries you again once before it sends an alert instead of leaving them on hold.",
     points: [
       "One extra, automatic attempt for the contacts you choose",
       "Immediate alert if you still do not answer the second call",
@@ -299,7 +299,7 @@ const sections: Section[] = [
     tint: "bg-tint-amber",
     title: "Bad signal, muffled call.",
     emphasis: "Still handled properly.",
-    body: "On a noisy street or a weak signal, MyAssistant does not guess at what it half-heard. It asks the caller to repeat or move somewhere clearer, the same way a good receptionist would.",
+    body: "On a noisy street or a weak signal, Assisty AI does not guess at what it half-heard. It asks the caller to repeat or move somewhere clearer, the same way a good receptionist would.",
     points: [
       "Recognizes when audio is too muffled or broken up to trust",
       "Asks the caller to repeat, instead of inventing details",
@@ -319,7 +319,7 @@ export function FeatureSections() {
           <span className="text-muted-foreground"> Nothing it doesn't.</span>
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-          Six things MyAssistant handles on every call, built to feel like a real
+          Six things Assisty AI handles on every call, built to feel like a real
           person picked up, not an app.
         </p>
       </div>

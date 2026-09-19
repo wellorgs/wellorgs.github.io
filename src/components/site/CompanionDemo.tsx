@@ -134,7 +134,7 @@ function CompanionDemoImpl() {
           type="button"
           onClick={next}
           disabled={busy}
-          aria-label={listening ? "Listening" : "Tap to talk to MyAssistant"}
+          aria-label={listening ? "Listening" : "Tap to talk to Assisty AI"}
           className="relative flex size-14 shrink-0 items-center justify-center rounded-full outline-none transition-transform focus-visible:ring-2 focus-visible:ring-ring active:scale-95 disabled:cursor-not-allowed"
         >
           {listening && (
@@ -176,7 +176,7 @@ function CompanionDemoImpl() {
         {turns.length === 0 && !busy && (
           <Panel className="text-center">
             <p className="text-sm text-muted-foreground">
-              Tap the mic or pick a line to hear how MyAssistant answers a call.
+              Tap the mic or pick a line to hear how Assisty AI answers a call.
             </p>
           </Panel>
         )}
@@ -214,7 +214,7 @@ function CompanionDemoImpl() {
                 style={{ animationDelay: `${i * 0.18}s` }}
               />
             ))}
-            <span className="ml-1 text-xs text-muted-foreground">MyAssistant is typing</span>
+            <span className="ml-1 text-xs text-muted-foreground">Assisty AI is typing</span>
           </Panel>
         )}
       </div>

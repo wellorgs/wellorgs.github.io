@@ -15,9 +15,9 @@ import { TrustSection } from "@/components/site/TrustSection";
 import { WaitlistForm } from "@/components/site/WaitlistForm";
 
 
-const HOME_TITLE = "MyAssistant, an AI assistant that answers your calls";
+const HOME_TITLE = "Assisty AI, an AI assistant that answers your calls";
 const HOME_DESCRIPTION =
-  "Join the MyAssistant waitlist. It answers your phone when you cannot, talks to the caller naturally, and gives you a summary in the app. Genuine emergencies reach you directly, within minutes.";
+  "Join the Assisty AI waitlist. It answers your phone when you cannot, talks to the caller naturally, and gives you a summary in the app. Genuine emergencies reach you directly, within minutes.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -96,10 +96,10 @@ function Landing() {
             <h1 className="animate-rise mx-auto mt-6 max-w-4xl text-[34px] font-bold leading-[1.08] sm:text-5xl lg:text-6xl">
               Never miss a call that matters.
               <br />
-              <span className="text-primary">Let MyAssistant answer.</span>
+              <span className="text-primary">Let Assisty AI answer.</span>
             </h1>
             <p className="animate-rise mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              MyAssistant picks up when you cannot, talks to the caller like a real person,
+              Assisty AI picks up when you cannot, talks to the caller like a real person,
               and gives you a calm summary in the app the moment the call ends. Something
               genuinely urgent, and it calls you directly, within minutes.
             </p>
@@ -157,7 +157,7 @@ function Landing() {
               <span className="text-muted-foreground"> who live on the phone.</span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Anyone fielding a steady stream of calls can hand the phone to MyAssistant.
+              Anyone fielding a steady stream of calls can hand the phone to Assisty AI.
             </p>
           </div>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-2.5">
@@ -245,7 +245,7 @@ function Landing() {
         <section className="mx-auto max-w-6xl px-4 pb-8 sm:px-5">
           <div className="rounded-4xl bg-primary px-5 py-11 text-center shadow-lift sm:px-8 sm:py-16">
             <h2 className="mx-auto max-w-2xl text-[30px] font-semibold leading-[1.1] tracking-[-0.035em] text-primary-foreground sm:text-[44px]">
-              Let MyAssistant take the next call.
+              Let Assisty AI take the next call.
             </h2>
             <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-primary-foreground/80 sm:text-base">
               Join 1,400+ people getting early access first.

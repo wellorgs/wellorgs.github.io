@@ -55,7 +55,7 @@ const emergencySteps = [
   {
     step: "1",
     title: "The call is heard in full",
-    body: "MyAssistant judges whether it's a genuine emergency, not just a caller who says it's urgent.",
+    body: "Assisty AI judges whether it's a genuine emergency, not just a caller who says it's urgent.",
   },
   {
     step: "2",
@@ -65,12 +65,12 @@ const emergencySteps = [
   {
     step: "3",
     title: "You get a live call",
-    body: "MyAssistant calls you directly, immediately, to relay what's happening. Not a text, not a push notification.",
+    body: "Assisty AI calls you directly, immediately, to relay what's happening. Not a text, not a push notification.",
   },
   {
     step: "4",
     title: "Priority contacts get a retry",
-    body: "If the contact you're reaching doesn't answer and is marked priority, MyAssistant automatically tries again once.",
+    body: "If the contact you're reaching doesn't answer and is marked priority, Assisty AI automatically tries again once.",
   },
   {
     step: "5",
@@ -162,7 +162,7 @@ export function TrustSection() {
 
         <p className="mt-6 flex items-start gap-2 text-sm text-muted-foreground">
           <Bell className="mt-0.5 size-4 shrink-0" strokeWidth={2} />
-          MyAssistant supports you in an emergency. It does not replace your local
+          Assisty AI supports you in an emergency. It does not replace your local
           emergency number, and anyone in immediate danger should still call it directly.
         </p>
       </Reveal>
@@ -178,7 +178,7 @@ export function TrustSection() {
             Security and data handling, in plain words
           </h3>
           <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
-            This is what we do today, written by the MyAssistant team. We are not claiming
+            This is what we do today, written by the Assisty AI team. We are not claiming
             any certification or audit we have not completed, and we will update this page
             as that changes.
           </p>

@@ -117,7 +117,7 @@ function ChatCard({ c, compact, noTime }: { c: Card; compact?: boolean; noTime?:
             <div className={`mt-1 rounded-lg bg-white/65 ${compact ? "px-1.5 py-1" : "px-2.5 py-1.5"}`}>
               <p className={`flex items-center gap-1 ${compact ? "text-[8px]" : "text-[11px]"} font-semibold text-primary`}>
                 <span className="size-1.5 rounded-full bg-success" />
-                MyAssistant
+                Assisty AI
               </p>
               <p className={`mt-0.5 leading-snug text-foreground/80 ${compact ? "text-[8.5px]" : "text-[12px]"}`}>{c.reply}</p>
             </div>
