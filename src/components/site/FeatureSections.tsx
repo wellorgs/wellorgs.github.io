@@ -1,5 +1,5 @@
 import CompanionDemo from "@/components/site/CompanionDemo";
-import { Reveal } from "@/components/site/Reveal";
+import { AnimateInView } from "@/components/site/AnimateInView";
 import { LANGUAGE_COUNT } from "@/siteFacts";
 
 import { useEffect, useState } from "react";
@@ -50,7 +50,7 @@ const BARS = [4, 10, 6, 14, 8, 16, 10, 6, 13, 9, 15, 7, 11, 5, 12, 8, 14, 6, 10,
 function SummaryMockup() {
   return (
     <div className="space-y-3">
-      <div className="rounded-2xl bg-background p-5">
+      <div className="seq-1 rounded-2xl bg-background p-5">
         <p className="font-semibold">Call summary</p>
         <p className="text-xs text-muted-foreground">Ready the moment the call ends</p>
         <p className="mt-3 text-[15px] leading-relaxed">
@@ -58,7 +58,7 @@ function SummaryMockup() {
           after 5pm if unanswered.
         </p>
       </div>
-      <div className="rounded-2xl bg-tint-green p-5">
+      <div className="seq-3 rounded-2xl bg-tint-green p-5">
         <div className="flex items-center gap-3">
           <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-success text-white">
             <Play className="size-4 fill-current" />
@@ -76,7 +76,17 @@ function SummaryMockup() {
   );
 }
 
-const supporting = [
+const sections: {
+  id: string;
+  eyebrow: string;
+  title: string;
+  emphasis: string;
+  body?: string;
+  points: string[];
+  proof?: { value: string; label: string };
+  mockup: React.ReactNode;
+}[] = [
+  { id: "screening", ...featured, mockup: <CompanionDemo /> },
   {
     id: "languages",
     eyebrow: "Multi-language",
@@ -116,52 +126,33 @@ export function FeatureSections() {
         </h2>
       </div>
 
-      <div className="mx-auto mt-10 grid max-w-6xl gap-4 px-4 pb-6 sm:px-5">
-        {/* Featured */}
-        <Reveal className="rounded-xl bg-card p-6 sm:p-10 lg:p-12">
-          <span className={eyebrow}>{featured.eyebrow}</span>
-          <h3 className="mt-5 text-[30px] font-bold leading-[1.08] sm:text-[40px] lg:text-[48px]">
-            {featured.title} <span className="text-primary">{featured.emphasis}</span>
-          </h3>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">{featured.body}</p>
-          <ul className="mt-6 space-y-3">
-            {featured.points.map((p) => (
-              <li key={p} className="flex items-start gap-3 text-[15px]">
-                <Check className="mt-0.5 size-4 shrink-0 text-success" strokeWidth={1.75} />
-                {p}
-              </li>
-            ))}
-          </ul>
-          <div className="mt-8 rounded-xl bg-background p-4 sm:p-5">
-            <CompanionDemo />
-          </div>
-        </Reveal>
-
-      </div>
-
-      {supporting.map((s, i) => (
-        <Reveal key={s.id} className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-8 sm:px-5 lg:grid-cols-2 lg:gap-16">
-          <div className={i % 2 ? "lg:order-2" : ""}>
-            <span className={eyebrow}>{s.eyebrow}</span>
-            <h3 className="mt-4 text-[26px] font-bold leading-[1.15] sm:text-[34px]">
-              {s.title} <span className="text-primary">{s.emphasis}</span>
-            </h3>
-            {s.body && <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">{s.body}</p>}
-            <ul className="mt-5 space-y-3">
-              {s.points.map((p) => (
-                <li key={p} className="flex items-start gap-3 text-[15px]">
-                  <Check className="mt-0.5 size-4 shrink-0 text-success" strokeWidth={1.75} />
-                  {p}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 flex flex-wrap items-baseline gap-x-3">
-              <p className="whitespace-nowrap text-2xl font-bold tracking-tight">{s.proof.value}</p>
-              <p className="text-sm text-muted-foreground">{s.proof.label}</p>
+      {sections.map((s, i) => (
+        <div key={s.id} id={s.id} className="sticky top-20 mx-auto max-w-6xl scroll-mt-24 px-4 py-4 sm:px-5 sm:py-6">
+          <div className="grid items-center gap-8 rounded-xl bg-card p-5 sm:p-10 lg:grid-cols-2 lg:gap-14 lg:p-14">
+            <div className={i % 2 ? "lg:order-2" : ""}>
+              <span className={eyebrow}>{s.eyebrow}</span>
+              <h3 className="mt-5 text-[26px] font-bold leading-[1.12] sm:text-[34px] lg:text-[40px]">
+                {s.title} <span className="text-primary">{s.emphasis}</span>
+              </h3>
+              {s.body && <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">{s.body}</p>}
+              <ul className="mt-6 space-y-3">
+                {s.points.map((p) => (
+                  <li key={p} className="flex items-start gap-3 text-[15px]">
+                    <Check className="mt-0.5 size-4 shrink-0 text-success" strokeWidth={1.75} />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+              {s.proof && (
+                <div className="mt-7 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-border/60 pt-6">
+                  <p className="whitespace-nowrap text-3xl font-bold tracking-tight">{s.proof.value}</p>
+                  <p className="text-sm text-muted-foreground">{s.proof.label}</p>
+                </div>
+              )}
             </div>
+            <AnimateInView className={i % 2 ? "lg:order-1" : ""}>{s.mockup}</AnimateInView>
           </div>
-          <div className="rounded-xl bg-card p-5 sm:p-8">{s.mockup}</div>
-        </Reveal>
+        </div>
       ))}
     </section>
   );
