@@ -1,0 +1,626 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 12px);
+  --radius-md: calc(var(--radius) - 8px);
+  --radius-lg: calc(var(--radius) - 4px);
+  --radius-xl: var(--radius);
+  --radius-2xl: calc(var(--radius) + 4px);
+  --radius-3xl: calc(var(--radius) + 8px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-tint-blue: var(--tint-blue);
+  --color-tint-green: var(--tint-green);
+  --color-tint-amber: var(--tint-amber);
+  --color-tint-red: var(--tint-red);
+  --color-tint-purple: var(--tint-purple);
+  --color-tint-neutral: var(--tint-neutral);
+  --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display: "Sora", "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+    sans-serif;
+  --shadow-soft: 0 1px 2px oklch(0.25 0.03 160 / 0.04),
+    0 8px 24px -12px oklch(0.25 0.03 160 / 0.12);
+  --shadow-lift: 0 2px 6px oklch(0.25 0.03 160 / 0.06),
+    0 24px 60px -24px oklch(0.25 0.03 160 / 0.22);
+}
+
+:root {
+  --radius: 18px;
+  --background: oklch(0.955 0.002 60);
+  --foreground: oklch(0.24 0.03 40);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.02 40);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.02 40);
+  --primary: oklch(0.64 0.19 45);
+  --primary-foreground: oklch(0.99 0.005 60);
+  --secondary: oklch(0.955 0.012 55);
+  --secondary-foreground: oklch(0.3 0.03 45);
+  --muted: oklch(0.96 0.008 55);
+  --muted-foreground: oklch(0.53 0.02 45);
+  --accent: oklch(0.93 0.05 55);
+  --accent-foreground: oklch(0.32 0.08 45);
+  --destructive: oklch(0.6 0.19 22);
+  --destructive-foreground: oklch(0.99 0.005 40);
+  --success: oklch(0.62 0.13 155);
+  --warning: oklch(0.75 0.13 75);
+  --border: oklch(0.91 0.008 55);
+  --input: oklch(0.91 0.008 55);
+  --ring: oklch(0.6 0.17 45);
+  --tint-blue: oklch(0.95 0.03 235);
+  --tint-green: oklch(0.95 0.04 160);
+  --tint-amber: oklch(0.96 0.045 85);
+  --tint-red: oklch(0.95 0.03 25);
+  --tint-purple: oklch(0.95 0.03 300);
+  --tint-neutral: oklch(0.985 0.002 60);
+}
+
+/* Dark mode follows the OS preference automatically, no toggle needed. */
+@media not all {
+  :root {
+    --background: oklch(0.17 0.02 255);
+    --foreground: oklch(0.95 0.01 255);
+    --card: oklch(0.21 0.02 255);
+    --card-foreground: oklch(0.95 0.01 255);
+    --popover: oklch(0.21 0.02 255);
+    --popover-foreground: oklch(0.95 0.01 255);
+    --primary: oklch(0.68 0.18 260);
+    --primary-foreground: oklch(0.99 0.005 260);
+    --secondary: oklch(0.27 0.02 255);
+    --secondary-foreground: oklch(0.9 0.01 255);
+    --muted: oklch(0.25 0.02 255);
+    --muted-foreground: oklch(0.68 0.02 255);
+    --accent: oklch(0.32 0.06 260);
+    --accent-foreground: oklch(0.92 0.02 260);
+    --destructive: oklch(0.62 0.19 22);
+    --destructive-foreground: oklch(0.99 0.005 22);
+    --success: oklch(0.65 0.13 155);
+    --warning: oklch(0.76 0.13 75);
+    --border: oklch(0.31 0.02 255);
+    --input: oklch(0.31 0.02 255);
+    --ring: oklch(0.68 0.17 260);
+    --tint-blue: oklch(0.29 0.05 235);
+    --tint-green: oklch(0.28 0.05 160);
+    --tint-amber: oklch(0.3 0.06 85);
+    --tint-red: oklch(0.29 0.05 25);
+    --tint-purple: oklch(0.29 0.05 300);
+    --tint-neutral: oklch(0.25 0.01 255);
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    letter-spacing: 0;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+
+/* ---------- staged, looping demo animations for feature visuals ---------- */
+
+@keyframes seq-step {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  8%,
+  92% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes seq-step-2 {
+  0%,
+  22% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  30%,
+  92% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes seq-step-3 {
+  0%,
+  46% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  54%,
+  92% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes seq-step-4 {
+  0%,
+  70% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  78%,
+  92% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@utility seq-1 {
+  animation: seq-step 9s cubic-bezier(0.22, 1, 0.36, 1) infinite both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+@utility seq-2 {
+  animation: seq-step-2 9s cubic-bezier(0.22, 1, 0.36, 1) infinite both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+@utility seq-3 {
+  animation: seq-step-3 9s cubic-bezier(0.22, 1, 0.36, 1) infinite both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+@utility seq-4 {
+  animation: seq-step-4 9s cubic-bezier(0.22, 1, 0.36, 1) infinite both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+@keyframes tap-press {
+  0%,
+  36% {
+    transform: none;
+  }
+  42% {
+    transform: scale(0.955);
+  }
+  50%,
+  100% {
+    transform: none;
+  }
+}
+
+@utility animate-tap {
+  animation: tap-press 9s cubic-bezier(0.22, 1, 0.36, 1) infinite both;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@keyframes mic-ring {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.85);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@utility animate-mic-ring {
+  animation: mic-ring 2.4s ease-out infinite;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+@keyframes eq-bounce {
+  0%,
+  100% {
+    transform: scaleY(calc(var(--eq-peak, 1) * 0.3));
+  }
+  50% {
+    transform: scaleY(var(--eq-peak, 1));
+  }
+}
+
+@utility animate-eq {
+  animation: eq-bounce 1s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* equalizer bars: full-height elements scaled with transform (no layout work) */
+@utility eq-bar {
+  height: 100%;
+  transform: scaleY(var(--eq-idle, 0.18));
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+@keyframes dot-blink {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+@utility animate-dot {
+  animation: dot-blink 1.2s ease-in-out infinite;
+  will-change: opacity;
+}
+
+
+@keyframes seq-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility seq-in {
+  animation: seq-in 0.35s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seq-1,
+  .seq-2,
+  .seq-3,
+  .seq-4,
+  .seq-in,
+  .animate-tap,
+  .animate-mic-ring,
+  .animate-eq,
+  .animate-dot,
+  .animate-ping {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+
+/* ---------- glowing CTAs + scroll reveal + perf ---------- */
+
+/* Glow is a separate composited layer: we animate opacity/scale (GPU) instead
+   of box-shadow (repaint on every frame). */
+@keyframes glow-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.985);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+@utility btn-glow {
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    box-shadow:
+      0 12px 34px -8px color-mix(in oklab, var(--primary) 60%, transparent),
+      0 0 0 6px color-mix(in oklab, var(--primary) 12%, transparent);
+    animation: glow-breathe 3.6s ease-in-out infinite;
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:hover::before {
+    animation-play-state: paused;
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@utility btn-glow-light {
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    box-shadow:
+      0 12px 34px -8px rgb(255 255 255 / 0.5),
+      0 0 0 6px rgb(255 255 255 / 0.14);
+    animation: glow-breathe 3.6s ease-in-out infinite;
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:hover::before {
+    animation-play-state: paused;
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* sheen sweep across a CTA */
+@keyframes sheen {
+  0% {
+    transform: translateX(-140%) skewX(-18deg);
+  }
+  55%,
+  100% {
+    transform: translateX(240%) skewX(-18deg);
+  }
+}
+
+@utility btn-sheen {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 45%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, white 28%, transparent),
+      transparent
+    );
+    animation: sheen 4.5s ease-in-out infinite;
+    will-change: transform;
+    pointer-events: none;
+  }
+}
+
+/* shiny "free at launch" pill */
+@keyframes shine-sweep {
+  0% {
+    background-position: 180% 0;
+  }
+  55%,
+  100% {
+    background-position: -80% 0;
+  }
+}
+
+@utility shine-pill {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--primary) 26%, transparent);
+  background: color-mix(in oklab, var(--primary) 8%, var(--card));
+  box-shadow:
+    0 1px 2px oklch(0.25 0.03 160 / 0.05),
+    0 10px 28px -16px color-mix(in oklab, var(--primary) 65%, transparent);
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      100deg,
+      transparent 35%,
+      color-mix(in oklab, var(--primary) 22%, transparent) 50%,
+      transparent 65%
+    );
+    background-size: 220% 100%;
+    animation: shine-sweep 3.8s ease-in-out infinite;
+    will-change: background-position;
+    pointer-events: none;
+  }
+}
+
+@keyframes spark-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@utility animate-spark {
+  animation: spark-pulse 2.2s ease-in-out infinite;
+}
+
+@utility reveal {
+
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+}
+
+@utility reveal-in {
+  opacity: 1;
+  transform: none;
+  /* release the compositor layer once the reveal has played */
+  will-change: auto;
+}
+
+@utility cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
+}
+
+/* Looping demo animations stay parked on their first frame until in view. */
+.anim-paused *,
+.anim-paused *::before,
+.anim-paused *::after {
+  animation-play-state: paused !important;
+  animation-delay: 0s !important;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-glow::before,
+  .btn-glow-light::before,
+  .btn-sheen::after,
+  .shine-pill::after,
+  .animate-spark {
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@keyframes word-in {
+  from { opacity: 0; filter: blur(4px); transform: translateY(4px); }
+  to { opacity: 1; filter: blur(0); transform: none; }
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.95); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-9px) rotate(var(--r, 0deg)); }
+}
+@keyframes reply-in {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 1; max-height: 90px; }
+}
+
+@keyframes write {
+  from { clip-path: inset(-4px 100% -4px 0); }
+  to { clip-path: inset(-4px -4px -4px 0); }
+}
+@keyframes draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes typing {
+  0% { opacity: 0; max-height: 0; }
+  15%, 85% { opacity: 1; max-height: 30px; }
+  100% { opacity: 0; max-height: 0; }
+}
