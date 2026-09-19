@@ -8,7 +8,6 @@ import {
   Languages,
   MessageSquareText,
   PhoneCall,
-  Volume2,
 } from "lucide-react";
 
 type Section = {
@@ -28,7 +27,7 @@ type Section = {
 
 function Panel({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`rounded-3xl bg-card p-5 shadow-soft ${className}`}>{children}</div>
+    <div className={`rounded-[20px] bg-background p-5 ${className}`}>{children}</div>
   );
 }
 
@@ -114,29 +113,6 @@ function SummaryVisual() {
   );
 }
 
-function RecordingVisual() {
-  return (
-    <Panel className="space-y-4">
-      <div className="flex items-center gap-3">
-        <span className="flex size-11 items-center justify-center rounded-2xl bg-tint-amber">
-          <Volume2 className="size-5 text-foreground/80" strokeWidth={1.9} />
-        </span>
-        <div>
-          <p className="text-[15px] font-semibold">Call recording</p>
-        </div>
-      </div>
-      <div className="flex h-14 items-end gap-[3px]">
-        {[3, 6, 4, 9, 5, 7, 3, 8, 4, 10, 6, 3, 7, 5, 9, 4, 6, 3, 8, 5].map((h, i) => (
-          <span key={i} className="w-[3px] rounded-full bg-primary/60" style={{ height: `${h * 5}px` }} />
-        ))}
-      </div>
-      <div className="flex items-center justify-between rounded-2xl bg-tint-amber px-4 py-3 text-sm">
-        <span className="font-medium">Call recording · 1:42</span>
-      </div>
-    </Panel>
-  );
-}
-
 /* ---------- content ---------- */
 
 const sections: Section[] = [
@@ -174,10 +150,10 @@ const sections: Section[] = [
   },
   {
     id: "summaries",
-    eyebrow: "Call summaries",
+    eyebrow: "Summary and recording",
     icon: MessageSquareText,
     tint: "bg-tint-neutral",
-    title: "One summary,",
+    title: "A summary and the actual recording,",
     emphasis: "the moment the call ends.",
     body: "After every call you get a short, natural recap in the app: who called, why, and whether it was urgent, plus the call recording so you can hear the actual tone in seconds.",
     points: [
@@ -187,22 +163,6 @@ const sections: Section[] = [
     ],
     proof: { value: "1 note", label: "per call, nothing to piece together" },
     visual: <SummaryVisual />,
-  },
-  {
-    id: "recording",
-    eyebrow: "Call recordings",
-    icon: Volume2,
-    tint: "bg-tint-amber",
-    title: "You hear the actual recording,",
-    emphasis: "not just a transcript.",
-    body: "Call recording attached, so you can hear the actual tone in seconds.",
-    points: [
-      "Call recording attached, so you can hear it yourself",
-      "Ready the second the call ends, nothing to check manually",
-      "Recorded so you can review exactly what was said",
-    ],
-    proof: { value: "Audio", label: "attached to every summary" },
-    visual: <RecordingVisual />,
   },
 ];
 
@@ -214,21 +174,15 @@ export function FeatureSections() {
           Everything a call needs.
           <span className="text-muted-foreground"> Nothing it doesn't.</span>
         </h2>
-        <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-          Four things Assisty AI handles on every call, built to feel like a real
-          person picked up, not an app.
-        </p>
       </div>
 
 
       {sections.map((s, index) => (
         <div key={s.id} id={s.id} className="sticky top-20 mx-auto max-w-6xl scroll-mt-24 px-4 py-4 sm:px-5 sm:py-6">
-          <div className="grid items-center gap-8 rounded-4xl bg-tint-neutral p-5 shadow-[0_20px_60px_-15px_rgb(0_0_0/0.18)] sm:p-10 lg:grid-cols-2 lg:gap-14 lg:p-14">
+          <div className="grid items-center gap-8 rounded-[20px] bg-card p-5 sm:p-10 lg:grid-cols-2 lg:gap-14 lg:p-14">
             <div className={index % 2 === 1 ? "lg:order-2" : undefined}>
-              <span className="inline-flex items-center gap-2 rounded-full bg-card px-3 py-1.5 text-sm font-medium text-muted-foreground shadow-soft">
-                <span className={`flex size-6 shrink-0 items-center justify-center rounded-full ${s.tint}`}>
-                  <s.icon className="size-3.5 text-foreground/80" strokeWidth={2} />
-                </span>
+              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-primary">
+                <s.icon className="size-4" strokeWidth={1.75} />
                 {s.eyebrow}
               </span>
               <h3 className="mt-5 text-[26px] font-bold leading-[1.12] sm:text-[34px] lg:text-[40px]">
@@ -238,9 +192,7 @@ export function FeatureSections() {
               <ul className="mt-6 space-y-3">
                 {s.points.map((p) => (
                   <li key={p} className="flex items-start gap-3 text-[15px]">
-                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-card shadow-soft">
-                      <Check className="size-3 text-success" strokeWidth={3} />
-                    </span>
+                    <Check className="mt-0.5 size-4 shrink-0 text-success" strokeWidth={1.75} />
                     {p}
                   </li>
                 ))}

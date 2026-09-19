@@ -112,7 +112,7 @@ export function TrustSection() {
           <Reveal
             key={c.title}
             delay={i * 70}
-            className="rounded-4xl bg-card p-6 shadow-soft sm:p-7"
+            className="rounded-[20px] bg-card p-6 sm:p-7"
           >
             <span className={`flex size-11 items-center justify-center rounded-2xl ${c.tint}`}>
               <c.icon className="size-5 text-foreground/80" strokeWidth={1.9} />
@@ -127,12 +127,8 @@ export function TrustSection() {
         {[
           { title: "Recording retention", body: practices[3] },
           { title: "Deletion", body: practices[5] },
-          // PRIVACY PENDING - "call audio and AI training" wording awaits product-team confirmation
-          { title: "AI training", body: "" },
-          // PRIVACY PENDING - third-party processors list awaits product-team confirmation
-          { title: "Third-party processors", body: "" },
         ].map((p, i) => (
-          <Reveal key={p.title} delay={i * 70} className="rounded-4xl bg-card p-6 shadow-soft sm:p-7">
+          <Reveal key={p.title} delay={i * 70} className="rounded-[20px] bg-card p-6 sm:p-7">
             <p className="text-[17px] font-bold">{p.title}</p>
             {p.body && <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{p.body}</p>}
           </Reveal>
@@ -140,7 +136,7 @@ export function TrustSection() {
       </div>
 
       {/* Security and data handling summary */}
-      <Reveal className="mt-6 grid gap-8 rounded-4xl bg-card p-6 shadow-soft sm:p-10 lg:grid-cols-[1fr_1.1fr]">
+      <Reveal className="mt-6 grid gap-8 rounded-[20px] bg-card p-6 sm:p-10 lg:grid-cols-[1fr_1.1fr]">
         <div>
           <span className="flex size-11 items-center justify-center rounded-2xl bg-tint-blue">
             <ShieldCheck className="size-5 text-foreground/80" strokeWidth={1.9} />
@@ -170,7 +166,7 @@ export function TrustSection() {
 export function HowItWorks() {
   return (
     <section id="how" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-6 sm:px-5 sm:py-10">
-      <Reveal className="rounded-4xl bg-tint-neutral p-6 shadow-soft sm:p-10">
+      <Reveal className="rounded-[20px] bg-tint-neutral p-6 sm:p-10">
         <div className="max-w-2xl">
           <span className="inline-flex items-center gap-2 rounded-full bg-card px-3 py-1.5 text-sm font-medium text-muted-foreground shadow-soft">
             <PhoneCall className="size-4 shrink-0 text-foreground/80" strokeWidth={2} />

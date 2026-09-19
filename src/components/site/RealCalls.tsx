@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { HowStrip } from "@/components/site/NewSections";
 import { Reveal } from "@/components/site/Reveal";
 
 type Call = {
@@ -61,11 +62,9 @@ function CallCard({
   return (
     <Reveal
       delay={index * 80}
-      className={`flex w-[85vw] max-w-[360px] shrink-0 snap-start flex-col rounded-3xl bg-card p-6 shadow-soft sm:w-[340px] ${
-        a ? "border-2 border-destructive" : "border border-border/60"
-      }`}
+      className="flex w-[85vw] max-w-[360px] shrink-0 snap-start flex-col rounded-[20px] bg-card p-6 sm:w-[340px]"
     >
-      <p className={`text-sm font-medium ${accent}`}>{call.category}</p>
+      <p className={`text-xs font-semibold uppercase tracking-[0.12em] ${accent}`}>{call.category}</p>
       <h3 className="mt-3 text-[22px] font-bold leading-tight">{call.title}</h3>
       {call.caption && (
         <p className="mt-2 text-sm leading-snug text-muted-foreground" title={call.caption}>
@@ -74,18 +73,7 @@ function CallCard({
       )}
 
       <div className="mt-auto pt-10">
-        <div className="flex flex-wrap gap-2">
-          {call.languages.map((l) => (
-            <span
-              key={l}
-              className={`rounded-full border px-3 py-1 text-sm ${
-                a ? "border-destructive/40 text-destructive" : "border-primary/40 text-primary"
-              }`}
-            >
-              {l}
-            </span>
-          ))}
-        </div>
+        <p className={`text-xs font-semibold uppercase tracking-[0.12em] ${accent}`}>{call.languages.join(" · ")}</p>
 
         <div className="mt-5 flex items-center gap-3">
           <button
@@ -93,7 +81,7 @@ function CallCard({
             onClick={onToggle}
             aria-label={`${playing ? "Pause" : "Play"}: ${call.title}`}
             aria-pressed={playing}
-            className={`flex size-11 shrink-0 items-center justify-center rounded-full text-white shadow-soft transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+            className={`flex size-11 shrink-0 items-center justify-center rounded-full text-white transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
               a ? "bg-destructive" : "bg-primary"
             }`}
           >
@@ -216,11 +204,9 @@ export function RealCalls() {
     <section id="screens" className="cv-auto mx-auto max-w-6xl scroll-mt-24 px-4 py-14 sm:px-5 sm:py-20">
       <div className="mx-auto max-w-3xl text-center">
         <h2 className="text-[30px] font-bold leading-[1.08] sm:text-5xl">
-          What does Assisty actually say to your callers?
+          What does Assisty actually say to your callers?{" "}
+          <span className="text-muted-foreground">Not a demo. Real calls, real outcomes.</span>
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-xl">
-          Not a demo. Real calls, real outcomes.
-        </p>
       </div>
 
       <div
@@ -253,7 +239,7 @@ export function RealCalls() {
             onClick={() => page(d)}
             disabled={d === -1 ? scroll.start : scroll.end}
             aria-label={d === -1 ? "Previous calls" : "Next calls"}
-            className="flex size-11 items-center justify-center rounded-xl border border-border bg-card text-foreground shadow-soft transition-opacity disabled:opacity-40"
+            className="flex size-11 items-center justify-center rounded-xl bg-card text-foreground transition-opacity disabled:opacity-40"
           >
             {d === -1 ? <ChevronLeft className="size-5" /> : <ChevronRight className="size-5" />}
           </button>
@@ -265,6 +251,7 @@ export function RealCalls() {
           style={{ width: `${Math.min(100, scroll.ratio * 100)}%` }}
         />
       </div>
+      <HowStrip />
     </section>
   );
 }

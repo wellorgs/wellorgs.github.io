@@ -6,8 +6,9 @@ const SECTIONS = [
   { id: "screens", label: "The app" },
   { id: "features", label: "Features" },
   { id: "who", label: "Who it's for" },
-  { id: "pricing", label: "Pricing" },
-  { id: "nri", label: "Teams abroad" },
+  // PRICING HIDDEN - restore these two nav links with the section
+  // { id: "pricing", label: "Pricing" },
+  // { id: "nri", label: "Teams abroad" },
   { id: "trust", label: "Trust and safety" },
   { id: "faq", label: "FAQ" },
   { id: "board", label: "Feature board" },

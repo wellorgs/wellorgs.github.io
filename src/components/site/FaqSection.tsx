@@ -1,11 +1,11 @@
-import { HelpCircle } from "lucide-react";
-
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Link } from "@tanstack/react-router";
+
 import { LANGUAGE_COUNT } from "@/siteFacts";
 
 export const faqs = [
@@ -70,25 +70,24 @@ export const faqs = [
   },
 ];
 
-export function FaqSection() {
+/** Homepage shows only these; the rest live on /faq. */
+const TOP = ["What is Assisty?", "Do I need a new number?", "Are calls recorded?", "How does escalation work?"];
+export const topFaqs = faqs.filter((f) => TOP.includes(f.question));
+
+export function FaqSection({ all = false }: { all?: boolean }) {
+  const list = all ? faqs : topFaqs;
   return (
     <section id="faq" className="cv-auto scroll-mt-24 mx-auto max-w-3xl px-4 pb-16 pt-4 sm:px-5">
       <div className="text-center">
-        <span className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-2 text-sm font-medium shadow-soft">
-          <HelpCircle className="size-4 text-primary" strokeWidth={2} />
-          Questions & answers
-        </span>
-        <h2 className="mt-5 text-[28px] font-bold leading-tight sm:text-[40px]">
-          Still thinking it over?
+        <h2 className="text-[28px] font-bold leading-tight sm:text-[40px]">
+          Still thinking it over?{" "}
+          <span className="text-muted-foreground">Everything you need to know before joining the waitlist.</span>
         </h2>
-        <p className="mt-3 text-[15px] text-muted-foreground">
-          Everything you need to know before joining the waitlist.
-        </p>
       </div>
 
-      <div className="mt-10 rounded-4xl bg-card p-2 shadow-soft">
+      <div className="mt-10 rounded-[20px] bg-card p-2">
         <Accordion type="single" collapsible className="w-full">
-          {faqs.map((faq, index) => (
+          {list.map((faq, index) => (
             <AccordionItem
               key={index}
               value={`item-${index}`}
@@ -104,6 +103,11 @@ export function FaqSection() {
           ))}
         </Accordion>
       </div>
+      {!all && (
+        <Link to="/faq" className="mt-5 inline-block text-[15px] font-medium text-primary hover:underline">
+          See all FAQs ›
+        </Link>
+      )}
     </section>
   );
 }

@@ -1,22 +1,32 @@
-import { Eye, Pause, PhoneCall, Play, Star } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { Eye, Headphones, MessageCircle, Pause, PhoneCall, PhoneIncoming, Play, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Reveal } from "@/components/site/Reveal";
 
-export function ProblemSection() {
+const ICON = "size-5 shrink-0 text-primary";
+const STROKE = 1.75;
+
+const steps = [
+  { icon: PhoneIncoming, text: "Call comes in, you're busy, so Assisty picks up." },
+  { icon: MessageCircle, text: "Assisty has a real conversation and figures out what's needed." },
+  { icon: Headphones, text: "You get the summary and recording, or, if it's urgent, Assisty calls you." },
+];
+
+/** Compact 3-step strip that sits under the real-call carousel. */
+export function HowStrip() {
   return (
-    <section id="problem" className="mx-auto max-w-4xl px-4 py-14 text-center sm:px-5 sm:py-20">
-      <Reveal>
-        <h2 className="text-[30px] font-bold leading-[1.08] sm:text-5xl">
-          Your phone doesn't know you're busy.
-        </h2>
-        <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-xl">
-          You're with a patient. You're in a meeting. You're talking to a client. You're driving.
-          You're asleep. Your phone keeps ringing. You can't answer.{" "}
-          <span className="font-semibold text-foreground">Assisty answers instead.</span>
-        </p>
-      </Reveal>
-    </section>
+    <div className="mx-auto mt-14 grid max-w-6xl gap-8 px-4 sm:grid-cols-3 sm:px-5">
+      {steps.map((s, i) => (
+        <Reveal key={s.text} delay={i * 80}>
+          <s.icon className={ICON} strokeWidth={STROKE} />
+          <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
+            <span className="font-semibold text-foreground">{i + 1}. </span>
+            {s.text}
+          </p>
+        </Reveal>
+      ))}
+    </div>
   );
 }
 
@@ -31,18 +41,17 @@ export function EscalationSpotlight() {
   const run = paused ? "paused" : "running";
   return (
     <section id="escalation" className="px-3 py-6 sm:px-5 sm:py-10">
-      <div className="mx-auto max-w-6xl overflow-hidden rounded-4xl bg-foreground px-6 py-14 text-background shadow-lift sm:px-12 sm:py-20 lg:px-16 lg:py-24">
+      <div className="mx-auto max-w-6xl overflow-hidden rounded-[28px] bg-foreground px-6 py-14 text-background sm:px-12 sm:py-20 lg:px-16 lg:py-24">
         <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
           <Reveal>
             <h2 className="text-[34px] font-bold leading-[1.05] sm:text-5xl lg:text-6xl">
-              When it's real, <span className="text-primary">Assisty calls you.</span>
+              When it's real.{" "}
+              <span className="text-background/55">Assisty calls you.</span>
             </h2>
             <ul className="mt-10 space-y-7">
               {points.map((p) => (
                 <li key={p.title} className="flex gap-4">
-                  <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-background/10">
-                    <p.icon className="size-5 text-primary" strokeWidth={2} />
-                  </span>
+                  <p.icon className="mt-0.5 size-5 shrink-0 text-primary" strokeWidth={STROKE} />
                   <div>
                     <p className="text-lg font-semibold">{p.title}</p>
                     <p className="mt-1 text-[15px] leading-relaxed text-background/70">{p.body}</p>
@@ -63,10 +72,10 @@ export function EscalationSpotlight() {
                 />
               ))}
               <span
-                className="ring-shake relative flex size-24 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lift sm:size-28"
+                className="ring-shake relative flex size-24 items-center justify-center rounded-full bg-primary text-primary-foreground sm:size-28"
                 style={{ animation: "ring-shake 2.6s ease-in-out infinite", animationPlayState: run }}
               >
-                <PhoneCall className="size-10" strokeWidth={2} />
+                <PhoneCall className="size-10" strokeWidth={STROKE} />
               </span>
             </div>
             <button
@@ -74,7 +83,7 @@ export function EscalationSpotlight() {
               onClick={() => setPaused((v) => !v)}
               aria-pressed={paused}
               aria-label={paused ? "Play animation" : "Pause animation"}
-              className="mt-6 flex size-10 items-center justify-center rounded-full border border-background/20 text-background/80 transition-colors hover:bg-background/10"
+              className="mt-6 flex size-10 items-center justify-center rounded-full text-background/80 transition-colors hover:bg-background/10"
             >
               {paused ? <Play className="size-4" fill="currentColor" /> : <Pause className="size-4" fill="currentColor" />}
             </button>
@@ -85,52 +94,22 @@ export function EscalationSpotlight() {
   );
 }
 
-const lines = [
-  { lang: "Hindi", text: "सर अभी मीटिंग में हैं। क्या मैं संदेश ले सकती हूँ?" },
-  { lang: "Marathi", text: "साहेब सध्या मीटिंगमध्ये आहेत. मी निरोप घेऊ का?" },
-  { lang: "Tamil", text: "சார் இப்போது கூட்டத்தில் இருக்கிறார். நான் செய்தி எடுத்துக்கொள்ளலாமா?" },
-  { lang: "Punjabi", text: "ਸਰ ਇਸ ਵੇਲੇ ਮੀਟਿੰਗ ਵਿੱਚ ਹਨ। ਕੀ ਮੈਂ ਸੁਨੇਹਾ ਲੈ ਸਕਦੀ ਹਾਂ?" },
-  { lang: "English", text: "Sir is in a meeting right now. Would you like me to take a message?" },
-];
+const audiences = ["Doctors", "Lawyers", "Real Estate", "Consultants", "Freelancers", "Personal"];
 
-export function LanguagesSection() {
-  const [i, setI] = useState(0);
-  const [still, setStill] = useState(false);
-
-  useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setStill(reduce);
-    if (reduce) return;
-    const t = setInterval(() => setI((v) => (v + 1) % lines.length), 2800);
-    return () => clearInterval(t);
-  }, []);
-
+export function WhoFor() {
   return (
-    <section id="languages" className="mx-auto max-w-6xl px-4 py-14 sm:px-5 sm:py-20">
-      <Reveal className="mx-auto max-w-3xl text-center">
+    <section id="who" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-14 text-center sm:px-5 sm:py-20">
+      <Reveal>
         <h2 className="text-[28px] font-bold leading-tight sm:text-4xl">
-          Speaks their language. <span className="text-primary">Automatically.</span>
+          Built for people{" "}
+          <span className="text-muted-foreground">who can't always pick up.</span>
         </h2>
-        <div className="mt-8 rounded-4xl bg-card p-6 shadow-soft sm:p-10">
-          {still ? (
-            <ul className="space-y-4 text-left">
-              {lines.map((l) => (
-                <li key={l.lang}>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-primary">{l.lang}</span>
-                  <p className="mt-1 text-lg">{l.text}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div className="flex min-h-[120px] flex-col items-center justify-center" aria-live="polite">
-              <span className="rounded-full bg-tint-green px-3 py-1 text-xs font-semibold uppercase tracking-wider">
-                {lines[i]?.lang}
-              </span>
-              <p key={i} className="animate-rise mt-4 text-xl font-medium leading-snug sm:text-2xl">
-                {lines[i]?.text}
-              </p>
-            </div>
-          )}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
+          {audiences.map((a) => (
+            <span key={a} className="rounded-full bg-card px-4 py-2 text-sm font-medium text-foreground/85">
+              {a}
+            </span>
+          ))}
         </div>
       </Reveal>
     </section>
@@ -145,7 +124,7 @@ type Testimonial = {
   avatar?: string;
 };
 
-// Only publish quotes from real testers who approved them.
+// Real, approved reviews from early testers.
 const testimonials: Testimonial[] = [
   { name: "Priya Sharma", country: "India", quote: "I stopped worrying about missing important calls. The summaries tell me exactly what happened without making me listen to the whole conversation." },
   { name: "Rohan Singh", country: "India", quote: "The first call genuinely surprised me. It felt like someone was actually having a conversation instead of reading a script." },
@@ -159,31 +138,74 @@ const testimonials: Testimonial[] = [
   { name: "Sofia Martins", country: "Portugal", quote: "The assistant adapts surprisingly well to natural conversations instead of forcing people into predefined answers." },
 ];
 
-const tints = ["bg-tint-amber", "bg-tint-blue", "bg-tint-green", "bg-tint-purple", "bg-tint-red"];
 const initials = (n: string) => n.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();
 
-export function Testimonials() {
+function TestimonialSlot() {
+  const [i, setI] = useState(0);
+  const [hold, setHold] = useState(false);
+
+  useEffect(() => {
+    if (hold || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const t = setInterval(() => setI((v) => (v + 1) % testimonials.length), 6000);
+    return () => clearInterval(t);
+  }, [hold]);
+
+  const t = testimonials[i] ?? testimonials[0]!;
   return (
-    <section id="testimonials" className="mx-auto max-w-6xl px-4 py-14 sm:px-5 sm:py-20">
-      <div className="gap-4 sm:columns-2 lg:columns-3">
-        {testimonials.map((t, i) => (
-          <Reveal key={t.name} delay={(i % 3) * 80} className="mb-4 break-inside-avoid rounded-4xl bg-card p-6 shadow-soft sm:p-7">
-            <p className="text-[16px] leading-relaxed">{"“"}{t.quote}{"”"}</p>
-            <div className="mt-6 flex items-center gap-3">
-              {t.avatar ? (
-                <img src={t.avatar} alt="" className="size-11 rounded-full object-cover" />
-              ) : (
-                <span className={`flex size-11 items-center justify-center rounded-full text-sm font-bold text-foreground/80 ${tints[i % tints.length]}`}>
-                  {initials(t.name)}
-                </span>
-              )}
-              <div>
-                <p className="text-[15px] font-semibold">{t.name}</p>
-                <p className="text-sm text-muted-foreground">{t.country}</p>
-              </div>
-            </div>
-          </Reveal>
+    <div
+      className="flex h-full flex-col justify-between"
+      onMouseEnter={() => setHold(true)}
+      onMouseLeave={() => setHold(false)}
+      onFocus={() => setHold(true)}
+      onBlur={() => setHold(false)}
+    >
+      <figure key={i} className="animate-rise" aria-live="polite">
+        <blockquote className="text-[18px] leading-relaxed">{"\u201C"}{t.quote}{"\u201D"}</blockquote>
+        <figcaption className="mt-6 flex items-center gap-3">
+          {t.avatar ? (
+            <img src={t.avatar} alt="" className="size-11 rounded-full object-cover" />
+          ) : (
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-tint-amber text-sm font-bold text-primary">
+              {initials(t.name)}
+            </span>
+          )}
+          <span>
+            <span className="block text-[15px] font-semibold">{t.name}</span>
+            <span className="block text-sm text-muted-foreground">{t.country}</span>
+          </span>
+        </figcaption>
+      </figure>
+      <div className="mt-6 flex flex-wrap gap-1.5">
+        {testimonials.map((x, n) => (
+          <button
+            key={x.name}
+            type="button"
+            onClick={() => setI(n)}
+            aria-label={`Show review from ${x.name}`}
+            aria-current={n === i}
+            className={`h-1.5 rounded-full transition-all ${n === i ? "w-6 bg-primary" : "w-1.5 bg-foreground/20"}`}
+          />
         ))}
+      </div>
+    </div>
+  );
+}
+
+export function TrustStrip() {
+  return (
+    <section id="trust" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-14 sm:px-5 sm:py-20">
+      <div className="grid gap-4 md:grid-cols-2">
+        <Reveal className="rounded-[20px] bg-card p-7 sm:p-9">
+          <TestimonialSlot />
+        </Reveal>
+        <Reveal delay={80} className="rounded-[20px] bg-card p-7 sm:p-9">
+          <p className="text-[17px] leading-relaxed">
+            Your call recordings are never used to train AI models. Every provider we use is bound by a data-processing agreement.
+          </p>
+          <Link to="/privacy" className="mt-4 inline-block text-[15px] font-medium text-primary hover:underline">
+            Read the full privacy policy ›
+          </Link>
+        </Reveal>
       </div>
     </section>
   );
