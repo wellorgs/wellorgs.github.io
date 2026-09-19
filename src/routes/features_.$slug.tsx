@@ -33,8 +33,8 @@ export const Route = createFileRoute("/features_/$slug")({
   },
   head: ({ loaderData, params }) => {
     const r = loaderData?.request;
-    const title = r ? `${r.title} | myFamily365 Feature Board` : "Feature idea | myFamily365";
-    const description = r?.detail ?? "A feature idea on the public myFamily365 roadmap.";
+    const title = r ? `${r.title} | Assisty AI Feature Board` : "Feature idea | Assisty AI";
+    const description = r?.detail ?? "A feature idea on the public Assisty AI roadmap.";
     const url = `https://myfamilapp.lovable.app/features/${params.slug}`;
     return {
       meta: [

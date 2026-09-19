@@ -42,23 +42,23 @@ import {
 export const Route = createFileRoute("/features")({
   head: () => ({
     meta: [
-      { title: "myFamily365 Feature Board: vote on what we build next" },
+      { title: "Assisty AI Feature Board: vote on what we build next" },
       {
         name: "description",
         content:
-          "A live, public roadmap for myFamily365. Upvote the most requested care features, post your own idea, and follow it from exploring to shipped.",
+          "A live, public roadmap for Assisty AI. Upvote the features you need most, post your own idea, and follow it from exploring to shipped.",
       },
-      { property: "og:title", content: "myFamily365 Feature Board: vote on what we build next" },
+      { property: "og:title", content: "Assisty AI Feature Board: vote on what we build next" },
       {
         property: "og:description",
         content:
-          "Upvote the most requested myFamily365 features and post your own idea on the live board.",
+          "Upvote the most requested Assisty AI features and post your own idea on the live board.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://myfamilapp.lovable.app/features" },
+      { property: "og:url", content: "https://myassistant.app/features" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://myfamilapp.lovable.app/features" }],
+    links: [{ rel: "canonical", href: "https://myassistant.app/features" }],
   }),
   component: FeatureBoard,
 });
@@ -68,10 +68,10 @@ const filters: Array<{ key: "all" | FeatureStatus; label: string }> = [
   { key: "exploring", label: "Exploring" },
   { key: "planned", label: "Planned" },
   { key: "in-progress", label: "In progress" },
-  { key: "shipped", label: "Exploring" },
+  { key: "shipped", label: "Shipped" },
 ];
 
-const categories = ["All", "Care", "Health", "AI", "Family", "Safety"] as const;
+const categories = ["All", "Calls", "Summaries", "Escalation", "Languages", "Integrations"] as const;
 type CategoryFilter = (typeof categories)[number];
 
 type SortKey = "most-requested" | "newest" | "az";
@@ -82,10 +82,10 @@ const sorts: Array<{ key: SortKey; label: string }> = [
 ];
 
 const statusStyles: Record<FeatureStatus, string> = {
-  planned: "bg-tint-blue text-foreground/70",
-  exploring: "bg-tint-purple text-foreground/70",
-  "in-progress": "bg-tint-amber text-foreground/70",
-  shipped: "bg-tint-green text-foreground/70",
+  planned: "text-foreground/70",
+  exploring: "text-primary",
+  "in-progress": "text-primary",
+  shipped: "text-success",
 };
 
 type BoardRow = FeatureRequest & { slug?: string; createdAt?: string };
@@ -119,7 +119,7 @@ function FeatureBoard() {
     title: "",
     detail: "",
     author: "",
-    category: "Care" as FeatureRequest["category"],
+    category: "Calls" as FeatureRequest["category"],
   });
 
   const load = useCallback(async (silent = false) => {
@@ -239,7 +239,7 @@ function FeatureBoard() {
       });
       setRequests((r) => [created, ...r]);
       await castVote(created.id).catch(() => false);
-      setDraft({ title: "", detail: "", author: "", category: "Care" });
+      setDraft({ title: "", detail: "", author: "", category: "Calls" });
       setOpen(false);
       toast.success("Idea posted to the board", {
         description: "We review new requests every Monday.",
@@ -262,17 +262,14 @@ function FeatureBoard() {
 
       <main className="mx-auto max-w-4xl px-4 pb-4 pt-10 sm:px-5 sm:pt-14">
         <header className="text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm text-muted-foreground shadow-soft">
+          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
             <span className="size-1.5 animate-pulse rounded-full bg-success" />
-            Live board · {loading ? "syncing…" : `${totalVotes.toLocaleString()} votes`}
+            Live board{loading ? "" : totalVotes > 0 ? ` · ${totalVotes.toLocaleString()} votes` : ""}
           </span>
-          <h1 className="mt-6 text-[30px] font-bold leading-[1.08] sm:text-5xl">
-            What should we build next?
+          <h1 className="mx-auto mt-6 max-w-3xl text-[30px] font-bold leading-[1.08] sm:text-5xl">
+            What should we build next?{" "}
+            <span className="text-muted-foreground">Upvote what you need most.</span>
           </h1>
-          <p className="mx-auto mt-4 max-w-lg text-lg leading-relaxed text-muted-foreground">
-            The myFamily365 roadmap is public. Upvote the requests you need most. The
-            top ideas go into the next release.
-          </p>
         </header>
 
         {!joined && <BoardSignupCard className="mt-8" />}
@@ -280,7 +277,7 @@ function FeatureBoard() {
 
 
         {/* Controls */}
-        <div className="sticky top-16 z-30 mt-10 rounded-3xl border border-border/60 bg-background/80 p-2 backdrop-blur-xl">
+        <div className="sticky top-16 z-30 mt-10 rounded-[20px] bg-background/80 p-2 backdrop-blur-xl">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
             <div className="relative flex-1">
               <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -289,12 +286,12 @@ function FeatureBoard() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search requests"
                 aria-label="Search feature requests"
-                className="h-12 rounded-2xl border-transparent bg-card pl-11 shadow-soft"
+                className="h-12 rounded-2xl border-transparent bg-card pl-11"
               />
             </div>
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
-                <Button className="h-12 rounded-2xl px-6 font-semibold shadow-soft">
+                <Button className="h-12 rounded-2xl px-6 font-semibold">
                   <Plus className="size-4" />
                   Post an idea
                 </Button>
@@ -303,7 +300,7 @@ function FeatureBoard() {
                 <DialogHeader>
                   <DialogTitle>Request a feature</DialogTitle>
                   <DialogDescription>
-                    Tell us what would make caring for your parents easier.
+                    Tell us what would make Assisty work better for you.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-3">
@@ -376,7 +373,7 @@ function FeatureBoard() {
                   "shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors",
                   filter === f.key
                     ? "bg-foreground text-background"
-                    : "bg-card text-muted-foreground shadow-soft hover:text-foreground",
+                    : "bg-card text-muted-foreground hover:text-foreground",
                 )}
               >
                 {f.label}
@@ -392,10 +389,10 @@ function FeatureBoard() {
                   onClick={() => setCategory(c)}
                   aria-pressed={category === c}
                   className={cn(
-                    "shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-medium transition-colors",
+                    "shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors",
                     category === c
-                      ? "border-foreground/80 text-foreground"
-                      : "border-border text-muted-foreground hover:text-foreground",
+                      ? "bg-foreground/10 text-foreground"
+                      : "text-muted-foreground hover:text-foreground",
                   )}
                 >
                   {c === "All" ? "All categories" : c}
@@ -411,7 +408,7 @@ function FeatureBoard() {
                 id="board-sort"
                 value={sort}
                 onChange={(e) => setSort(e.target.value as SortKey)}
-                className="h-9 rounded-full border border-border bg-card px-3 text-xs font-medium text-foreground shadow-soft outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                className="h-9 rounded-full bg-card px-3 text-xs font-medium text-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
               >
                 {sorts.map((s) => (
                   <option key={s.key} value={s.key}>
@@ -436,7 +433,7 @@ function FeatureBoard() {
                 setSort("most-requested");
                 setQuery("");
               }}
-              className="font-medium text-foreground/70 transition-colors hover:text-primary"
+              className="font-medium text-primary hover:underline"
             >
               Reset
             </button>
@@ -450,7 +447,7 @@ function FeatureBoard() {
             <li
               key={r.id}
               className={cn(
-                "flex gap-4 rounded-3xl bg-card p-5 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lift",
+                "flex gap-4 rounded-[20px] bg-card p-5 transition-all duration-300",
                 climbers[r.id] && "ring-2 ring-primary/40",
               )}
             >
@@ -465,10 +462,10 @@ function FeatureBoard() {
                     : `Upvote ${r.title}, ${r.votes} votes`
                 }
                 className={cn(
-                  "flex h-[68px] w-14 shrink-0 flex-col items-center justify-center rounded-2xl border transition-all duration-200 disabled:cursor-default",
+                  "flex h-[68px] w-14 shrink-0 flex-col items-center justify-center rounded-2xl transition-all duration-200 disabled:cursor-default",
                   voted[r.id]
-                    ? "border-primary bg-primary/10 text-primary"
-                    : "border-border bg-muted/60 text-foreground/70 hover:-translate-y-0.5 hover:border-primary/40 active:scale-95",
+                    ? "bg-primary/10 text-primary"
+                    : "bg-muted text-foreground/70 hover:text-primary active:scale-95",
                 )}
               >
                 {pending === r.id ? (
@@ -483,30 +480,13 @@ function FeatureBoard() {
 
 
               <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  {(rankById.get(r.id) ?? 99) <= 3 && (
-                    <span className="rounded-full bg-tint-amber px-2.5 py-1 text-xs font-semibold">
-                      #{rankById.get(r.id)} most wanted
-                    </span>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold uppercase tracking-[0.12em]">
+                  {r.votes > 0 && (rankById.get(r.id) ?? 99) <= 3 && (
+                    <span className="text-primary">#{rankById.get(r.id)} most wanted</span>
                   )}
-                  {climbers[r.id] && (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-tint-green px-2.5 py-1 text-xs font-semibold">
-                      <ChevronUp className="size-3" strokeWidth={3} />
-                      Moved up
-                    </span>
-                  )}
-
-                  <span
-                    className={cn(
-                      "rounded-full px-2.5 py-1 text-xs font-semibold",
-                      statusStyles[r.status],
-                    )}
-                  >
-                    {statusLabel[r.status]}
-                  </span>
-                  <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
-                    {r.category}
-                  </span>
+                  {climbers[r.id] && <span className="text-success">Moved up</span>}
+                  <span className={statusStyles[r.status]}>{statusLabel[r.status]}</span>
+                  <span className="text-muted-foreground">{r.category}</span>
                 </div>
                 <h2 className="mt-2.5 text-[17px] font-semibold leading-snug">
                   {hasDetailPage(r) ? (
@@ -532,9 +512,9 @@ function FeatureBoard() {
                     <Link
                       to="/features/$slug"
                       params={{ slug: r.slug ?? requestSlug(r) }}
-                      className="font-medium text-foreground/70 transition-colors hover:text-primary"
+                      className="font-medium text-primary hover:underline"
                     >
-                      View details →
+                      View details ›
                     </Link>
                   )}
                 </div>
@@ -543,7 +523,7 @@ function FeatureBoard() {
             </li>
           ))}
           {visible.length === 0 && (
-            <li className="rounded-3xl bg-card p-10 text-center text-muted-foreground shadow-soft">
+            <li className="rounded-[20px] bg-card p-10 text-center text-muted-foreground">
               No requests match that yet. Be the first to post one.
             </li>
           )}

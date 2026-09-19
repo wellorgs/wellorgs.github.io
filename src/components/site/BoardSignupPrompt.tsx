@@ -68,7 +68,7 @@ export function BoardSignupDialog({ open, onOpenChange, reason }: DialogProps) {
           </li>
           <li className="flex gap-2">
             <Sparkles className="mt-0.5 size-4 shrink-0 text-foreground/70" />
-            Free at launch for the first 100 families
+            First 7 days free at launch
           </li>
         </ul>
 
@@ -91,13 +91,13 @@ export function BoardSignupCard({ className }: { className?: string }) {
   return (
     <section
       className={cn(
-        "rounded-3xl border border-border/60 bg-card p-6 shadow-soft sm:p-7",
+        "rounded-[20px] bg-card p-6 sm:p-7",
         className,
       )}
     >
-      <span className="inline-flex items-center gap-2 rounded-full bg-tint-amber px-3 py-1 text-xs font-semibold">
-        <Sparkles className="size-3.5" />
-        Free at launch for the first 100 families
+      <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-primary">
+        <Sparkles className="size-3.5" strokeWidth={1.75} />
+        First 7 days free at launch
       </span>
       <h2 className="mt-3 text-xl font-semibold tracking-tight sm:text-2xl">
         Voting is anonymous. Leave your email so we can tell you when it ships.
