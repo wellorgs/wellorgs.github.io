@@ -56,7 +56,7 @@ export const Route = createFileRoute("/")({
 
 const stats = [
   { value: "1,400+", label: "on the waitlist" },
-  { value: LANGUAGE_COUNT, label: "languages, incl. regional" },
+  { value: LANGUAGE_COUNT, label: "languages, including regional" },
   { value: "< 2 min", label: "to a full summary" },
 ];
 

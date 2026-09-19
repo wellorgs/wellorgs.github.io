@@ -95,20 +95,20 @@ export function CookieConsent() {
           aria-labelledby={titleId}
           aria-describedby={descId}
           onKeyDown={onKeyDown}
-          className="fixed inset-x-0 bottom-0 z-[60] p-3 sm:p-4"
+          className="fixed bottom-3 right-3 z-[60] w-[calc(100%-1.5rem)] max-w-[340px] sm:bottom-4 sm:right-4"
         >
-          <div className="mx-auto w-full max-w-5xl rounded-2xl border border-border bg-card/95 p-4 shadow-xl backdrop-blur-xl sm:p-5">
-            <div className={showDetails ? "" : "md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-6"}>
+          <div className="w-full rounded-2xl border border-border bg-card/95 p-4 shadow-xl backdrop-blur-xl">
+            <div>
               <div className="min-w-0">
                 <h2
                   id={titleId}
                   ref={headingRef}
                   tabIndex={-1}
-                  className="text-base font-semibold text-foreground outline-none"
+                  className="text-[15px] font-semibold text-foreground outline-none"
                 >
                   {copy.title}
                 </h2>
-                <p id={descId} className="mt-1 text-[13px] leading-relaxed text-muted-foreground sm:text-sm">
+                <p id={descId} className="mt-1 text-xs leading-relaxed text-muted-foreground">
                   {copy.description}
                 </p>
               </div>
@@ -136,12 +136,12 @@ export function CookieConsent() {
               </div>
             ) : null}
 
-              <div className="mt-4 grid grid-cols-3 gap-2 sm:flex sm:justify-end md:mt-0">
+              <div className="mt-3 flex flex-wrap items-center justify-end gap-2">
               {showDetails ? (
                 <Button
                   variant="ghost"
                   onClick={() => decide(analytics)}
-                  className="min-h-11 px-2 text-xs sm:order-1 sm:px-4 sm:text-sm"
+                  className="h-9 px-3 text-xs"
                 >
                   {copy.save}
                 </Button>
@@ -153,7 +153,7 @@ export function CookieConsent() {
                     setStatus(copy.detailsOpened);
                   }}
                   aria-expanded={showDetails}
-                  className="min-h-11 px-2 text-xs sm:order-1 sm:px-4 sm:text-sm"
+                  className="h-9 px-3 text-xs"
                 >
                   {copy.manage}
                 </Button>
@@ -161,11 +161,11 @@ export function CookieConsent() {
               <Button
                 variant="outline"
                 onClick={() => decide(false)}
-                className="min-h-11 px-2 text-xs sm:order-2 sm:px-4 sm:text-sm"
+                className="h-9 px-3 text-xs"
               >
                 {copy.reject}
               </Button>
-              <Button onClick={() => decide(true)} className="min-h-11 px-2 text-xs sm:order-3 sm:px-4 sm:text-sm">
+              <Button onClick={() => decide(true)} className="h-9 px-3 text-xs">
                 {copy.accept}
               </Button>
               </div>

@@ -145,7 +145,7 @@ const sections: Section[] = [
       "Replies naturally in Hindi, English, and regional languages",
       "No menu to select a language, it just adapts",
     ],
-    proof: { value: LANGUAGE_COUNT, label: "languages, incl. regional" },
+    proof: { value: LANGUAGE_COUNT, label: "languages, including regional" },
     visual: <LanguageVisual />,
   },
   {
@@ -155,7 +155,7 @@ const sections: Section[] = [
     tint: "bg-tint-neutral",
     title: "A summary and the actual recording,",
     emphasis: "the moment the call ends.",
-    body: "After every call you get a short, natural recap in the app: who called, why, and whether it was urgent, plus the call recording so you can hear the actual tone in seconds.",
+    body: "After every call you get an app push notification with a short, natural recap: who called, why, and whether it was urgent, plus the call recording so you can hear the actual tone in seconds.",
     points: [
       "Short, plain-language recap, not a full transcript to read",
       "Call recording attached, so you can hear it yourself",

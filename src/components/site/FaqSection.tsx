@@ -12,7 +12,7 @@ export const faqs = [
   {
     question: "What is Assisty?",
     answer:
-      "Assisty AI picks up when you cannot, talks to the caller like a real person, and gives you a calm summary in the app the moment the call ends.",
+      "Assisty AI picks up when you cannot, talks to the caller like a real person, and sends you a calm summary as an app push notification the moment the call ends.",
   },
   {
     question: "How does it answer my calls?",
@@ -32,7 +32,7 @@ export const faqs = [
   },
   {
     question: "Which languages are supported?",
-    answer: `${LANGUAGE_COUNT} languages, including regional ones. Assisty AI detects the caller's language mid-call and replies in it, without being asked.`,
+    answer: `${LANGUAGE_COUNT} languages, including regional. Assisty AI detects the caller's language mid-call and replies in it, without being asked.`,
   },
   {
     question: "Are calls recorded?",
@@ -49,14 +49,18 @@ export const faqs = [
     answer: "Yes. The call recording is attached, so you can hear the actual tone in seconds.",
   },
   {
+    question: "Does Assisty call the person back after the call ends?",
+    answer: "No. Assisty only handles the call live, in the moment. It doesn't call the original caller back afterward.",
+  },
+  {
     question: "How does escalation work?",
     answer:
-      "Assisty AI judges whether it's a genuine emergency, not just a caller who says it's urgent. Once confirmed, the caller stays on hold while Assisty AI calls you directly, immediately, to relay what's happening.",
+      "Assisty is built to recognize genuine urgency, such as medical emergencies, fire, safety issues, and other time-critical situations, using a broad set of real-world emergency language and scenarios. When it detects a genuine one, it calls you directly. If something just sounds urgent but isn't, Assisty handles it normally instead of interrupting you.",
   },
   {
     question: "Can I choose priority contacts?",
     answer:
-      "Yes. If the contact you're reaching doesn't answer and is marked priority, Assisty AI automatically tries again once.",
+      "Yes. Mark someone as a priority contact and Assisty will call you twice if you don't answer. If that still doesn't reach you, it's flagged as an SOS-level alert.",
   },
   {
     question: "Can I turn Assisty off?",

@@ -81,7 +81,10 @@ export async function fetchBoard(): Promise<{ ideas: BoardIdea[]; votedIds: stri
  * re-order itself the moment another visitor upvotes something.
  */
 export function subscribeBoard(onChange: () => void): () => void {
-  const channel = supabase
+  // Without backend settings (e.g. a static build) there is nothing to subscribe to; keep the page rendering.
+  let channel: ReturnType<typeof supabase.channel>;
+  try {
+    channel = supabase
     .channel("feature-board-live")
     .on(
       "postgres_changes",
@@ -89,6 +92,9 @@ export function subscribeBoard(onChange: () => void): () => void {
       () => onChange(),
     )
     .subscribe();
+  } catch {
+    return () => {};
+  }
 
   return () => {
     void supabase.removeChannel(channel);

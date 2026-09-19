@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import { Eye, Headphones, MessageCircle, Pause, PhoneCall, PhoneIncoming, Play, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -194,17 +193,9 @@ function TestimonialSlot() {
 export function TrustStrip() {
   return (
     <section id="trust" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-14 sm:px-5 sm:py-20">
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="mx-auto max-w-3xl">
         <Reveal className="rounded-[20px] bg-card p-7 sm:p-9">
           <TestimonialSlot />
-        </Reveal>
-        <Reveal delay={80} className="rounded-[20px] bg-card p-7 sm:p-9">
-          <p className="text-[17px] leading-relaxed">
-            Your call recordings are never used to train AI models. Every provider we use is bound by a data-processing agreement.
-          </p>
-          <Link to="/privacy" className="mt-4 inline-block text-[15px] font-medium text-primary hover:underline">
-            Read the full privacy policy ›
-          </Link>
         </Reveal>
       </div>
     </section>
