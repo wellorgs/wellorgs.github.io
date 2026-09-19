@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, MessageCircleHeart, Sparkles } from "lucide-react";
 
 import { HandMockup } from "@/components/site/HandMockup";
 
@@ -71,11 +70,7 @@ function Landing() {
         {/* Hero */}
         <section id="hero" className="relative overflow-hidden bg-accent/35">
           <div className="relative mx-auto max-w-6xl px-4 pb-0 pt-10 text-center sm:px-5 sm:pt-16 lg:pt-20">
-            <span className="animate-rise inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-              <span className="size-1.5 rounded-full bg-success" />
-              Early access opening soon
-            </span>
-            <h1 className="animate-rise mx-auto mt-6 max-w-4xl text-[34px] font-bold leading-[1.08] sm:text-5xl lg:text-6xl">
+            <h1 className="animate-rise mx-auto max-w-4xl text-[34px] font-bold leading-[1.08] sm:text-5xl lg:text-6xl">
               Every call answered.{" "}
               <span className="text-muted-foreground">Only the ones that matter reach you, by phone.</span>
             </h1>
@@ -93,29 +88,23 @@ function Landing() {
               <p className="mx-auto mt-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground sm:text-xs">
                 Routine → Handled · Important → Summarized · Escalated → Escalated
               </p>
-              <br />
-              <p className="shine-pill mx-auto mt-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold tracking-tight text-foreground sm:text-sm">
-                <Sparkles className="animate-spark size-4 text-primary" strokeWidth={2} />
-                First 7 days free at launch
-                <span className="font-normal text-muted-foreground">No spam, ever.</span>
-              </p>
             </div>
 
             <div className="mx-auto mt-10 max-w-[1200px] sm:mt-12">
               <HandMockup />
             </div>
           </div>
-          <div aria-hidden className="hero-edge-blur pointer-events-none absolute inset-x-0 bottom-0 z-[6] h-16 backdrop-blur-[10px] [mask-image:linear-gradient(to_bottom,transparent,black_70%)]" />
+          <div aria-hidden className="hero-edge-blur pointer-events-none absolute inset-x-0 bottom-0 z-[6] h-16 [mask-image:linear-gradient(to_bottom,transparent,black_70%)]" />
         </section>
 
         {/* Stats */}
-        <section className="relative z-10 -mt-8 rounded-t-[2.5rem] bg-background shadow-[0_-18px_40px_-18px_rgb(0_0_0/0.22)]">
+        <section className="relative z-10 -mt-8 rounded-t-xl bg-background">
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 pb-10 pt-10 sm:grid-cols-3 sm:px-5 md:pb-12">
             {stats.map((s, i) => (
               <Reveal
                 key={s.label}
                 delay={i * 90}
-                className="rounded-[20px] bg-card px-5 py-7 text-center sm:px-7 sm:py-8"
+                className="rounded-xl bg-card px-5 py-7 text-center sm:px-7 sm:py-8"
               >
                 <p className="text-3xl font-semibold leading-none sm:text-4xl">
                   {s.value}
@@ -147,7 +136,7 @@ function Landing() {
 
         {/* Final CTA */}
         <section className="mx-auto max-w-6xl px-4 pb-8 sm:px-5">
-          <div className="rounded-4xl bg-primary px-5 py-11 text-center shadow-lift sm:px-8 sm:py-16">
+          <div className="rounded-4xl bg-primary px-5 py-11 text-center sm:px-8 sm:py-16">
             <h2 className="mx-auto max-w-2xl text-[30px] font-semibold leading-[1.1] tracking-[-0.035em] text-primary-foreground sm:text-[44px]">
               You can't answer every call. You shouldn't have to.
             </h2>

@@ -46,7 +46,7 @@ const SCRIPTS: Script[] = [
 ];
 
 function Panel({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`rounded-3xl bg-card p-5 shadow-soft ${className}`}>{children}</div>;
+  return <div className={`rounded-3xl bg-card p-5 ${className}`}>{children}</div>;
 }
 
 function CompanionDemoImpl() {
@@ -227,7 +227,7 @@ function CompanionDemoImpl() {
             type="button"
             onClick={() => run(s)}
             disabled={busy}
-            className="rounded-full border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground/80 shadow-soft transition-colors hover:bg-tint-purple disabled:opacity-50"
+            className="rounded-full border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground/80 transition-colors hover:bg-tint-purple disabled:opacity-50"
           >
             <span className="mr-1.5 text-muted-foreground">{s.key}</span>
             {s.prompt.length > 30 ? `${s.prompt.slice(0, 30)}…` : s.prompt}

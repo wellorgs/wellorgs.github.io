@@ -89,7 +89,7 @@ export function FaqSection({ all = false }: { all?: boolean }) {
         </h2>
       </div>
 
-      <div className="mt-10 rounded-[20px] bg-card p-2">
+      <div className="mt-10 rounded-xl bg-card p-2">
         <Accordion type="single" collapsible className="w-full">
           {list.map((faq, index) => (
             <AccordionItem

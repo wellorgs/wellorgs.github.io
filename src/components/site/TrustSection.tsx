@@ -93,11 +93,7 @@ export function TrustSection() {
   return (
     <section id="trust" className="cv-auto mx-auto max-w-6xl scroll-mt-24 px-4 pb-16 pt-4 sm:px-5">
       <div className="mx-auto max-w-2xl text-center">
-        <span className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-2 text-sm font-medium shadow-soft">
-          <ShieldCheck className="size-4 shrink-0 text-primary" strokeWidth={2} />
-          Trust and safety
-        </span>
-        <h2 className="mt-5 text-[28px] font-bold leading-tight sm:text-[40px]">
+        <h2 className="text-[28px] font-bold leading-tight sm:text-[40px]">
           Your calls, not our data set.{" "}
           <span className="text-primary">Here is exactly how it works.</span>
         </h2>
@@ -112,7 +108,7 @@ export function TrustSection() {
           <Reveal
             key={c.title}
             delay={i * 70}
-            className="rounded-[20px] bg-card p-6 sm:p-7"
+            className="rounded-xl bg-card p-6 sm:p-7"
           >
             <span className={`flex size-11 items-center justify-center rounded-2xl ${c.tint}`}>
               <c.icon className="size-5 text-foreground/80" strokeWidth={1.9} />
@@ -128,7 +124,7 @@ export function TrustSection() {
           { title: "Recording retention", body: practices[3] },
           { title: "Deletion", body: practices[5] },
         ].map((p, i) => (
-          <Reveal key={p.title} delay={i * 70} className="rounded-[20px] bg-card p-6 sm:p-7">
+          <Reveal key={p.title} delay={i * 70} className="rounded-xl bg-card p-6 sm:p-7">
             <p className="text-[17px] font-bold">{p.title}</p>
             {p.body && <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{p.body}</p>}
           </Reveal>
@@ -136,7 +132,7 @@ export function TrustSection() {
       </div>
 
       {/* Security and data handling summary */}
-      <Reveal className="mt-6 grid gap-8 rounded-[20px] bg-card p-6 sm:p-10 lg:grid-cols-[1fr_1.1fr]">
+      <Reveal className="mt-6 grid gap-8 rounded-xl bg-card p-6 sm:p-10 lg:grid-cols-[1fr_1.1fr]">
         <div>
           <span className="flex size-11 items-center justify-center rounded-2xl bg-tint-blue">
             <ShieldCheck className="size-5 text-foreground/80" strokeWidth={1.9} />
@@ -166,9 +162,9 @@ export function TrustSection() {
 export function HowItWorks() {
   return (
     <section id="how" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-6 sm:px-5 sm:py-10">
-      <Reveal className="rounded-[20px] bg-tint-neutral p-6 sm:p-10">
+      <Reveal className="rounded-xl bg-tint-neutral p-6 sm:p-10">
         <div className="max-w-2xl">
-          <span className="inline-flex items-center gap-2 rounded-full bg-card px-3 py-1.5 text-sm font-medium text-muted-foreground shadow-soft">
+          <span className="inline-flex items-center gap-2 rounded-full bg-card px-3 py-1.5 text-sm font-medium text-muted-foreground">
             <PhoneCall className="size-4 shrink-0 text-foreground/80" strokeWidth={2} />
             What happens in an emergency
           </span>
@@ -186,14 +182,14 @@ export function HowItWorks() {
             {emergencySteps.map((s, i) => (
               <li key={s.step} className="relative flex gap-4 pb-6 last:pb-0">
                 <div className="flex flex-col items-center">
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground shadow-soft">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
                     {s.step}
                   </span>
                   {i < emergencySteps.length - 1 && (
                     <div className="mt-2 w-px flex-1 border-l-2 border-dashed border-border/80" />
                   )}
                 </div>
-                <div className="rounded-3xl bg-card p-5 shadow-soft">
+                <div className="rounded-3xl bg-card p-5">
                   <p className="text-[16px] font-semibold">{s.title}</p>
                   <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
                 </div>

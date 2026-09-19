@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Sparkles, X } from "lucide-react";
+import { X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -54,30 +54,23 @@ export function MobileCtaBar() {
   return (
     <div
       role="region"
-      aria-label="Join the waitlist"
+      aria-label="Join the Waitlist"
       aria-hidden={!shown}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-50 border-t border-border/60 bg-background/95 backdrop-blur-xl md:hidden",
+        "fixed inset-x-0 bottom-0 z-50 border-t border-border/60 bg-background md:hidden",
         "transform-gpu transition-transform duration-300 ease-out will-change-transform motion-reduce:transition-none",
         "pb-[env(safe-area-inset-bottom)]",
         shown ? "translate-y-0" : "pointer-events-none translate-y-full",
       )}
     >
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-3">
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold tracking-tight">Join the waitlist</p>
-          <span className="shine-pill mt-1 inline-flex max-w-full items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-tight text-foreground">
-            <Sparkles className="animate-spark size-3 shrink-0 text-primary" strokeWidth={2.2} />
-            <span className="truncate">First 7 days free, no card needed</span>
-          </span>
-        </div>
 
         <a
           href="#waitlist"
           tabIndex={shown ? undefined : -1}
-          className="btn-glow btn-sheen inline-flex h-11 shrink-0 items-center justify-center rounded-2xl bg-foreground px-5 text-sm font-semibold text-background"
+          className="inline-flex h-11 min-w-0 flex-1 items-center justify-center rounded-xl bg-foreground px-5 text-sm font-semibold text-background"
         >
-          Join
+          Join the Waitlist
         </a>
         <button
           type="button"

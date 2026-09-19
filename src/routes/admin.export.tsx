@@ -60,7 +60,7 @@ function ExportPage() {
       <SiteHeader />
       <main className="mx-auto flex max-w-xl flex-col justify-center px-6 py-24">
         <h1 className="sr-only">Export waitlist signups</h1>
-        <Card className="rounded-3xl border-border/60 shadow-soft">
+        <Card className="rounded-3xl border-border/60">
           <CardHeader>
             <CardTitle className="text-2xl tracking-tight">Export waitlist</CardTitle>
             <CardDescription>

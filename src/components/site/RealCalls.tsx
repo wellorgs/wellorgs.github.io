@@ -62,7 +62,7 @@ function CallCard({
   return (
     <Reveal
       delay={index * 80}
-      className="flex w-[85vw] max-w-[360px] shrink-0 snap-start flex-col rounded-[20px] bg-card p-6 sm:w-[340px]"
+      className="flex w-[85vw] max-w-[360px] shrink-0 snap-start flex-col rounded-xl bg-card p-6 sm:w-[340px]"
     >
       <p className={`text-xs font-semibold uppercase tracking-[0.12em] ${accent}`}>{call.category}</p>
       <h3 className="mt-3 text-[22px] font-bold leading-tight">{call.title}</h3>

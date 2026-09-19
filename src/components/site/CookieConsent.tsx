@@ -97,7 +97,7 @@ export function CookieConsent() {
           onKeyDown={onKeyDown}
           className="fixed bottom-3 right-3 z-[60] w-[calc(100%-1.5rem)] max-w-[340px] sm:bottom-4 sm:right-4"
         >
-          <div className="w-full rounded-2xl border border-border bg-card/95 p-4 shadow-xl backdrop-blur-xl">
+          <div className="w-full rounded-2xl border border-border bg-card p-4">
             <div>
               <div className="min-w-0">
                 <h2

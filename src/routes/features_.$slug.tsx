@@ -144,7 +144,7 @@ function FeatureDetail() {
           Feature board
         </Link>
 
-        <article className="mt-6 rounded-3xl bg-card p-7 shadow-soft sm:p-9">
+        <article className="mt-6 rounded-3xl bg-card p-7 sm:p-9">
           <div className="flex flex-wrap items-center gap-2">
             <span
               className={cn(
@@ -199,7 +199,7 @@ function FeatureDetail() {
           </div>
         </article>
 
-        <section className="mt-6 rounded-3xl bg-card p-7 shadow-soft sm:p-9">
+        <section className="mt-6 rounded-3xl bg-card p-7 sm:p-9">
           <h2 className="text-lg font-semibold">Progress</h2>
           <ol className="mt-5 space-y-4">
             {timeline.map((step) => {
@@ -239,7 +239,7 @@ function FeatureDetail() {
                   <Link
                     to="/features/$slug"
                     params={{ slug: requestSlug(r) }}
-                    className="block rounded-3xl bg-card p-5 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lift"
+                    className="block rounded-3xl bg-card p-5 transition-all duration-300 hover:-translate-y-0.5"
                   >
                     <p className="font-semibold leading-snug">{r.title}</p>
                     <p className="mt-1 text-sm text-muted-foreground">

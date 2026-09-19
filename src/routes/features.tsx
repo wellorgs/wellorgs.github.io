@@ -262,11 +262,7 @@ function FeatureBoard() {
 
       <main className="mx-auto max-w-4xl px-4 pb-4 pt-10 sm:px-5 sm:pt-14">
         <header className="text-center">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-            <span className="size-1.5 animate-pulse rounded-full bg-success" />
-            Live board{loading ? "" : totalVotes > 0 ? ` · ${totalVotes.toLocaleString()} votes` : ""}
-          </span>
-          <h1 className="mx-auto mt-6 max-w-3xl text-[30px] font-bold leading-[1.08] sm:text-5xl">
+          <h1 className="mx-auto max-w-3xl text-[30px] font-bold leading-[1.08] sm:text-5xl">
             What should we build next?{" "}
             <span className="text-muted-foreground">Upvote what you need most.</span>
           </h1>
@@ -277,7 +273,7 @@ function FeatureBoard() {
 
 
         {/* Controls */}
-        <div className="sticky top-16 z-30 mt-10 rounded-[20px] bg-background/80 p-2 backdrop-blur-xl">
+        <div className="sticky top-16 z-30 mt-10 rounded-xl bg-background p-2">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
             <div className="relative flex-1">
               <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -447,7 +443,7 @@ function FeatureBoard() {
             <li
               key={r.id}
               className={cn(
-                "flex gap-4 rounded-[20px] bg-card p-5 transition-all duration-300",
+                "flex gap-4 rounded-xl bg-card p-5 transition-all duration-300",
                 climbers[r.id] && "ring-2 ring-primary/40",
               )}
             >
@@ -523,7 +519,7 @@ function FeatureBoard() {
             </li>
           ))}
           {visible.length === 0 && (
-            <li className="rounded-[20px] bg-card p-10 text-center text-muted-foreground">
+            <li className="rounded-xl bg-card p-10 text-center text-muted-foreground">
               No requests match that yet. Be the first to post one.
             </li>
           )}

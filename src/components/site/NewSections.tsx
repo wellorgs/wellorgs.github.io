@@ -1,15 +1,14 @@
-import { Eye, Headphones, MessageCircle, Pause, PhoneCall, PhoneIncoming, Play, Star } from "lucide-react";
+import { Eye, Pause, PhoneCall, Play, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Reveal } from "@/components/site/Reveal";
 
-const ICON = "size-5 shrink-0 text-primary";
 const STROKE = 1.75;
 
 const steps = [
-  { icon: PhoneIncoming, text: "Call comes in, you're busy, so Assisty picks up." },
-  { icon: MessageCircle, text: "Assisty has a real conversation and figures out what's needed." },
-  { icon: Headphones, text: "You get the summary and recording, or, if it's urgent, Assisty calls you." },
+  "Call comes in, you're busy, so Assisty picks up.",
+  "Assisty has a real conversation and figures out what's needed.",
+  "You get the summary and recording, or, if it's urgent, Assisty calls you.",
 ];
 
 /** Compact 3-step strip that sits under the real-call carousel. */
@@ -17,11 +16,10 @@ export function HowStrip() {
   return (
     <div className="mx-auto mt-14 grid max-w-6xl gap-8 px-4 sm:grid-cols-3 sm:px-5">
       {steps.map((s, i) => (
-        <Reveal key={s.text} delay={i * 80}>
-          <s.icon className={ICON} strokeWidth={STROKE} />
-          <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
+        <Reveal key={s} delay={i * 80}>
+          <p className="text-[15px] leading-relaxed text-muted-foreground">
             <span className="font-semibold text-foreground">{i + 1}. </span>
-            {s.text}
+            {s}
           </p>
         </Reveal>
       ))}
@@ -40,7 +38,7 @@ export function EscalationSpotlight() {
   const run = paused ? "paused" : "running";
   return (
     <section id="escalation" className="px-3 py-6 sm:px-5 sm:py-10">
-      <div className="mx-auto max-w-6xl overflow-hidden rounded-[28px] bg-foreground px-6 py-14 text-background sm:px-12 sm:py-20 lg:px-16 lg:py-24">
+      <div className="mx-auto max-w-6xl overflow-hidden rounded-xl bg-foreground px-6 py-14 text-background sm:px-12 sm:py-20 lg:px-16 lg:py-24">
         <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
           <Reveal>
             <h2 className="text-[34px] font-bold leading-[1.05] sm:text-5xl lg:text-6xl">
@@ -105,7 +103,7 @@ export function WhoFor() {
         </h2>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
           {audiences.map((a) => (
-            <span key={a} className="rounded-full bg-card px-4 py-2 text-sm font-medium text-foreground/85">
+            <span key={a} className="rounded-lg bg-card px-4 py-2 text-sm font-medium text-foreground/85">
               {a}
             </span>
           ))}
@@ -194,7 +192,7 @@ export function TrustStrip() {
   return (
     <section id="trust" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-14 sm:px-5 sm:py-20">
       <div className="mx-auto max-w-3xl">
-        <Reveal className="rounded-[20px] bg-card p-7 sm:p-9">
+        <Reveal className="rounded-xl bg-card p-7 sm:p-9">
           <TestimonialSlot />
         </Reveal>
       </div>

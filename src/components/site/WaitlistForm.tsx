@@ -161,7 +161,7 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
 
 
   const fieldClass = cn(
-    "h-14 rounded-2xl border-border bg-card px-5 text-base shadow-soft placeholder:text-muted-foreground/70 focus-visible:ring-2 focus-visible:ring-ring",
+    "h-14 rounded-2xl border-border bg-card px-5 text-base placeholder:text-muted-foreground/70 focus-visible:ring-2 focus-visible:ring-ring",
     compact && "h-13",
   );
 
@@ -232,17 +232,17 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
           size="lg"
           disabled={state === "loading"}
           className={cn(
-            "btn-sheen h-14 rounded-2xl px-7 text-base font-semibold",
+            "h-14 rounded-2xl px-7 text-base font-semibold",
             onPrimary
-              ? "btn-glow-light bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-              : "btn-glow bg-foreground text-background hover:bg-foreground/90",
+              ? "bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+              : "bg-foreground text-background hover:bg-foreground/90",
           )}
         >
 
           {state === "loading" ? (
             <Loader2 className="size-5 animate-spin" />
           ) : (
-            "Join the waitlist"
+            "Join the Waitlist"
           )}
         </Button>
       </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Bell, Check, Sparkles } from "lucide-react";
+import { Bell, Check, } from "lucide-react";
 
 import {
   Dialog,
@@ -66,10 +66,6 @@ export function BoardSignupDialog({ open, onOpenChange, reason }: DialogProps) {
             <Bell className="mt-0.5 size-4 shrink-0 text-foreground/70" />
             An email when the feature you voted for ships
           </li>
-          <li className="flex gap-2">
-            <Sparkles className="mt-0.5 size-4 shrink-0 text-foreground/70" />
-            First 7 days free at launch
-          </li>
         </ul>
 
         <WaitlistForm compact />
@@ -91,15 +87,11 @@ export function BoardSignupCard({ className }: { className?: string }) {
   return (
     <section
       className={cn(
-        "rounded-[20px] bg-card p-6 sm:p-7",
+        "rounded-xl bg-card p-6 sm:p-7",
         className,
       )}
     >
-      <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-primary">
-        <Sparkles className="size-3.5" strokeWidth={1.75} />
-        First 7 days free at launch
-      </span>
-      <h2 className="mt-3 text-xl font-semibold tracking-tight sm:text-2xl">
+      <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
         Voting is anonymous. Leave your email so we can tell you when it ships.
       </h2>
       <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">

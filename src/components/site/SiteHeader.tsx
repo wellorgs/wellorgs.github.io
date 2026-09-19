@@ -67,7 +67,7 @@ export function SiteHeader() {
   );
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-border/60 bg-background">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-5">
         <Link
           to="/"
@@ -115,7 +115,7 @@ export function SiteHeader() {
         <div className="flex shrink-0 items-center gap-1.5 text-[13px] sm:text-sm">
           <Link
             to="/features"
-            className="whitespace-nowrap rounded-full px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:hidden"
+            className="hidden whitespace-nowrap rounded-full px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:inline-flex lg:hidden"
             activeProps={{ className: "text-foreground bg-muted" }}
           >
             Board
@@ -123,10 +123,9 @@ export function SiteHeader() {
           <a
             href={onLanding ? "#waitlist" : "/#waitlist"}
             onClick={onLanding ? go("waitlist") : undefined}
-            className="btn-glow whitespace-nowrap rounded-full bg-foreground px-3.5 py-2 font-medium text-background sm:px-4"
+            className="whitespace-nowrap rounded-full bg-foreground px-3.5 py-2 font-medium text-background sm:px-4"
           >
-            <span className="sm:hidden">Join</span>
-            <span className="hidden sm:inline">Get early access</span>
+            Join the Waitlist
           </a>
 
           {/* Hamburger — mobile / tablet */}
@@ -136,7 +135,7 @@ export function SiteHeader() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="site-menu"
-            className="flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-soft transition-colors hover:bg-muted lg:hidden"
+            className="flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-muted lg:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -151,11 +150,11 @@ export function SiteHeader() {
             aria-hidden
             tabIndex={-1}
             onClick={() => setOpen(false)}
-            className="fixed inset-0 top-16 z-30 cursor-default bg-foreground/20 backdrop-blur-[2px] lg:hidden"
+            className="fixed inset-0 top-16 z-30 cursor-default bg-foreground/20 lg:hidden"
           />
           <div
             id="site-menu"
-            className="seq-in absolute inset-x-0 top-16 z-40 border-b border-border/60 bg-background px-4 pb-5 pt-3 shadow-lift lg:hidden"
+            className="seq-in absolute inset-x-0 top-16 z-40 border-b border-border/60 bg-background px-4 pb-5 pt-3 lg:hidden"
           >
             <p className="px-2 pb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Explore
@@ -190,7 +189,7 @@ export function SiteHeader() {
               onClick={onLanding ? go("waitlist") : () => setOpen(false)}
               className="mt-3 flex h-12 items-center justify-center rounded-2xl bg-foreground text-[15px] font-semibold text-background"
             >
-              Join the waitlist
+              Join the Waitlist
             </a>
           </div>
         </>
