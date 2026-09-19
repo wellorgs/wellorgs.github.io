@@ -246,7 +246,7 @@ function CompanionDemoImpl() {
 
       <p className="text-[11px] text-muted-foreground">
         Keyboard: press <kbd className="font-medium">M</kbd> for mic,{" "}
-        <kbd className="font-medium">1–3</kbd> to send a message,{" "}
+        <kbd className="font-medium">1-3</kbd> to send a message,{" "}
         <kbd className="font-medium">R</kbd> to reset.
       </p>
     </div>

@@ -123,8 +123,54 @@ export function TrustSection() {
         ))}
       </div>
 
-      {/* Emergency response flow */}
-      <Reveal className="mt-6 rounded-4xl bg-tint-neutral p-6 shadow-soft sm:p-10">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        {[
+          { title: "Recording retention", body: practices[3] },
+          { title: "Deletion", body: practices[5] },
+          // PRIVACY PENDING - "call audio and AI training" wording awaits product-team confirmation
+          { title: "AI training", body: "" },
+          // PRIVACY PENDING - third-party processors list awaits product-team confirmation
+          { title: "Third-party processors", body: "" },
+        ].map((p, i) => (
+          <Reveal key={p.title} delay={i * 70} className="rounded-4xl bg-card p-6 shadow-soft sm:p-7">
+            <p className="text-[17px] font-bold">{p.title}</p>
+            {p.body && <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{p.body}</p>}
+          </Reveal>
+        ))}
+      </div>
+
+      {/* Security and data handling summary */}
+      <Reveal className="mt-6 grid gap-8 rounded-4xl bg-card p-6 shadow-soft sm:p-10 lg:grid-cols-[1fr_1.1fr]">
+        <div>
+          <span className="flex size-11 items-center justify-center rounded-2xl bg-tint-blue">
+            <ShieldCheck className="size-5 text-foreground/80" strokeWidth={1.9} />
+          </span>
+          <h3 className="mt-5 text-[24px] font-bold leading-tight sm:text-[30px]">
+            Security and data handling, in plain words
+          </h3>
+          <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
+            This is what we do today, written by the Assisty AI team. We are not claiming
+            any certification or audit we have not completed, and we will update this page
+            as that changes.
+          </p>
+        </div>
+        <ul className="space-y-3">
+          {practices.map((p) => (
+            <li key={p} className="flex items-start gap-3 rounded-2xl bg-muted/50 px-4 py-3 text-[15px]">
+              <ShieldCheck className="mt-0.5 size-4 shrink-0 text-primary" strokeWidth={2.4} />
+              <span className="text-foreground/80">{p}</span>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
+    </section>
+  );
+}
+
+export function HowItWorks() {
+  return (
+    <section id="how" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-6 sm:px-5 sm:py-10">
+      <Reveal className="rounded-4xl bg-tint-neutral p-6 shadow-soft sm:p-10">
         <div className="max-w-2xl">
           <span className="inline-flex items-center gap-2 rounded-full bg-card px-3 py-1.5 text-sm font-medium text-muted-foreground shadow-soft">
             <PhoneCall className="size-4 shrink-0 text-foreground/80" strokeWidth={2} />
@@ -168,30 +214,6 @@ export function TrustSection() {
       </Reveal>
 
 
-      {/* Security and data handling summary */}
-      <Reveal className="mt-6 grid gap-8 rounded-4xl bg-card p-6 shadow-soft sm:p-10 lg:grid-cols-[1fr_1.1fr]">
-        <div>
-          <span className="flex size-11 items-center justify-center rounded-2xl bg-tint-blue">
-            <ShieldCheck className="size-5 text-foreground/80" strokeWidth={1.9} />
-          </span>
-          <h3 className="mt-5 text-[24px] font-bold leading-tight sm:text-[30px]">
-            Security and data handling, in plain words
-          </h3>
-          <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
-            This is what we do today, written by the Assisty AI team. We are not claiming
-            any certification or audit we have not completed, and we will update this page
-            as that changes.
-          </p>
-        </div>
-        <ul className="space-y-3">
-          {practices.map((p) => (
-            <li key={p} className="flex items-start gap-3 rounded-2xl bg-muted/50 px-4 py-3 text-[15px]">
-              <ShieldCheck className="mt-0.5 size-4 shrink-0 text-primary" strokeWidth={2.4} />
-              <span className="text-foreground/80">{p}</span>
-            </li>
-          ))}
-        </ul>
-      </Reveal>
     </section>
   );
 }

@@ -624,3 +624,25 @@
   15%, 85% { opacity: 1; max-height: 30px; }
   100% { opacity: 0; max-height: 0; }
 }
+
+/* Real-call waveform playhead + escalation ring */
+@keyframes wave-live {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.45); }
+}
+
+@keyframes ring-out {
+  0% { transform: scale(0.85); opacity: 0.55; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+
+@keyframes ring-shake {
+  0%, 100% { transform: rotate(0); }
+  10%, 30%, 50% { transform: rotate(-14deg); }
+  20%, 40%, 60% { transform: rotate(14deg); }
+  70% { transform: rotate(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-live, .ring-out, .ring-shake { animation: none !important; }
+}

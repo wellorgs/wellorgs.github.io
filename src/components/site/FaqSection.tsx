@@ -6,86 +6,69 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { LANGUAGE_COUNT } from "@/siteFacts";
 
 export const faqs = [
   {
-    question: "Why is it called myFamily365?",
+    question: "What is Assisty?",
     answer:
-      "Because worry doesn't take days off. myFamily365 is built to keep you sure about your parents all 365 days. An SOS that keeps calling until someone answers on the worst night, and one calm line every other morning telling you they are okay.",
+      "Assisty AI picks up when you cannot, talks to the caller like a real person, and gives you a calm summary in the app the moment the call ends.",
   },
   {
-    question: "When will myFamily365 launch?",
+    question: "How does it answer my calls?",
     answer:
-      "We are opening early access in batches to the first 100 families on the waitlist. Joining now locks in your founding price and puts you at the front of the line.",
+      "It greets the caller naturally, asks who they are and why they are calling, and handles the conversation like a person would, not a robotic menu.",
   },
   {
-    question: "Is the free plan really free forever?",
+    question: "Do I need a new number?",
+    // FAQ PENDING - confirm iOS vs Android forwarding steps with the product team before shipping
     answer:
-      "Yes. The Free plan covers one parent and one family contact, with medicine reminders, the daily “they’re okay” ping and a one-contact SOS. No expiry, no hidden charges.",
+      "No, you keep your existing number, so you don't need to give it out again. Behind the scenes, you get a dedicated Assisty number: turn on conditional call forwarding (for when you're busy or don't answer) to that number, and Assisty takes it from there. Setup steps vary slightly by phone and carrier, and the app walks you through it.",
   },
   {
-    question: "What does “founding member pricing” mean?",
+    question: "What does the caller hear?",
     answer:
-      "Founding members who join the waitlist keep Premium at ₹199/month for life instead of ₹299/month. The discount stays as long as your account is active, and Global Care members lock their rate the same way.",
+      "No menus to press through, just a real conversation, in whatever language they are comfortable in.",
   },
   {
-    question: "I live in a different country from my parents. What do I get?",
-    answer:
-      "The Global Care plan (about $18 / ₹1,499 a month) is built exactly for that, whether your parent is in India, the Philippines, Nigeria, Poland or the next country over. In an emergency, you reach out to your dedicated care manager and they call your parent, then the listed neighbour or caregiver, then the local ambulance or police if needed. Alerts arrive in your timezone, the app works in 20+ languages, and if you need something custom, such as several parents or siblings in different countries, tell us on the waitlist form.",
+    question: "Which languages are supported?",
+    answer: `${LANGUAGE_COUNT} languages, including regional ones. Assisty AI detects the caller's language mid-call and replies in it, without being asked.`,
   },
   {
-    question: "Does this only work for Indian parents?",
+    question: "Are calls recorded?",
     answer:
-      "No. myFamily365 works anywhere your parent has a phone and a data connection. India is where we started and where our pricing is set in rupees, but the medicine reminders, fall detection, daily ping and SOS chain run the same way for a parent in Manila, Lagos, Warsaw, Lisbon or Nairobi. You pay in your own currency and see prices converted for your country.",
+      "Yes. Call recording is attached to every summary so you can hear it yourself. Escalation call recordings are kept for the incident record, removable on request.",
   },
   {
-    question: "Where are the people who actually respond?",
+    question: "Where are summaries and recordings stored?",
     answer:
-      "On Free and Premium, the first responders are the people closest to your parent: the family circle, then the neighbour or caregiver your parent lists in the app. On Global Care, you reach out to a dedicated care manager in your parent's country and timezone. They call your parent, then the neighbour or caregiver, then the local ambulance or police if nobody answers. Our support team covers the rest of the clock, so there is a person awake whenever the alert goes out.",
+      "Call recordings, summaries and contact details are sent over encrypted connections and stored encrypted at rest.",
   },
   {
-    question: "What if you do not have a care manager in my parent's city yet?",
-    answer:
-      "We tell you before you pay. During onboarding we ask where your parent lives, and if we do not have a care manager in that area yet, we say so and set up the escalation around the neighbour or caregiver you nominate instead, at a reduced rate. We are adding new cities as families join, and waitlist signups decide the order.",
+    question: "Can I listen to the actual call?",
+    answer: "Yes. The call recording is attached, so you can hear the actual tone in seconds.",
   },
   {
-    question: "Which languages does the app support?",
+    question: "How does escalation work?",
     answer:
-      "More than 20 languages and dialects. Your parent sees the app, reminders and voice prompts in the language they are comfortable with, while you use it in yours on your own phone. The AI companion talks and listens in the same set of languages, so your parent can speak naturally instead of tapping through menus.",
+      "Assisty AI judges whether it's a genuine emergency, not just a caller who says it's urgent. Once confirmed, the caller stays on hold while Assisty AI calls you directly, immediately, to relay what's happening.",
   },
   {
-    question: "How does escalation work across timezones?",
+    question: "Can I choose priority contacts?",
     answer:
-      "Every alert is timestamped in both places. The chain starts immediately in your parent's timezone and does not wait for your morning. You still get the call and the notification wherever you are, but if you are asleep the chain simply moves on to the next person rather than stalling. Daily pings are the opposite: you choose the hour you want them in your own timezone.",
+      "Yes. If the contact you're reaching doesn't answer and is marked priority, Assisty AI automatically tries again once.",
   },
   {
-    question: "Does the SOS work when my parent travels or moves country?",
+    question: "Can I turn Assisty off?",
     answer:
-      "Yes. Location, emergency numbers and the local escalation contacts update to wherever the phone is. If your parent visits you abroad for three months, the app follows them, and calls the emergency service of the country they are actually in.",
+      "Add or remove numbers, priority contacts and team members whenever you want, and turn features on or off per number.",
   },
   {
-    question: "Can I pay from abroad and have my parent use it at home?",
+    question: "How is my data protected?",
     answer:
-      "That is the normal setup. You pay in USD, AED, GBP, EUR, CAD, AUD or SGD from your own card, and your parent uses the app for free on their phone with nothing to set up on their side beyond the invite. Billing, receipts and support all come to you.",
-  },
-
-  {
-    question: "What actually happens when the SOS is pressed?",
-    answer:
-      "On Free and Premium, the alert goes to your family circle with live location and emergency audio recording. On Global Care, you reach out to your dedicated care manager and they call your parent, then the listed neighbour or caregiver, then the ambulance or police in your parent's area if nobody answers. You see who answered, not just who was notified.",
-  },
-  {
-    question: "Will my parent's data stay private?",
-    answer:
-      "Absolutely. Health, reports and location data are encrypted, shared only inside your invited family circle, and never sold. You control who sees what.",
-  },
-  {
-    question: "Can I suggest a feature?",
-    answer:
-      "Yes, our roadmap is public. Post ideas, upvote what others need, and track features as they move from Exploring to Shipped on the live feature board.",
+      "Encrypted in transit and at rest, visible only to the people you invite, and never sold, rented or used for ad targeting. Export your data or delete the account whenever you want.",
   },
 ];
-
 
 export function FaqSection() {
   return (
@@ -121,7 +104,6 @@ export function FaqSection() {
           ))}
         </Accordion>
       </div>
-
     </section>
   );
 }

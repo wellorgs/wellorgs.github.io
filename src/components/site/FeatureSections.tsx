@@ -1,14 +1,13 @@
 import type { LucideIcon } from "lucide-react";
 import CompanionDemo from "@/components/site/CompanionDemo";
 import { AnimateInView } from "@/components/site/AnimateInView";
+import { LANGUAGE_COUNT } from "@/siteFacts";
 
 import {
   Check,
   Languages,
   MessageSquareText,
   PhoneCall,
-  ShieldAlert,
-  Star,
   Volume2,
 } from "lucide-react";
 
@@ -115,72 +114,7 @@ function SummaryVisual() {
   );
 }
 
-function SosVisual() {
-  return (
-    <Panel className="space-y-4">
-      <div className="flex items-center gap-3">
-        <span className="flex size-11 items-center justify-center rounded-2xl bg-tint-red">
-          <ShieldAlert className="size-5 text-foreground/80" strokeWidth={1.9} />
-        </span>
-        <div>
-          <p className="text-[15px] font-semibold">Confirmed emergency</p>
-          <p className="text-sm text-muted-foreground">Caller on hold, you're being called now</p>
-        </div>
-      </div>
-      <div className="space-y-2 text-left">
-        {[
-          ["Just now", "Calling you now"],
-          ["No answer", "Priority contact tried next"],
-          ["Still no answer", "Priority alert sent instantly"],
-        ].map(([n, s]) => (
-          <div
-            key={n}
-            className="flex items-center justify-between rounded-2xl bg-tint-red px-4 py-3 text-sm"
-          >
-            <span className="font-medium">{n}</span>
-            <span className="text-muted-foreground">{s}</span>
-          </div>
-        ))}
-      </div>
-      <p className="text-sm text-muted-foreground">
-        One escalation call per issue. Pushing again sends an alert, not a second call.
-      </p>
-    </Panel>
-  );
-}
-
-function VipVisual() {
-  return (
-    <Panel className="space-y-4">
-      <div className="flex items-center gap-3">
-        <span className="flex size-11 items-center justify-center rounded-2xl bg-tint-amber">
-          <Star className="size-5 text-foreground/80" strokeWidth={1.9} />
-        </span>
-        <div>
-          <p className="text-[15px] font-semibold">Priority contacts</p>
-          <p className="text-sm text-muted-foreground">Get an automatic second try</p>
-        </div>
-      </div>
-      <ol className="space-y-3">
-        {[
-          ["Just now", "Priority contact called, no answer", "bg-tint-amber"],
-          ["+15 sec", "Automatic retry placed", "bg-tint-blue"],
-          ["+40 sec", "Still unanswered, priority alert sent", "bg-tint-neutral"],
-        ].map(([time, text, tint]) => (
-          <li key={text as string} className="flex gap-3">
-            <span className={`mt-1 size-2.5 shrink-0 rounded-full ${tint}`} />
-            <div>
-              <p className="text-[15px] leading-snug">{text}</p>
-              <p className="text-xs text-muted-foreground">{time}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-    </Panel>
-  );
-}
-
-function MuffledVisual() {
+function RecordingVisual() {
   return (
     <Panel className="space-y-4">
       <div className="flex items-center gap-3">
@@ -188,22 +122,16 @@ function MuffledVisual() {
           <Volume2 className="size-5 text-foreground/80" strokeWidth={1.9} />
         </span>
         <div>
-          <p className="text-[15px] font-semibold">Bad line, not a bad call</p>
-          <p className="text-sm text-muted-foreground">Asks again instead of guessing</p>
+          <p className="text-[15px] font-semibold">Call recording</p>
         </div>
       </div>
-      <div className="flex h-10 items-end gap-[3px]">
-        {[2, 4, 2, 6, 3, 2, 5, 2, 3, 6, 2, 4, 2, 5, 3, 2].map((h, i) => (
-          <span key={i} className="w-[3px] rounded-full bg-foreground/25" style={{ height: `${h * 5}px` }} />
+      <div className="flex h-14 items-end gap-[3px]">
+        {[3, 6, 4, 9, 5, 7, 3, 8, 4, 10, 6, 3, 7, 5, 9, 4, 6, 3, 8, 5].map((h, i) => (
+          <span key={i} className="w-[3px] rounded-full bg-primary/60" style={{ height: `${h * 5}px` }} />
         ))}
       </div>
-      <div className="space-y-2.5">
-        <div className="w-fit max-w-[90%] rounded-2xl rounded-tr-sm bg-tint-neutral px-3.5 py-2 text-[13px] text-muted-foreground">
-          "I need to- -reach them ab-- the—"
-        </div>
-        <div className="w-fit max-w-[90%] rounded-2xl rounded-tl-sm bg-tint-amber px-3.5 py-2 text-[13px]">
-          "Sorry, that broke up. Could you say that again, a bit slower?"
-        </div>
+      <div className="flex items-center justify-between rounded-2xl bg-tint-amber px-4 py-3 text-sm">
+        <span className="font-medium">Call recording · 1:42</span>
       </div>
     </Panel>
   );
@@ -241,7 +169,7 @@ const sections: Section[] = [
       "Replies naturally in Hindi, English, and regional languages",
       "No menu to select a language, it just adapts",
     ],
-    proof: { value: "10+", label: "Indian languages supported" },
+    proof: { value: LANGUAGE_COUNT, label: "languages, incl. regional" },
     visual: <LanguageVisual />,
   },
   {
@@ -261,52 +189,20 @@ const sections: Section[] = [
     visual: <SummaryVisual />,
   },
   {
-    id: "sos",
-    eyebrow: "Emergency escalation",
-    icon: ShieldAlert,
-    tint: "bg-tint-red",
-    title: "When it's real,",
-    emphasis: "you hear about it live.",
-    body: "Assisty AI judges whether a call is a genuine emergency, not just someone saying it is urgent. If it is, the caller is put on hold and Assisty AI calls you directly, right then, to relay it live.",
-    points: [
-      "Only a confirmed emergency triggers a live call to you",
-      "The caller is put on hold while you are reached",
-      "One escalation call per issue, a repeat push sends an alert instead of ringing again",
-    ],
-    proof: { value: "Live call", label: "not a text, for a genuine emergency" },
-    visual: <SosVisual />,
-  },
-  {
-    id: "vip",
-    eyebrow: "Priority contacts",
-    icon: Star,
-    tint: "bg-tint-amber",
-    title: "Mark someone priority,",
-    emphasis: "and they get tried twice.",
-    body: "Every escalation gets one call, by design. Contacts you mark as priority are the exception: miss their call and Assisty AI automatically tries you again once before it sends an alert instead of leaving them on hold.",
-    points: [
-      "One extra, automatic attempt for the contacts you choose",
-      "Immediate alert if you still do not answer the second call",
-      "The caller is told you have been notified, so they are not left guessing",
-    ],
-    proof: { value: "2 tries", label: "for priority contacts, before an alert" },
-    visual: <VipVisual />,
-  },
-  {
-    id: "audio",
-    eyebrow: "Audio handling",
+    id: "recording",
+    eyebrow: "Call recordings",
     icon: Volume2,
     tint: "bg-tint-amber",
-    title: "Bad signal, muffled call.",
-    emphasis: "Still handled properly.",
-    body: "On a noisy street or a weak signal, Assisty AI does not guess at what it half-heard. It asks the caller to repeat or move somewhere clearer, the same way a good receptionist would.",
+    title: "You hear the actual recording,",
+    emphasis: "not just a transcript.",
+    body: "Call recording attached, so you can hear the actual tone in seconds.",
     points: [
-      "Recognizes when audio is too muffled or broken up to trust",
-      "Asks the caller to repeat, instead of inventing details",
-      "Tells you when a call was hard to hear, in the summary",
+      "Call recording attached, so you can hear it yourself",
+      "Ready the second the call ends, nothing to check manually",
+      "Recorded so you can review exactly what was said",
     ],
-    proof: { value: "Always asks again", label: "instead of guessing on a bad line" },
-    visual: <MuffledVisual />,
+    proof: { value: "Audio", label: "attached to every summary" },
+    visual: <RecordingVisual />,
   },
 ];
 
@@ -319,7 +215,7 @@ export function FeatureSections() {
           <span className="text-muted-foreground"> Nothing it doesn't.</span>
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-          Six things Assisty AI handles on every call, built to feel like a real
+          Four things Assisty AI handles on every call, built to feel like a real
           person picked up, not an app.
         </p>
       </div>

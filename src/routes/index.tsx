@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, MessageCircleHeart, Sparkles } from "lucide-react";
 
-import { AppScreens } from "@/components/site/AppScreens";
 import { HandMockup } from "@/components/site/HandMockup";
 
 import { FaqSection, faqs } from "@/components/site/FaqSection";
@@ -11,7 +10,10 @@ import { Pricing } from "@/components/site/Pricing";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Reveal } from "@/components/site/Reveal";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { TrustSection } from "@/components/site/TrustSection";
+import { HowItWorks, TrustSection } from "@/components/site/TrustSection";
+import { RealCalls } from "@/components/site/RealCalls";
+import { EscalationSpotlight, LanguagesSection, ProblemSection, Testimonials } from "@/components/site/NewSections";
+import { LANGUAGE_COUNT } from "@/siteFacts";
 import { WaitlistForm } from "@/components/site/WaitlistForm";
 
 
@@ -53,9 +55,9 @@ export const Route = createFileRoute("/")({
 
 
 const stats = [
-  { value: "1,400+", label: "people on the waitlist" },
-  { value: "10+", label: "Indian languages supported" },
-  { value: "< 2 min", label: "average emergency response" },
+  { value: "1,400+", label: "on the waitlist" },
+  { value: LANGUAGE_COUNT, label: "languages, incl. regional" },
+  { value: "< 2 min", label: "to a full summary" },
 ];
 
 const verticals = [
@@ -94,19 +96,21 @@ function Landing() {
               Early access opening soon
             </span>
             <h1 className="animate-rise mx-auto mt-6 max-w-4xl text-[34px] font-bold leading-[1.08] sm:text-5xl lg:text-6xl">
-              Never miss a call that matters.
-              <br />
-              <span className="text-primary">Let Assisty AI answer.</span>
+              Every call answered.{" "}
+              <span className="text-primary">Only the ones that matter reach you, by phone.</span>
             </h1>
             <p className="animate-rise mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Assisty AI picks up when you cannot, talks to the caller like a real person,
-              and gives you a calm summary in the app the moment the call ends. Something
-              genuinely urgent, and it calls you directly, within minutes.
+              Assisty answers your incoming calls when you're busy, understands why they're calling,
+              and if it's real, it calls you back.
             </p>
 
 
             <div id="waitlist" className="animate-rise mx-auto mt-8 max-w-lg scroll-mt-24">
               <WaitlistForm />
+              <p className="mx-auto mt-4 inline-flex flex-wrap items-center justify-center gap-x-2 rounded-full bg-card px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground shadow-soft sm:text-xs">
+                Routine → Handled · Important → Summarized · Escalated → Escalated
+              </p>
+              <br />
               <p className="shine-pill mx-auto mt-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold tracking-tight text-foreground sm:text-sm">
                 <Sparkles className="animate-spark size-4 text-primary" strokeWidth={2} />
                 First 7 days free at launch
@@ -141,13 +145,16 @@ function Landing() {
           </div>
         </section>
 
-        {/* Real app screens */}
-        <AppScreens />
+        <ProblemSection />
 
+        <RealCalls />
+
+        <HowItWorks />
+
+        <EscalationSpotlight />
 
         {/* Features */}
         <FeatureSections />
-
 
         {/* Who it's for */}
         <section id="who" className="cv-auto mx-auto max-w-6xl scroll-mt-24 px-4 pb-16 sm:px-5">
@@ -171,38 +178,9 @@ function Landing() {
           </div>
         </section>
 
-        {/* Two sides */}
-        <section className="cv-auto mx-auto max-w-6xl px-4 pb-16 sm:px-5">
-          <div className="grid gap-4 md:grid-cols-2">
-            <Reveal className="rounded-4xl bg-tint-green p-7 shadow-soft sm:p-10">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                For your callers
-              </p>
-              <h2 className="mt-4 text-2xl font-semibold leading-[1.15] tracking-[-0.03em] sm:text-[28px]">
-                Feels like a real person answered.
-              </h2>
-              <ul className="mt-6 space-y-3.5 text-[15px] leading-relaxed text-foreground/75">
-                <li>No menus to press through, just a real conversation</li>
-                <li>Talks in whatever language they are comfortable in</li>
-                <li>Their message reaches you, worded the way they said it</li>
-              </ul>
-            </Reveal>
-            <Reveal delay={110} className="rounded-4xl bg-tint-blue p-7 shadow-soft sm:p-10">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                For you
-              </p>
-              <h2 className="mt-4 text-2xl font-semibold leading-[1.15] tracking-[-0.03em] sm:text-[28px]">
-                A dashboard that stays quiet.
-              </h2>
-              <ul className="mt-6 space-y-3.5 text-[15px] leading-relaxed text-foreground/75">
-                <li>One summary per call, not a pile of missed-call alerts</li>
-                <li>Only interrupted for a confirmed, genuine emergency</li>
-                <li>Full call history and transcripts whenever you want to check</li>
-              </ul>
-            </Reveal>
-          </div>
-        </section>
+        <LanguagesSection />
 
+        <Testimonials />
 
         {/* Pricing */}
         <Pricing />
@@ -245,14 +223,17 @@ function Landing() {
         <section className="mx-auto max-w-6xl px-4 pb-8 sm:px-5">
           <div className="rounded-4xl bg-primary px-5 py-11 text-center shadow-lift sm:px-8 sm:py-16">
             <h2 className="mx-auto max-w-2xl text-[30px] font-semibold leading-[1.1] tracking-[-0.035em] text-primary-foreground sm:text-[44px]">
-              Let Assisty AI take the next call.
+              You can't answer every call. You shouldn't have to.
             </h2>
             <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-primary-foreground/80 sm:text-base">
-              Join 1,400+ people getting early access first.
+              Assisty handles your incoming calls when you're busy, gives you the context you need, and calls you when it's real.
             </p>
 
             <div className="mx-auto mt-7 max-w-lg">
               <WaitlistForm onPrimary />
+              <p className="mt-5 text-sm font-medium text-primary-foreground/90">
+                Every call handled. Only what matters reaches you.
+              </p>
 
             </div>
           </div>

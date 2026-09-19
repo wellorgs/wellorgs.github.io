@@ -78,7 +78,7 @@ type SortKey = "most-requested" | "newest" | "az";
 const sorts: Array<{ key: SortKey; label: string }> = [
   { key: "most-requested", label: "Most requested" },
   { key: "newest", label: "Newest" },
-  { key: "az", label: "A–Z" },
+  { key: "az", label: "A-Z" },
 ];
 
 const statusStyles: Record<FeatureStatus, string> = {
