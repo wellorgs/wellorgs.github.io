@@ -117,12 +117,13 @@ export async function isLockedOut(
  */
 export async function appendToSheet(row: { name: string; email: string; phone: string; plan: string; flagged: boolean }) {
   const url = process.env["WAITLIST_SHEETS_URL"];
-  if (!url) return;
+  const token = process.env["WAITLIST_SHEETS_TOKEN"];
+  if (!url || !token) return;
   try {
     await fetch(url, {
       method: "POST",
       headers: { "content-type": "text/plain" },
-      body: JSON.stringify({ at: new Date().toISOString(), ...row }),
+      body: JSON.stringify({ token, at: new Date().toISOString(), ...row }),
       signal: AbortSignal.timeout(4000),
     });
   } catch (error) {
