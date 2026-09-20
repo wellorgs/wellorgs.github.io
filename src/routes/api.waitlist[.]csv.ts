@@ -9,7 +9,9 @@ export const Route = createFileRoute("/api/waitlist.csv")({
       GET: async ({ request }) => {
         const notFound = () => new Response("Not found", { status: 404, headers: { "cache-control": "no-store" } });
         const expected = process.env["WAITLIST_SHEET_KEY"];
-        if (!expected || expected.length < 16) return notFound();
+        const plain = (text: string, status: number) => new Response(text, { status, headers: { "cache-control": "no-store" } });
+        if (!expected) return plain("Feed not configured: WAITLIST_SHEET_KEY is missing.", 503);
+        if (expected.length < 16) return plain("Feed not configured: WAITLIST_SHEET_KEY must be at least 16 characters.", 503);
 
         const { createHash, timingSafeEqual } = await import("node:crypto");
         const { clientIpFrom, hashIp, isLockedOut, waitlistCsv } = await import("../lib/waitlist.server");

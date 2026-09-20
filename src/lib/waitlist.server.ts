@@ -109,3 +109,24 @@ export async function isLockedOut(
     .gte("created_at", since);
   return (count ?? 0) >= 5;
 }
+
+/**
+ * Append a new signup to the Google Sheet via its Apps Script web app (see supabase/../docs in README).
+ * Never throws and never delays a signup for long: a Sheets failure must not lose or block the waitlist entry
+ * (the row is already safe in Supabase).
+ */
+export async function appendToSheet(row: { name: string; email: string; phone: string; plan: string; flagged: boolean }) {
+  const url = process.env["WAITLIST_SHEETS_URL"];
+  const token = process.env["WAITLIST_SHEETS_TOKEN"];
+  if (!url || !token) return;
+  try {
+    await fetch(url, {
+      method: "POST",
+      headers: { "content-type": "text/plain" },
+      body: JSON.stringify({ token, at: new Date().toISOString(), ...row }),
+      signal: AbortSignal.timeout(4000),
+    });
+  } catch (error) {
+    console.error("[waitlist] sheet append failed", error);
+  }
+}

@@ -115,6 +115,11 @@ export const joinWaitlist = createServerFn({ method: "POST" })
       throw new Error("Could not save your email. Please try again.");
     }
 
+    if (!error) {
+      const { appendToSheet } = await import("./waitlist.server");
+      await appendToSheet({ name, email: data.email, phone, plan: data.plan, flagged });
+    }
+
     return { email: data.email, alreadyJoined: Boolean(error) };
   });
 
