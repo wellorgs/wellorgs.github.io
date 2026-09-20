@@ -15,6 +15,7 @@ import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AdminExportRouteImport } from './routes/admin.export'
+import { Route as ApiWaitlistDotcsvRouteImport } from './routes/api.waitlist[.]csv'
 import { Route as FeaturesSlugRouteImport } from './routes/features_.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -47,6 +48,11 @@ const AdminExportRoute = AdminExportRouteImport.update({
   path: '/admin/export',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiWaitlistDotcsvRoute = ApiWaitlistDotcsvRouteImport.update({
+  id: '/api/waitlist.csv',
+  path: '/api/waitlist.csv',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FeaturesSlugRoute = FeaturesSlugRouteImport.update({
   id: '/features_/$slug',
   path: '/features/$slug',
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/export': typeof AdminExportRoute
+  '/api/waitlist.csv': typeof ApiWaitlistDotcsvRoute
   '/features/$slug': typeof FeaturesSlugRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/export': typeof AdminExportRoute
+  '/api/waitlist.csv': typeof ApiWaitlistDotcsvRoute
   '/features/$slug': typeof FeaturesSlugRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/export': typeof AdminExportRoute
+  '/api/waitlist.csv': typeof ApiWaitlistDotcsvRoute
   '/features_/$slug': typeof FeaturesSlugRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/admin/export'
+    | '/api/waitlist.csv'
     | '/features/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/admin/export'
+    | '/api/waitlist.csv'
     | '/features/$slug'
   id:
     | '__root__'
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/admin/export'
+    | '/api/waitlist.csv'
     | '/features_/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -118,6 +130,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AdminExportRoute: typeof AdminExportRoute
+  ApiWaitlistDotcsvRoute: typeof ApiWaitlistDotcsvRoute
   FeaturesSlugRoute: typeof FeaturesSlugRoute
 }
 
@@ -165,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminExportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/waitlist.csv': {
+      id: '/api/waitlist.csv'
+      path: '/api/waitlist.csv'
+      fullPath: '/api/waitlist.csv'
+      preLoaderRoute: typeof ApiWaitlistDotcsvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/features_/$slug': {
       id: '/features_/$slug'
       path: '/features/$slug'
@@ -182,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   AdminExportRoute: AdminExportRoute,
+  ApiWaitlistDotcsvRoute: ApiWaitlistDotcsvRoute,
   FeaturesSlugRoute: FeaturesSlugRoute,
 }
 export const routeTree = rootRouteImport

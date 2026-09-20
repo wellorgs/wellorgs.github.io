@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { checkEmailDomain } from "@/lib/email-domains";
+import { cleanName, cleanPhone } from "@/lib/waitlist-validation";
 import { checkWaitlist, joinWaitlist } from "@/lib/waitlist.functions";
 import { clearPlanIntent, getPlanIntent, onPlanIntentChange } from "@/lib/plan-intent";
 
@@ -60,9 +61,14 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (name.trim().length < 2) {
-      setError("Please enter your name");
-      toast.error("Please enter your name");
+    if (!cleanName(name)) {
+      setError("Please enter your real name (letters only)");
+      toast.error("Please enter your real name");
+      return;
+    }
+    if (phone.trim() && !cleanPhone(phone)) {
+      setError("Please enter a valid phone number, or leave it blank");
+      toast.error("Please check your phone number");
       return;
     }
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
@@ -121,6 +127,9 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
         toast.error("Please use a permanent email address", {
           description: "Disposable inboxes can't receive your invite.",
         });
+      } else if (message.startsWith("INPUT:")) {
+        setError(message.slice(6));
+        toast.error(message.slice(6));
       } else if (/verified email domain|did you mean/i.test(message)) {
         setError(message);
         toast.error("Use a verified email domain", { description: message });

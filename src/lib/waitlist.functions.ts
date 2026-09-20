@@ -56,6 +56,17 @@ export const joinWaitlist = createServerFn({ method: "POST" })
     }
 
 
+    // 2c. Name and phone must look real.
+    const { cleanName, cleanPhone } = await import("./waitlist-validation");
+    const name = cleanName(data.name);
+    if (!name) throw new Error("INPUT:Please enter your real name (letters only).");
+    let phone = "";
+    if (data.phone) {
+      const p = cleanPhone(data.phone);
+      if (!p) throw new Error("INPUT:Please enter a valid phone number, or leave it blank.");
+      phone = p;
+    }
+
     // 3. Per-IP rate limit.
     const headers = new Headers();
     for (const name of ["cf-connecting-ip", "x-real-ip", "x-forwarded-for"] as const) {
@@ -82,12 +93,18 @@ export const joinWaitlist = createServerFn({ method: "POST" })
       .delete()
       .lt("created_at", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
 
+    // 3b. The email domain must be able to receive mail.
+    const { domainCanReceiveMail } = await import("./waitlist.server");
+    if (!(await domainCanReceiveMail(data.email.split("@")[1] ?? ""))) {
+      throw new Error("INPUT:That email domain cannot receive mail. Please check the address.");
+    }
+
     // 4. Save (unique index handles duplicates).
     const flagged = looksSuspicious(data.email);
     const { error } = await supabaseAdmin.from("waitlist_signups").insert({
       email: data.email,
-      name: data.name,
-      phone: data.phone || null,
+      name,
+      phone: phone || null,
       plan: data.plan || null,
       flagged,
     });
