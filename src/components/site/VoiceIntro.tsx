@@ -17,7 +17,7 @@ export function VoiceIntro() {
   const words = lang.text.split(/\s+/);
 
   // Muted: transcript runs on its own clock and loops. Unmuted: the audio's currentTime drives it,
-  // so the words follow the voice (word times come from the audio's pauses, see voiceIntroData).
+  // so the words follow the voice (word start times in voiceIntroData).
   useEffect(() => {
     const a = audio.current;
     if (!a) return;
@@ -31,7 +31,7 @@ export function VoiceIntro() {
       if (mutedRef.current) {
         if (t > lang.dur + 1.5) t0.current = performance.now();
       } else t = a.currentTime;
-      setShown(lang.ends.filter((e) => e <= t + 0.05).length);
+      setShown(lang.starts.filter((st) => st <= t + 0.03).length);
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -81,13 +81,13 @@ export function VoiceIntro() {
       </div>
 
       {muted && (
-        <div aria-hidden className="pointer-events-none absolute -top-14 right-4 hidden items-end gap-1 sm:flex">
-          <span className="w-40 -rotate-3 text-right text-[22px] leading-[1.05] text-foreground/75" style={{ fontFamily: "Caveat, cursive" }}>
+        <div aria-hidden className="pointer-events-none absolute left-full top-5 ml-2 hidden w-52 items-start gap-2 xl:flex">
+          <svg width="44" height="40" viewBox="0 0 44 40" fill="none" className="mt-1 shrink-0 text-foreground/60">
+            <path d="M42 4 C 26 2, 10 10, 6 28 M1 21 L6 29 L14 24" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span className="mt-3 -rotate-3 text-[22px] leading-[1.05] text-foreground/75" style={{ fontFamily: "Caveat, cursive" }}>
             Turn the sound on, see how Assisty speaks
           </span>
-          <svg width="46" height="50" viewBox="0 0 46 50" fill="none" className="mb-[-14px] text-foreground/60">
-            <path d="M4 4 C 6 28, 20 40, 40 42 M32 36 L40 42 L31 47" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
         </div>
       )}
 

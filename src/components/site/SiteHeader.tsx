@@ -9,7 +9,6 @@ const SECTIONS = [
   // PRICING HIDDEN - restore these two nav links with the section
   // { id: "pricing", label: "Pricing" },
   // { id: "nri", label: "Teams abroad" },
-  { id: "trust", label: "Trust and safety" },
   { id: "faq", label: "FAQ" },
   { id: "board", label: "Feature board" },
 ] as const;

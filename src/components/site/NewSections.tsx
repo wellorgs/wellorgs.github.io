@@ -91,7 +91,12 @@ export function EscalationSpotlight() {
   );
 }
 
-const audiences = ["Doctors", "Lawyers", "Real Estate", "Consultants", "Freelancers", "Personal"];
+// Pyramid: 6, then 8, then 10.
+const audienceRows = [
+  ["Doctors", "Lawyers", "Real Estate", "Consultants", "Freelancers", "Personal"],
+  ["Dentists", "Therapists", "Architects", "Accountants", "Photographers", "Coaches", "Contractors", "Event Planners"],
+  ["Founders", "Sales Teams", "Teachers", "Shop Owners", "Restaurant Owners", "Home Services", "Delivery Partners", "Busy Parents", "Night-shift Workers", "Anyone on the go"],
+];
 
 export function WhoFor() {
   return (
@@ -101,11 +106,15 @@ export function WhoFor() {
           Built for people{" "}
           <span className="text-muted-foreground">who can't always pick up.</span>
         </h2>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
-          {audiences.map((a) => (
-            <span key={a} className="rounded-lg bg-card px-4 py-2 text-sm font-medium text-foreground/85">
-              {a}
-            </span>
+        <div className="mt-8 space-y-2.5">
+          {audienceRows.map((row, i) => (
+            <div key={i} className={`mx-auto flex flex-wrap items-center justify-center gap-2.5 ${["max-w-2xl", "max-w-4xl", "max-w-6xl"][i]}`}>
+              {row.map((a) => (
+                <span key={a} className="rounded-lg bg-card px-4 py-2 text-sm font-medium text-foreground/85">
+                  {a}
+                </span>
+              ))}
+            </div>
           ))}
         </div>
       </Reveal>
