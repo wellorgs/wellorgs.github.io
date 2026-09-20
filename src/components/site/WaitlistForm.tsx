@@ -12,25 +12,40 @@ import { checkWaitlist, joinWaitlist } from "@/lib/waitlist.functions";
 import { clearPlanIntent, getPlanIntent, onPlanIntentChange } from "@/lib/plan-intent";
 
 type Props = { className?: string; compact?: boolean; onPrimary?: boolean };
+type Field = "name" | "phone" | "email";
 
 const STORAGE_KEY = "assistyai.waitlist.email";
 const LAST_TRY_KEY = "assistyai.waitlist.lastTry";
 /** Client-side cooldown between attempts (server enforces the real limit). */
 const COOLDOWN_MS = 15_000;
 
-export function WaitlistForm({ className, compact, onPrimary }: Props) {
+const validateName = (v: string) =>
+  !v.trim() ? "Name is required" : cleanName(v) ? undefined : "Use English letters only (2 to 80 characters)";
+const validatePhone = (v: string) =>
+  v.trim() && !cleanPhone(v) ? "Enter a valid phone number, like +91 98123 45678, or leave it blank" : undefined;
+const validateEmail = (v: string) => {
+  if (!v.trim()) return "Email is required";
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) return "Enter a valid email address, like you@company.com";
+  const d = checkEmailDomain(v);
+  return d.ok ? undefined : d.message;
+};
 
+export function WaitlistForm({ className, compact, onPrimary }: Props) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [state, setState] = useState<"idle" | "loading" | "done">("idle");
   const [company, setCompany] = useState(""); // honeypot
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<Field, string | undefined>>>({});
   const [alreadyJoined, setAlreadyJoined] = useState(false);
   const [plan, setPlan] = useState("");
   const mountedAt = useRef(Date.now());
   const join = useServerFn(joinWaitlist);
   const check = useServerFn(checkWaitlist);
+
+  const setFieldError = (field: Field, message?: string) =>
+    setFieldErrors((prev) => ({ ...prev, [field]: message }));
 
   // Pick up the plan a visitor tapped on the pricing cards.
   useEffect(() => {
@@ -61,28 +76,11 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!cleanName(name)) {
-      setError("Please enter your name in English letters");
-      toast.error("Please enter your real name");
-      return;
-    }
-    if (phone.trim() && !cleanPhone(phone)) {
-      setError("Please enter a valid phone number, or leave it blank");
-      toast.error("Please check your phone number");
-      return;
-    }
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-      setError("Please enter a valid email address");
-      toast.error("Please enter a valid email address");
-      return;
-    }
-    const domainCheck = checkEmailDomain(email);
-    if (!domainCheck.ok) {
-      setError(domainCheck.message);
-      toast.error(
-        domainCheck.reason === "typo" ? "Check your email domain" : "Use a verified email domain",
-        { description: domainCheck.message },
-      );
+    const next = { name: validateName(name), phone: validatePhone(phone), email: validateEmail(email) };
+    setFieldErrors(next);
+    if (next.name || next.phone || next.email) {
+      setError(null);
+      toast.error("Please fix the highlighted fields");
       return;
     }
 
@@ -123,15 +121,16 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
           description: "Please try again in a few minutes.",
         });
       } else if (/permanent email/i.test(message)) {
-        setError("Please use a permanent email address. Disposable inboxes cannot receive your invite.");
+        setFieldError("email", "Please use a permanent email address. Disposable inboxes cannot receive your invite.");
         toast.error("Please use a permanent email address", {
           description: "Disposable inboxes can't receive your invite.",
         });
       } else if (message.startsWith("INPUT:")) {
-        setError(message.slice(6));
-        toast.error(message.slice(6));
+        const text = message.slice(6);
+        setFieldError(/phone/i.test(text) ? "phone" : /name/i.test(text) ? "name" : "email", text);
+        toast.error(text);
       } else if (/verified email domain|did you mean/i.test(message)) {
-        setError(message);
+        setFieldError("email", message);
         toast.error("Use a verified email domain", { description: message });
       } else {
         console.error(err);
@@ -168,14 +167,20 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
     );
   }
 
-
   const fieldClass = cn(
     "h-14 rounded-2xl border-border bg-card px-5 text-base placeholder:text-muted-foreground/70 focus-visible:ring-2 focus-visible:ring-ring",
     compact && "h-13",
   );
+  const invalidClass = onPrimary
+    ? "border-primary-foreground ring-2 ring-primary-foreground"
+    : "border-destructive ring-1 ring-destructive";
+  const errorText = cn(
+    "px-1 text-left text-sm font-medium",
+    onPrimary ? "text-primary-foreground" : "text-destructive",
+  );
 
   return (
-    <form onSubmit={onSubmit} className={cn("flex w-full flex-col gap-2.5", className)}>
+    <form noValidate onSubmit={onSubmit} className={cn("flex w-full flex-col gap-2.5", className)}>
       {/* Honeypot: hidden from people, tempting to bots */}
       <input
         type="text"
@@ -201,41 +206,79 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
           </button>
         </div>
       )}
-      <div className="flex flex-col gap-2.5 sm:flex-row">
-        <Input
-          type="text"
-          maxLength={80}
-          autoComplete="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Your name"
-          aria-label="Your name"
-          className={cn(fieldClass, "flex-1")}
-        />
-        <Input
-          type="tel"
-          maxLength={30}
-          inputMode="tel"
-          autoComplete="tel"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          placeholder="Phone (optional)"
-          aria-label="Phone number, optional"
-          className={cn(fieldClass, "flex-1")}
-        />
+      <div className="flex flex-col gap-2.5 sm:flex-row sm:items-start">
+        <div className="flex flex-1 flex-col gap-1.5">
+          <Input
+            type="text"
+            maxLength={80}
+            autoComplete="name"
+            required
+            aria-invalid={Boolean(fieldErrors.name)}
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              if (fieldErrors.name) setFieldError("name", undefined);
+            }}
+            onBlur={() => name && setFieldError("name", validateName(name))}
+            placeholder="Your name *"
+            aria-label="Your name, required"
+            className={cn(fieldClass, fieldErrors.name && invalidClass)}
+          />
+          {fieldErrors.name && (
+            <p role="alert" className={errorText}>
+              {fieldErrors.name}
+            </p>
+          )}
+        </div>
+        <div className="flex flex-1 flex-col gap-1.5">
+          <Input
+            type="tel"
+            maxLength={30}
+            inputMode="tel"
+            autoComplete="tel"
+            aria-invalid={Boolean(fieldErrors.phone)}
+            value={phone}
+            onChange={(e) => {
+              setPhone(e.target.value);
+              if (fieldErrors.phone) setFieldError("phone", undefined);
+            }}
+            onBlur={() => setFieldError("phone", validatePhone(phone))}
+            placeholder="Phone (optional)"
+            aria-label="Phone number, optional"
+            className={cn(fieldClass, fieldErrors.phone && invalidClass)}
+          />
+          {fieldErrors.phone && (
+            <p role="alert" className={errorText}>
+              {fieldErrors.phone}
+            </p>
+          )}
+        </div>
       </div>
-      <div className="flex flex-col gap-2.5 sm:flex-row">
-        <Input
-          type="email"
-          maxLength={254}
-          inputMode="email"
-          autoComplete="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@email.com"
-          aria-label="Email address"
-          className={cn(fieldClass, "flex-1")}
-        />
+      <div className="flex flex-col gap-2.5 sm:flex-row sm:items-start">
+        <div className="flex flex-1 flex-col gap-1.5">
+          <Input
+            type="email"
+            maxLength={254}
+            inputMode="email"
+            autoComplete="email"
+            required
+            aria-invalid={Boolean(fieldErrors.email)}
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (fieldErrors.email) setFieldError("email", undefined);
+            }}
+            onBlur={() => email && setFieldError("email", validateEmail(email))}
+            placeholder="you@email.com *"
+            aria-label="Email address, required"
+            className={cn(fieldClass, fieldErrors.email && invalidClass)}
+          />
+          {fieldErrors.email && (
+            <p role="alert" className={errorText}>
+              {fieldErrors.email}
+            </p>
+          )}
+        </div>
         <Button
           type="submit"
           size="lg"
@@ -247,7 +290,6 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
               : "bg-foreground text-background hover:bg-foreground/90",
           )}
         >
-
           {state === "loading" ? (
             <Loader2 className="size-5 animate-spin" />
           ) : (
@@ -255,6 +297,9 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
           )}
         </Button>
       </div>
+      <p className={cn("px-1 text-xs", onPrimary ? "text-primary-foreground/80" : "text-muted-foreground")}>
+        * Required
+      </p>
       {error ? (
         <p
           role="alert"

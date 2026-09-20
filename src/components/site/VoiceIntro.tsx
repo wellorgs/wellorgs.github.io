@@ -81,11 +81,11 @@ export function VoiceIntro() {
       </div>
 
       {muted && (
-        <div aria-hidden className="pointer-events-none absolute left-full top-5 ml-2 hidden w-52 items-start gap-2 xl:flex">
-          <svg width="44" height="40" viewBox="0 0 44 40" fill="none" className="mt-1 shrink-0 text-foreground/60">
-            <path d="M42 4 C 26 2, 10 10, 6 28 M1 21 L6 29 L14 24" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        <div aria-hidden className="pointer-events-none absolute left-full top-8 -ml-7 hidden w-56 items-center gap-1 xl:flex">
+          <svg width="64" height="34" viewBox="0 0 64 34" fill="none" className="shrink-0 text-foreground/60">
+            <path d="M62 24 C 46 6, 24 2, 6 15 M17 13 L6 15 L10 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <span className="mt-3 -rotate-3 text-[22px] leading-[1.05] text-foreground/75" style={{ fontFamily: "Caveat, cursive" }}>
+          <span className="mt-6 -rotate-3 text-[22px] leading-[1.05] text-foreground/75" style={{ fontFamily: "Caveat, cursive" }}>
             Turn the sound on, see how Assisty speaks
           </span>
         </div>
