@@ -55,10 +55,10 @@ export const Route = createFileRoute("/features")({
           "Upvote the most requested Assisty AI features and post your own idea on the live board.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://myassistant.app/features" },
+      { property: "og:url", content: "https://assistyai.in/features" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://myassistant.app/features" }],
+    links: [{ rel: "canonical", href: "https://assistyai.in/features" }],
   }),
   component: FeatureBoard,
 });

@@ -1,0 +1,1 @@
+REVOKE ALL ON FUNCTION public.get_my_votes(text) FROM PUBLIC, anon, authenticated;

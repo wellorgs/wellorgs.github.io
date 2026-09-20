@@ -30,3 +30,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# build output / env
+dist-static
+.env
+.env.*
+!.env.example
+dev.log

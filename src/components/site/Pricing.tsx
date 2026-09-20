@@ -139,7 +139,7 @@ function planNote(plan: Plan, region: Region, cycle: BillingCycle) {
   return "Every number and priority contact in one place.";
 }
 
-const CYCLE_KEY = "myassistant.billing-cycle";
+const CYCLE_KEY = "assistyai.billing-cycle";
 
 const scenarios = [
   {

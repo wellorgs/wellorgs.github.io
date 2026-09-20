@@ -1,9 +1,17 @@
-# MyAssistant website
+# Assisty AI website
 
-Marketing site for MyAssistant (TanStack Start, React 19, Tailwind v4).
+Marketing site for Assisty AI (https://assistyai.in). TanStack Start + React + Tailwind, deployed to Cloudflare Pages.
 
-- Dev: `pnpm install && pnpm dev`
-- Static build (GitHub Pages): `pnpm exec vite build --config vite.static.config.ts` (output in `dist-static/client`)
-- Deploys automatically from `main` via `.github/workflows/pages.yml`.
+## Develop
+```
+pnpm install
+pnpm dev            # http://localhost:8080
+```
 
-The waitlist form and feature board need a backend that GitHub Pages cannot run; they are placeholders until the backend is swapped in.
+## Build
+- `pnpm build`  Cloudflare Pages build (SSR + server functions), output `dist`.
+- `pnpm build:static`  Static SPA build for GitHub Pages, output `dist-static/client` (no waitlist/board/sitemap: those need the server).
+
+## Environment
+Build-time: `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `VITE_SUPABASE_PROJECT_ID`.
+Runtime (Cloudflare Pages secrets): `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `WAITLIST_ADMIN_PASSCODE`.

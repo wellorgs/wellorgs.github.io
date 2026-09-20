@@ -7,10 +7,9 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { DeferredToaster } from "@/components/ui/deferred-toaster";
 import { CookieConsent } from "@/components/site/CookieConsent";
 
@@ -39,9 +38,6 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -111,8 +107,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             "@context": "https://schema.org",
             "@type": "Organization",
             name: "Assisty AI",
-            url: "https://myassistant.app/",
-            logo: "https://myassistant.app/favicon.png",
+            url: "https://assistyai.in/",
+            logo: "https://assistyai.in/favicon.png",
             description:
               "Assisty AI answers your phone when you cannot, talks to the caller naturally, and gives you a plain-language summary. Genuine emergencies reach you directly, within minutes.",
           },
@@ -120,7 +116,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             "@context": "https://schema.org",
             "@type": "WebSite",
             name: "Assisty AI",
-            url: "https://myassistant.app/",
+            url: "https://assistyai.in/",
           },
         ]),
       },

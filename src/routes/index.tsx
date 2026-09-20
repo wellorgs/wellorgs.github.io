@@ -29,12 +29,12 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: HOME_TITLE },
       { property: "og:description", content: HOME_DESCRIPTION },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://myassistant.app/" },
+      { property: "og:url", content: "https://assistyai.in/" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:description", content: HOME_DESCRIPTION },
     ],
 
-    links: [{ rel: "canonical", href: "https://myassistant.app/" }],
+    links: [{ rel: "canonical", href: "https://assistyai.in/" }],
     scripts: [
       {
         type: "application/ld+json",

@@ -12,8 +12,8 @@ import { clearPlanIntent, getPlanIntent, onPlanIntentChange } from "@/lib/plan-i
 
 type Props = { className?: string; compact?: boolean; onPrimary?: boolean };
 
-const STORAGE_KEY = "myfamily.waitlist.email";
-const LAST_TRY_KEY = "myfamily.waitlist.lastTry";
+const STORAGE_KEY = "assistyai.waitlist.email";
+const LAST_TRY_KEY = "assistyai.waitlist.lastTry";
 /** Client-side cooldown between attempts (server enforces the real limit). */
 const COOLDOWN_MS = 15_000;
 

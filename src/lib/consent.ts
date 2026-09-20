@@ -4,9 +4,9 @@ export type ConsentChoice = {
   updatedAt: string;
 };
 
-const STORAGE_KEY = "myfamily.cookie-consent";
-export const CONSENT_CHANGED = "myfamily:consent-changed";
-export const OPEN_CONSENT = "myfamily:open-consent";
+const STORAGE_KEY = "assistyai.cookie-consent";
+export const CONSENT_CHANGED = "assistyai:consent-changed";
+export const OPEN_CONSENT = "assistyai:open-consent";
 
 export function loadConsent(): ConsentChoice | null {
   if (typeof window === "undefined") return null;

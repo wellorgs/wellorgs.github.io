@@ -234,7 +234,7 @@ export function detectRegion(): Region {
   return defaultRegion;
 }
 
-const STORAGE_KEY = "myfamily.region";
+const STORAGE_KEY = "assistyai.region";
 
 export function loadStoredRegion(): Region | null {
   if (typeof window === "undefined") return null;

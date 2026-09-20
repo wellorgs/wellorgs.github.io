@@ -35,7 +35,7 @@ export const Route = createFileRoute("/features_/$slug")({
     const r = loaderData?.request;
     const title = r ? `${r.title} | Assisty AI Feature Board` : "Feature idea | Assisty AI";
     const description = r?.detail ?? "A feature idea on the public Assisty AI roadmap.";
-    const url = `https://myfamilapp.lovable.app/features/${params.slug}`;
+    const url = `https://assistyai.in/features/${params.slug}`;
     return {
       meta: [
         { title },

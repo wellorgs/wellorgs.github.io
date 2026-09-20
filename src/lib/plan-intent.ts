@@ -2,8 +2,8 @@
  * Remembers which pricing plan a visitor clicked before landing on the
  * waitlist form. Optional signal, never blocks the signup.
  */
-const KEY = "myfamily.waitlist.plan";
-const EVENT = "myfamily:plan-intent";
+const KEY = "assistyai.waitlist.plan";
+const EVENT = "assistyai:plan-intent";
 
 export function setPlanIntent(plan: string) {
   try {

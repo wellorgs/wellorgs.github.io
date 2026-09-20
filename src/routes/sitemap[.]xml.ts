@@ -3,7 +3,7 @@ import type {} from "@tanstack/react-start";
 
 import { requestSlug, seedRequests } from "@/lib/feature-requests";
 
-const BASE_URL = "https://myfamilapp.lovable.app";
+const BASE_URL = "https://assistyai.in";
 
 interface SitemapEntry {
   path: string;

@@ -14,11 +14,11 @@ export const Route = createFileRoute("/admin/export")({
   component: ExportPage,
   head: () => ({
     meta: [
-      { title: "Export waitlist | myFamily365" },
-      { name: "description", content: "Download myFamily365 waitlist signups as a CSV file." },
+      { title: "Export waitlist | Assisty AI" },
+      { name: "description", content: "Download Assisty AI waitlist signups as a CSV file." },
       { name: "robots", content: "noindex, nofollow" },
-      { property: "og:title", content: "Export waitlist | myFamily365" },
-      { property: "og:description", content: "Download myFamily365 waitlist signups as a CSV file." },
+      { property: "og:title", content: "Export waitlist | Assisty AI" },
+      { property: "og:description", content: "Download Assisty AI waitlist signups as a CSV file." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -44,7 +44,7 @@ function ExportPage() {
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `myfamily-waitlist-${new Date().toISOString().slice(0, 10)}.csv`;
+      link.download = `assistyai-waitlist-${new Date().toISOString().slice(0, 10)}.csv`;
       link.click();
       URL.revokeObjectURL(url);
       toast.success(`Exported ${result.count} signup${result.count === 1 ? "" : "s"}`);

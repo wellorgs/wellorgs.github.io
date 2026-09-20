@@ -3,7 +3,7 @@ import type { FeatureRequest, FeatureStatus } from "@/lib/feature-requests";
 
 export type BoardIdea = FeatureRequest & { slug: string; createdAt: string };
 
-const VOTER_KEY_STORAGE = "myfamily.board.voter";
+const VOTER_KEY_STORAGE = "assistyai.board.voter";
 
 /** Stable anonymous key for this browser — no personal data. */
 export function getVoterKey(): string {

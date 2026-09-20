@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://myfamilapp.lovable.app/sitemap.xml
+Sitemap: https://assistyai.in/sitemap.xml

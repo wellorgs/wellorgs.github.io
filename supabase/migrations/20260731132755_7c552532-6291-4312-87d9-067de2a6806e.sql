@@ -1,0 +1,3 @@
+ALTER TABLE public.waitlist_signups
+  ADD COLUMN IF NOT EXISTS name text,
+  ADD COLUMN IF NOT EXISTS phone text;

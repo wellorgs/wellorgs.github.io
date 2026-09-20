@@ -6,7 +6,7 @@ export const RATE_WINDOW_MS = 10 * 60 * 1000;
 /** A human needs at least this long to read the field and type an email. */
 export const MIN_FILL_MS = 1500;
 
-const SALT = "myfamily-waitlist-v1";
+const SALT = "assistyai-waitlist-v1";
 
 export function hashIp(ip: string) {
   return createHash("sha256").update(`${SALT}:${ip}`).digest("hex");

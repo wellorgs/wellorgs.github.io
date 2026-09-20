@@ -98,21 +98,7 @@ export const joinWaitlist = createServerFn({ method: "POST" })
       throw new Error("Could not save your email. Please try again.");
     }
 
-    // 5. Mirror new signups into the connected Google Sheet.
-    let sheetSynced = true;
-    if (!error) {
-      const { appendSignupToSheet } = await import("./sheets.server");
-      const result = await appendSignupToSheet({
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        plan: data.plan,
-        flagged,
-      });
-      sheetSynced = result.synced;
-    }
-
-    return { email: data.email, alreadyJoined: Boolean(error), sheetSynced };
+    return { email: data.email, alreadyJoined: Boolean(error) };
   });
 
 export const checkWaitlist = createServerFn({ method: "POST" })

@@ -12,7 +12,7 @@ import { WaitlistForm } from "@/components/site/WaitlistForm";
 import { setPlanIntent } from "@/lib/plan-intent";
 import { cn } from "@/lib/utils";
 
-const STORAGE_KEY = "myfamily.waitlist.email";
+const STORAGE_KEY = "assistyai.waitlist.email";
 
 /** True once this browser has joined the waitlist. */
 export function hasJoinedWaitlist() {
