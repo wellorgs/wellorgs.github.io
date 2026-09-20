@@ -8,3 +8,6 @@ compatibility_flags = ["nodejs_compat"]
 [vars]
 SUPABASE_URL = "https://cgojypyldzcfigshrtrx.supabase.co"
 SUPABASE_PUBLISHABLE_KEY = "sb_publishable_UvmviosluhGGHFVhpp81Tg_A6bY3y6r"
+
+# Apps Script endpoint for the waitlist sheet; useless without WAITLIST_SHEETS_TOKEN (a Cloudflare secret).
+WAITLIST_SHEETS_URL = "https://script.google.com/macros/s/AKfycbyB5laX0pq1raOi2hDypP4avsSVbdcbvovmy9uiwIcGlZbQPqVUAbEAYQ8k4AbEgBCN/exec"
