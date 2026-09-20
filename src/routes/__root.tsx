@@ -11,6 +11,7 @@ import type { ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { DeferredToaster } from "@/components/ui/deferred-toaster";
+import { Analytics } from "@/components/site/Analytics";
 import { CookieConsent } from "@/components/site/CookieConsent";
 
 function NotFoundComponent() {
@@ -35,7 +36,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
   console.error(error);
   const router = useRouter();
 
@@ -150,6 +151,7 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <CookieConsent />
+      <Analytics />
       <DeferredToaster position="top-center" />
     </QueryClientProvider>
   );

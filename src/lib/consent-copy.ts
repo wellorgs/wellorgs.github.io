@@ -35,7 +35,7 @@ export const consentCopyEn: ConsentCopy = {
   necessarySwitchLabel: "Strictly necessary cookies are always on",
   analyticsTitle: "Analytics",
   analyticsBody:
-    "Anonymous page views and clicks. No personal profiles, no advertising.",
+    "Anonymous page views, clicks and scroll heatmaps, with form fields hidden. No personal profiles, no advertising.",
   analyticsSwitchLabel: "Allow analytics cookies",
   manage: "Manage settings",
   save: "Save my choices",
