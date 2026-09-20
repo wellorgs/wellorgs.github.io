@@ -16,7 +16,7 @@ export const Route = createFileRoute("/api/waitlist.csv")({
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
         const lockKey = `sheet:${hashIp(clientIpFrom(request.headers))}`;
-        if (await isLockedOut(supabaseAdmin, lockKey)) return notFound();
+        if (await isLockedOut(supabaseAdmin, lockKey)) return plain("Too many wrong keys. Try again in 15 minutes.", 429);
 
         const given = new URL(request.url).searchParams.get("key") ?? "";
         const a = createHash("sha256").update(given, "utf8").digest();
