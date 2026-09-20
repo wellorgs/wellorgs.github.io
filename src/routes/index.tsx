@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { HandMockup } from "@/components/site/HandMockup";
 
 import { FaqSection, topFaqs } from "@/components/site/FaqSection";
+import { VoiceIntro } from "@/components/site/VoiceIntro";
 import { FeatureSections } from "@/components/site/FeatureSections";
 import { MobileCtaBar } from "@/components/site/MobileCtaBar";
 // PRICING HIDDEN - section exists in components/site/Pricing.tsx, commented out until pricing is finalised
@@ -71,8 +72,7 @@ function Landing() {
         <section id="hero" className="relative overflow-hidden bg-accent/35">
           <div className="relative mx-auto max-w-6xl px-4 pb-0 pt-10 text-center sm:px-5 sm:pt-16 lg:pt-20">
             <h1 className="animate-rise mx-auto max-w-4xl text-[34px] font-bold leading-[1.08] sm:text-5xl lg:text-6xl">
-              Every call answered.{" "}
-              <span className="text-muted-foreground">Only the ones that matter reach you, by phone.</span>
+              You can't answer every call. <span className="text-primary">Assisty can.</span>
             </h1>
             <p className="animate-rise mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               Assisty answers your incoming calls when you're busy, understands why they're calling,
@@ -86,7 +86,7 @@ function Landing() {
             <div id="waitlist" className="animate-rise mx-auto mt-8 max-w-lg scroll-mt-24">
               <WaitlistForm />
               <p className="mx-auto mt-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground sm:text-xs">
-                Routine → Handled · Important → Summarized · Escalated → Escalated
+                Routine → Handled · Important → Summarized · Escalated → Calls you
               </p>
               {/* PRICING PENDING - "First 7 days free at launch" pill removed until pricing is finalised. Original:
               <p className="shine-pill mx-auto mt-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold tracking-tight text-foreground sm:text-sm">
@@ -96,6 +96,8 @@ function Landing() {
               </p>
               (also re-add: import { Sparkles } from "lucide-react") */}
             </div>
+
+            <VoiceIntro />
 
             <div className="mx-auto mt-10 max-w-[1200px] sm:mt-12">
               <HandMockup />
