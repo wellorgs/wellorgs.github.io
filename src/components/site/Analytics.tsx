@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useAnalyticsConsent } from "@/components/site/CookieConsent";
 
 // Microsoft Clarity (free heatmaps + session recordings), loaded only after the visitor allows analytics.
-// Set VITE_CLARITY_PROJECT_ID at build time; without it this renders nothing.
-const ID = (import.meta.env as Record<string, string | undefined>)["VITE_CLARITY_PROJECT_ID"];
+// The project ID is public (it ships in the page), so it lives here, not in Cloudflare env vars.
+const ID = "ylfk48tl6h";
 
 type Clarity = ((...args: unknown[]) => void) & { q?: unknown[] };
 
@@ -12,7 +12,6 @@ export function Analytics() {
   const allowed = useAnalyticsConsent();
 
   useEffect(() => {
-    if (!ID) return;
     const w = window as unknown as { clarity?: Clarity };
     if (allowed && !w.clarity) {
       const c: Clarity = (...args) => {
