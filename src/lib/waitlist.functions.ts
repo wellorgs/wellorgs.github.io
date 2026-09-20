@@ -59,7 +59,7 @@ export const joinWaitlist = createServerFn({ method: "POST" })
     // 2c. Name and phone must look real.
     const { cleanName, cleanPhone } = await import("./waitlist-validation");
     const name = cleanName(data.name);
-    if (!name) throw new Error("INPUT:Please enter your real name (letters only).");
+    if (!name) throw new Error("INPUT:Please enter your name in English letters.");
     let phone = "";
     if (data.phone) {
       const p = cleanPhone(data.phone);

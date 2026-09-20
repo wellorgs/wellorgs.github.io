@@ -62,7 +62,7 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!cleanName(name)) {
-      setError("Please enter your real name (letters only)");
+      setError("Please enter your name in English letters");
       toast.error("Please enter your real name");
       return;
     }

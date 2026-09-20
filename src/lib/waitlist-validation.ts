@@ -1,10 +1,10 @@
 /** Browser-safe field checks shared by the waitlist form and the server function. */
 
-/** Returns the cleaned name, or null if it does not look like a real name. */
+/** Returns the cleaned name (English letters, spaces, . ' -), or null if it does not look like a real name. */
 export function cleanName(raw: string): string | null {
   const v = raw.trim().replace(/\s+/g, " ");
-  if (!/^[\p{L}\p{M}][\p{L}\p{M} .'’-]{1,79}$/u.test(v)) return null;
-  if (/(.)\1{4,}/u.test(v)) return null; // "aaaaa"
+  if (!/^[A-Za-z][A-Za-z .'-]{1,79}$/.test(v)) return null; // English letters only
+  if (/(.)\1{4,}/i.test(v)) return null; // "aaaaa"
   return v;
 }
 
