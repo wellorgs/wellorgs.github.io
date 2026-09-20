@@ -44,12 +44,46 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+// Keep in sync with public/_headers (that file only covers static assets, not SSR responses).
+// 'unsafe-inline' scripts are needed for TanStack Start's inline hydration data.
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://www.clarity.ms https://scripts.clarity.ms",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' data: https://fonts.gstatic.com",
+  "img-src 'self' data: blob: https://*.clarity.ms https://c.bing.com",
+  "media-src 'self'",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.clarity.ms https://c.bing.com",
+  "worker-src 'self' blob:",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
+
+function withSecurityHeaders(response: Response, path: string): Response {
+  const r = new Response(response.body, response);
+  r.headers.set("Content-Security-Policy", CSP);
+  r.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+  r.headers.set("X-Content-Type-Options", "nosniff");
+  r.headers.set("X-Frame-Options", "DENY");
+  r.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  r.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=(), usb=()");
+  r.headers.set("Cross-Origin-Opener-Policy", "same-origin");
+  if (path.startsWith("/admin")) {
+    r.headers.set("X-Robots-Tag", "noindex, nofollow");
+    r.headers.set("Cache-Control", "no-store");
+  }
+  return r;
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      return withSecurityHeaders(await normalizeCatastrophicSsrResponse(response), new URL(request.url).pathname);
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {

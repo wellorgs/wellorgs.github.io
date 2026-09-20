@@ -2,3 +2,9 @@ name = "wellorgs"
 pages_build_output_dir = "dist"
 compatibility_date = "2025-09-01"
 compatibility_flags = ["nodejs_compat"]
+
+# Public values (safe to commit: the publishable key is meant for browsers, RLS protects the data).
+# Secrets (SUPABASE_SERVICE_ROLE_KEY, WAITLIST_ADMIN_PASSCODE) stay in the Cloudflare dashboard as encrypted secrets.
+[vars]
+SUPABASE_URL = "https://cgojypyldzcfigshrtrx.supabase.co"
+SUPABASE_PUBLISHABLE_KEY = "sb_publishable_UvmviosluhGGHFVhpp81Tg_A6bY3y6r"
