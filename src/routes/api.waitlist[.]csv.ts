@@ -1,46 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-// Read-only CSV feed for Google Sheets: =IMPORTDATA("https://assistyai.in/api/waitlist.csv?key=<WAITLIST_SHEET_KEY>")
-// Sheets cannot send headers, so the key rides in the URL. It is a separate secret from the admin passcode
-// (rotate it in Cloudflare if the sheet is ever shared). Wrong keys get a 404 and are locked out after 5 misses.
+// Config check: which waitlist env vars exist at runtime (booleans only, never values).
 export const Route = createFileRoute("/api/waitlist.csv")({
   server: {
     handlers: {
-      GET: async ({ request }) => {
-        const notFound = () => new Response("Not found", { status: 404, headers: { "cache-control": "no-store" } });
-        const expected = process.env["WAITLIST_SHEET_KEY"];
-        const plain = (text: string, status: number) => new Response(text, { status, headers: { "cache-control": "no-store" } });
-        if (!expected) return plain("Feed not configured: WAITLIST_SHEET_KEY is missing.", 503);
-        if (expected.length < 16) return plain("Feed not configured: WAITLIST_SHEET_KEY must be at least 16 characters.", 503);
-
-        const { createHash, timingSafeEqual } = await import("node:crypto");
-        const { clientIpFrom, hashIp, isLockedOut, waitlistCsv } = await import("../lib/waitlist.server");
-        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-
-        const lockKey = `sheet:${hashIp(clientIpFrom(request.headers))}`;
-        if (await isLockedOut(supabaseAdmin, lockKey)) return plain("Too many wrong keys. Try again in 15 minutes.", 429);
-
-        const given = new URL(request.url).searchParams.get("key") ?? "";
-        const a = createHash("sha256").update(given, "utf8").digest();
-        const b = createHash("sha256").update(expected, "utf8").digest();
-        if (!timingSafeEqual(a, b)) {
-          await supabaseAdmin.from("waitlist_attempts").insert({ ip_hash: lockKey });
-          return notFound();
-        }
-
-        const { data: rows, error } = await supabaseAdmin
-          .from("waitlist_signups")
-          .select("name, email, phone, flagged, created_at")
-          .order("created_at", { ascending: true });
-        if (error) return new Response("Error", { status: 500, headers: { "cache-control": "no-store" } });
-
-        return new Response(waitlistCsv(rows ?? []), {
-          headers: {
-            "content-type": "text/csv; charset=utf-8",
-            "cache-control": "no-store",
-            "x-robots-tag": "noindex, nofollow",
+      GET: async () => {
+        const has = (k: string) => Boolean(process.env[k]);
+        return Response.json(
+          {
+            SUPABASE_SERVICE_ROLE_KEY: has("SUPABASE_SERVICE_ROLE_KEY"),
+            WAITLIST_ADMIN_PASSCODE: has("WAITLIST_ADMIN_PASSCODE"),
+            WAITLIST_SHEETS_URL: has("WAITLIST_SHEETS_URL"),
+            WAITLIST_SHEETS_TOKEN: has("WAITLIST_SHEETS_TOKEN"),
           },
-        });
+          { headers: { "cache-control": "no-store" } },
+        );
       },
     },
   },
