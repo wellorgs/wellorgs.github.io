@@ -124,7 +124,7 @@ export async function appendToSheet(row: { name: string; email: string; phone: s
       method: "POST",
       headers: { "content-type": "text/plain" },
       body: JSON.stringify({ token, at: new Date().toISOString(), ...row }),
-      signal: AbortSignal.timeout(4000),
+      signal: AbortSignal.timeout(9000),
     });
   } catch (error) {
     console.error("[waitlist] sheet append failed", error);
