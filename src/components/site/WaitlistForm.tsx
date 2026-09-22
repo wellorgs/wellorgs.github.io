@@ -10,6 +10,7 @@ import { checkEmailDomain } from "@/lib/email-domains";
 import { cleanName, cleanPhone } from "@/lib/waitlist-validation";
 import { checkWaitlist, joinWaitlist } from "@/lib/waitlist.functions";
 import { clearPlanIntent, getPlanIntent, onPlanIntentChange } from "@/lib/plan-intent";
+import { captureTrafficSource, getTrafficSource } from "@/lib/traffic-source";
 
 type Props = { className?: string; compact?: boolean; onPrimary?: boolean };
 type Field = "name" | "phone" | "email";
@@ -51,6 +52,11 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
   useEffect(() => {
     setPlan(getPlanIntent());
     return onPlanIntentChange(setPlan);
+  }, []);
+
+  // Note which link (utm_source, or the referring site) first brought this visitor in.
+  useEffect(() => {
+    captureTrafficSource();
   }, []);
 
   // Restore confirmed state after a refresh, verified against the database.
@@ -101,6 +107,7 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
           name: name.trim(),
           phone: phone.trim(),
           plan,
+          source: getTrafficSource(),
           company,
           elapsedMs: Date.now() - mountedAt.current,
         },
@@ -109,6 +116,10 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
       setEmail(res.email);
       setAlreadyJoined(res.alreadyJoined);
       setState("done");
+      if (!res.alreadyJoined) {
+        // Mark the conversion for Clarity's funnels/filters. Best-effort: never blocks the signup.
+        (window as unknown as { clarity?: (...a: unknown[]) => void }).clarity?.("event", "early_access_requested");
+      }
       toast.success(res.alreadyJoined ? "You're already on the list" : "You're on the list", {
         description: "We'll email you when early access opens.",
       });
@@ -157,10 +168,10 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
         </span>
         <div>
           <p className="text-sm font-semibold">
-            {alreadyJoined ? "You're already on the waitlist" : "You're on the waitlist"}
+            {alreadyJoined ? "You're already on the list" : "You're on the list"}
           </p>
           <p className="text-sm text-muted-foreground">
-            Spot reserved for {email}. Early access opens in batches.
+            Spot reserved for {email}. It's invite-only for now, we're onboarding in small batches.
           </p>
         </div>
       </div>
@@ -293,7 +304,7 @@ export function WaitlistForm({ className, compact, onPrimary }: Props) {
           {state === "loading" ? (
             <Loader2 className="size-5 animate-spin" />
           ) : (
-            "Join the Waitlist"
+            "Request Early Access"
           )}
         </Button>
       </div>

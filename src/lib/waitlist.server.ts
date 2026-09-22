@@ -86,12 +86,21 @@ function csvCell(value: string | null | undefined) {
   return `"${v.replace(/"/g, '""')}"`;
 }
 
-type SignupRow = { name: string | null; email: string; phone: string | null; flagged: boolean | null; created_at: string };
+type SignupRow = {
+  name: string | null;
+  email: string;
+  phone: string | null;
+  source?: string | null;
+  flagged: boolean | null;
+  created_at: string;
+};
 
 export function waitlistCsv(rows: SignupRow[]) {
-  const lines = [["Name", "Email", "Phone", "Flagged", "Joined at"].map(csvCell).join(",")];
+  const lines = [["Name", "Email", "Phone", "Source", "Flagged", "Joined at"].map(csvCell).join(",")];
   for (const r of rows) {
-    lines.push([csvCell(r.name), csvCell(r.email), csvCell(r.phone), csvCell(r.flagged ? "yes" : ""), csvCell(r.created_at)].join(","));
+    lines.push(
+      [csvCell(r.name), csvCell(r.email), csvCell(r.phone), csvCell(r.source), csvCell(r.flagged ? "yes" : ""), csvCell(r.created_at)].join(","),
+    );
   }
   return lines.join("\r\n");
 }
@@ -115,7 +124,7 @@ export async function isLockedOut(
  * Never throws and never delays a signup for long: a Sheets failure must not lose or block the waitlist entry
  * (the row is already safe in Supabase).
  */
-export async function appendToSheet(row: { name: string; email: string; phone: string; plan: string; flagged: boolean }) {
+export async function appendToSheet(row: { name: string; email: string; phone: string; plan: string; source: string; flagged: boolean }) {
   const url = process.env["WAITLIST_SHEETS_URL"];
   const token = process.env["WAITLIST_SHEETS_TOKEN"];
   if (!url || !token) return;

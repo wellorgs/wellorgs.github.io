@@ -85,7 +85,7 @@ export function FaqSection({ all = false }: { all?: boolean }) {
       <div className="text-center">
         <h2 className="text-[28px] font-bold leading-tight sm:text-[40px]">
           Still thinking it over?{" "}
-          <span className="text-muted-foreground">Everything you need to know before joining the waitlist.</span>
+          <span className="text-muted-foreground">Everything you need to know before requesting early access.</span>
         </h2>
       </div>
 

@@ -8,6 +8,7 @@ CREATE TABLE public.waitlist_signups (
   name text,
   phone text,
   plan text,
+  source text,
   flagged boolean NOT NULL DEFAULT false,
   created_at timestamptz NOT NULL DEFAULT now()
 );

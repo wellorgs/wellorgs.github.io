@@ -18,6 +18,8 @@ export const joinWaitlist = createServerFn({ method: "POST" })
         phone: z.string().trim().max(30).optional().default(""),
         /** Optional: which pricing plan the visitor clicked before joining. */
         plan: z.string().trim().max(40).optional().default(""),
+        /** Optional: first-touch attribution, e.g. "linkedin/social" or "referral:google.com". */
+        source: z.string().trim().max(80).optional().default(""),
         /** Honeypot — must stay empty. */
         company: z.string().max(100).optional().default(""),
         /** Milliseconds between form render and submit. */
@@ -106,6 +108,7 @@ export const joinWaitlist = createServerFn({ method: "POST" })
       name,
       phone: phone || null,
       plan: data.plan || null,
+      source: data.source || null,
       flagged,
     });
 
@@ -117,7 +120,7 @@ export const joinWaitlist = createServerFn({ method: "POST" })
 
     if (!error) {
       const { appendToSheet } = await import("./waitlist.server");
-      await appendToSheet({ name, email: data.email, phone, plan: data.plan, flagged });
+      await appendToSheet({ name, email: data.email, phone, plan: data.plan, source: data.source, flagged });
     }
 
     return { email: data.email, alreadyJoined: Boolean(error) };

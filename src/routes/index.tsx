@@ -19,7 +19,7 @@ import { WaitlistForm } from "@/components/site/WaitlistForm";
 
 const HOME_TITLE = "Assisty AI, an AI assistant that answers your calls";
 const HOME_DESCRIPTION =
-  "Join the Assisty AI waitlist. It answers your phone when you cannot, talks to the caller naturally, and gives you a summary in the app. Genuine emergencies reach you directly, within minutes.";
+  "Request early access to Assisty AI. It answers your phone when you cannot, talks to the caller naturally, and gives you a summary in the app. Genuine emergencies reach you directly, within minutes.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -55,7 +55,7 @@ export const Route = createFileRoute("/")({
 
 
 const stats = [
-  { value: "1,400+", label: "on the waitlist" },
+  { value: "1,400+", label: "requested early access" },
   { value: LANGUAGE_COUNT, label: "languages, including regional" },
   { value: "< 2 min", label: "to a full summary" },
 ];
@@ -87,6 +87,9 @@ function Landing() {
               <WaitlistForm />
               <p className="mx-auto mt-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground sm:text-xs">
                 Routine → Handled · Important → Summarized · Escalated → Calls you
+              </p>
+              <p className="mx-auto mt-2 text-xs text-muted-foreground/80">
+                Invite-only for now — we're onboarding in small batches.
               </p>
               {/* PRICING PENDING - "First 7 days free at launch" pill removed until pricing is finalised. Original:
               <p className="shine-pill mx-auto mt-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold tracking-tight text-foreground sm:text-sm">

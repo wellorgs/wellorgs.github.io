@@ -124,7 +124,7 @@ export function SiteHeader() {
             onClick={onLanding ? go("waitlist") : undefined}
             className="whitespace-nowrap rounded-full bg-foreground px-3.5 py-2 font-medium text-background sm:px-4"
           >
-            Join the Waitlist
+            Request Early Access
           </a>
 
           {/* Hamburger — mobile / tablet */}
@@ -188,7 +188,7 @@ export function SiteHeader() {
               onClick={onLanding ? go("waitlist") : () => setOpen(false)}
               className="mt-3 flex h-12 items-center justify-center rounded-2xl bg-foreground text-[15px] font-semibold text-background"
             >
-              Join the Waitlist
+              Request Early Access
             </a>
           </div>
         </>

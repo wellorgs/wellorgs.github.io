@@ -31,7 +31,7 @@ export const consentCopyEn: ConsentCopy = {
     "We use a small number of cookies to keep the site working. With your permission we also measure which pages people read, so we can improve them. You can change this at any time from the Cookie settings link in the footer.",
   necessaryTitle: "Strictly necessary",
   necessaryBody:
-    "Needed for the waitlist form, security and spam protection. Always on.",
+    "Needed for the early access form, security and spam protection. Always on.",
   necessarySwitchLabel: "Strictly necessary cookies are always on",
   analyticsTitle: "Analytics",
   analyticsBody:

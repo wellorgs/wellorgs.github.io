@@ -31,7 +31,7 @@ export const exportWaitlistCsv = createServerFn({ method: "POST" })
 
     const { data: rows, error } = await supabaseAdmin
       .from("waitlist_signups")
-      .select("name, email, phone, flagged, created_at")
+      .select("name, email, phone, source, flagged, created_at")
       .order("created_at", { ascending: true });
 
     if (error) {

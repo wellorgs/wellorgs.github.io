@@ -268,7 +268,7 @@ export function Pricing() {
           Try it free. Keep it if it helps.
         </h2>
         <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
-          Start with a 7 day trial, no card required. Join the waitlist now and keep
+          Start with a 7 day trial, no card required. Request early access now and keep
           founding pricing for as long as you stay.
         </p>
 
@@ -417,7 +417,7 @@ export function Pricing() {
                   : "border border-border bg-background text-foreground hover:bg-muted"
               } h-14`}
             >
-              Join the waitlist
+              Request Early Access
             </a>
           </div>
         ))}
@@ -498,7 +498,7 @@ export function Pricing() {
               <p className="font-semibold">Need something custom?</p>
               <p className="text-muted-foreground">
                 Multiple numbers, or a team spread across countries? Tell us on the
-                waitlist form and we will price it for you.
+                early access form and we will price it for you.
               </p>
             </div>
             <a

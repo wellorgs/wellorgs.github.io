@@ -54,7 +54,7 @@ export function MobileCtaBar() {
   return (
     <div
       role="region"
-      aria-label="Join the Waitlist"
+      aria-label="Request Early Access"
       aria-hidden={!shown}
       className={cn(
         "fixed inset-x-0 bottom-0 z-50 border-t border-border/60 bg-background md:hidden",
@@ -66,7 +66,7 @@ export function MobileCtaBar() {
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-3">
         {/* PRICING PENDING - "First 7 days free, no card needed" line removed until pricing is finalised. Original:
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold tracking-tight">Join the Waitlist</p>
+          <p className="truncate text-sm font-semibold tracking-tight">Request Early Access</p>
           <span className="mt-1 inline-flex max-w-full items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-tight text-foreground">
             <Sparkles className="animate-spark size-3 shrink-0 text-primary" strokeWidth={2.2} />
             <span className="truncate">First 7 days free, no card needed</span>
@@ -79,12 +79,12 @@ export function MobileCtaBar() {
           tabIndex={shown ? undefined : -1}
           className="inline-flex h-11 min-w-0 flex-1 items-center justify-center rounded-xl bg-foreground px-5 text-sm font-semibold text-background"
         >
-          Join the Waitlist
+          Request Early Access
         </a>
         <button
           type="button"
           onClick={() => setDismissed(true)}
-          aria-label="Dismiss waitlist bar"
+          aria-label="Dismiss early access bar"
           tabIndex={shown ? undefined : -1}
           className="flex size-11 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted"
         >
