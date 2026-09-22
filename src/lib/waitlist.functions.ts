@@ -103,14 +103,13 @@ export const joinWaitlist = createServerFn({ method: "POST" })
 
     // 4. Save (unique index handles duplicates).
     const flagged = looksSuspicious(data.email);
-    const { error } = await supabaseAdmin.from("waitlist_signups").insert({
-      email: data.email,
-      name,
-      phone: phone || null,
-      plan: data.plan || null,
-      source: data.source || null,
-      flagged,
-    });
+    const row = { email: data.email, name, phone: phone || null, plan: data.plan || null, flagged };
+    let { error } = await supabaseAdmin.from("waitlist_signups").insert({ ...row, source: data.source || null });
+    // ponytail: the "source" column may not exist yet on older deployments (run supabase/add-source-column.sql).
+    // Retry without it once so a missing migration never breaks a real signup.
+    if (error?.code === "PGRST204") {
+      ({ error } = await supabaseAdmin.from("waitlist_signups").insert(row));
+    }
 
     // 23505 = unique violation: already on the list, treat as success
     if (error && error.code !== "23505") {
