@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Eye, MessageCircleHeart, Pause, PhoneCall, Play, Star } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowRight, ChevronLeft, ChevronRight, Eye, MessageCircleHeart, Pause, PhoneCall, Play, Star } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 import { Reveal } from "@/components/site/Reveal";
 
@@ -148,87 +148,89 @@ export function BoardCta() {
 }
 
 type Testimonial = {
+  /** Changed for privacy: not the real reviewer's name. */
   name: string;
   country: string;
+  title: string;
   quote: string;
-  /** Path to the person's photo, used with their permission. Falls back to initials. */
-  avatar?: string;
 };
 
-// Real, approved reviews from early testers.
+// Real, approved reviews from early testers. Names and avatars are stand-ins (disclosed on the page).
 const testimonials: Testimonial[] = [
-  { name: "Priya Sharma", country: "India", quote: "I stopped worrying about missing important calls. The summaries tell me exactly what happened without making me listen to the whole conversation." },
-  { name: "Rohan Singh", country: "India", quote: "The first call genuinely surprised me. It felt like someone was actually having a conversation instead of reading a script." },
-  { name: "Emily Carter", country: "United Kingdom", quote: "It handled an unexpected call while I was in a meeting and captured every important detail. That's exactly what I wanted." },
-  { name: "Daniel Brooks", country: "United States", quote: "The conversations feel natural, especially when people interrupt or change topics. It doesn't lose the flow." },
-  { name: "Ananya Verma", country: "India", quote: "I love that it knows the difference between an ordinary call and something that actually needs my attention." },
-  { name: "Michael Chen", country: "Canada", quote: "The response time was much faster than I expected, and the assistant didn't sound stiff or overly formal." },
-  { name: "Simran Kaur", country: "India", quote: "It feels less like a call screening app and more like someone reliable answering on my behalf." },
-  { name: "Olivia Taylor", country: "Australia", quote: "The call summaries are clean and easy to skim. I know what matters in seconds." },
-  { name: "Arjun Patel", country: "India", quote: "The emergency escalation feature gave me confidence because it doesn't overreact, but it also doesn't miss serious situations." },
-  { name: "Sofia Martins", country: "Portugal", quote: "The assistant adapts surprisingly well to natural conversations instead of forcing people into predefined answers." },
+  { name: "Neha K.", country: "India", title: "Summaries that save time", quote: "I stopped worrying about missing important calls. The summaries tell me exactly what happened without making me listen to the whole conversation." },
+  { name: "Kabir M.", country: "India", title: "It felt like a real conversation", quote: "The first call genuinely surprised me. It felt like someone was actually having a conversation instead of reading a script." },
+  { name: "Hannah W.", country: "United Kingdom", title: "Handled a call during a meeting", quote: "It handled an unexpected call while I was in a meeting and captured every important detail. That's exactly what I wanted." },
+  { name: "Marcus R.", country: "United States", title: "Natural, even when interrupted", quote: "The conversations feel natural, especially when people interrupt or change topics. It doesn't lose the flow." },
+  { name: "Kavya N.", country: "India", title: "Knows what needs my attention", quote: "I love that it knows the difference between an ordinary call and something that actually needs my attention." },
+  { name: "Liam T.", country: "Canada", title: "Faster than I expected", quote: "The response time was much faster than I expected, and the assistant didn't sound stiff or overly formal." },
+  { name: "Jasleen B.", country: "India", title: "Someone reliable answering for me", quote: "It feels less like a call screening app and more like someone reliable answering on my behalf." },
+  { name: "Grace L.", country: "Australia", title: "Summaries I can skim in seconds", quote: "The call summaries are clean and easy to skim. I know what matters in seconds." },
+  { name: "Vikram D.", country: "India", title: "Escalation I can trust", quote: "The emergency escalation feature gave me confidence because it doesn't overreact, but it also doesn't miss serious situations." },
+  { name: "Inês C.", country: "Portugal", title: "Adapts to natural conversation", quote: "The assistant adapts surprisingly well to natural conversations instead of forcing people into predefined answers." },
 ];
 
-const initials = (n: string) => n.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();
+const SKIN = ["#F1C9A5", "#D9A47A", "#B9835A", "#8D5A3B", "#F5D5B8"];
+const HAIR = ["#2B1B14", "#4A2C1A", "#1F1F24", "#7A4A2A", "#8B8B90"];
+const BG = ["#FDE7D2", "#DCEEFB", "#E6DFF7", "#DDF3E6", "#FBE0DC"];
+const SHIRT = ["#E8620C", "#3B6EA5", "#6B4FA0", "#2F8F5B", "#C9343A"];
 
-function TestimonialSlot() {
-  const [i, setI] = useState(0);
-  const [hold, setHold] = useState(false);
-
-  useEffect(() => {
-    if (hold || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const t = setInterval(() => setI((v) => (v + 1) % testimonials.length), 6000);
-    return () => clearInterval(t);
-  }, [hold]);
-
-  const t = testimonials[i] ?? testimonials[0]!;
+/** Illustrated stand-in avatar (not a real person's photo). */
+function Avatar({ i }: { i: number }) {
+  const long = i % 3 === 1;
   return (
-    <div
-      className="flex h-full flex-col justify-between"
-      onMouseEnter={() => setHold(true)}
-      onMouseLeave={() => setHold(false)}
-      onFocus={() => setHold(true)}
-      onBlur={() => setHold(false)}
-    >
-      <figure key={i} className="animate-rise" aria-live="polite">
-        <blockquote className="text-[18px] leading-relaxed">{"\u201C"}{t.quote}{"\u201D"}</blockquote>
-        <figcaption className="mt-6 flex items-center gap-3">
-          {t.avatar ? (
-            <img src={t.avatar} alt="" className="size-11 rounded-full object-cover" />
-          ) : (
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-tint-amber text-sm font-bold text-primary">
-              {initials(t.name)}
-            </span>
-          )}
-          <span>
-            <span className="block text-[15px] font-semibold">{t.name}</span>
-            <span className="block text-sm text-muted-foreground">{t.country}</span>
-          </span>
-        </figcaption>
-      </figure>
-      <div className="mt-6 flex flex-wrap gap-1.5">
-        {testimonials.map((x, n) => (
-          <button
-            key={x.name}
-            type="button"
-            onClick={() => setI(n)}
-            aria-label={`Show review from ${x.name}`}
-            aria-current={n === i}
-            className={`h-1.5 rounded-full transition-all ${n === i ? "w-6 bg-primary" : "w-1.5 bg-foreground/20"}`}
-          />
-        ))}
-      </div>
-    </div>
+    <svg viewBox="0 0 44 44" className="size-11 shrink-0 rounded-full" aria-hidden="true">
+      <rect width="44" height="44" fill={BG[i % BG.length]} />
+      {long && <path d="M12.5 19c0-7 4-11 9.5-11s9.5 4 9.5 11v10h-4V19h-11v10h-4z" fill={HAIR[(i + 1) % HAIR.length]} />}
+      <path d="M6 44c0-9 7-14 16-14s16 5 16 14z" fill={SHIRT[(i + 2) % SHIRT.length]} />
+      <circle cx="22" cy="19" r="8.5" fill={SKIN[(i * 2) % SKIN.length]} />
+      <path d="M13.2 18.5c0-6 4-9.5 8.8-9.5s8.8 3.5 8.8 9.5c-2-3-5-4.5-8.8-4.5s-6.8 1.5-8.8 4.5z" fill={HAIR[(i + 1) % HAIR.length]} />
+    </svg>
   );
 }
 
 export function TrustStrip() {
+  const scroller = useRef<HTMLDivElement | null>(null);
+  const scrollBy = (dir: 1 | -1) => scroller.current?.scrollBy({ left: dir * 360, behavior: "smooth" });
+
   return (
-    <section id="trust" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-14 sm:px-5 sm:py-20">
-      <div className="mx-auto max-w-3xl">
-        <Reveal className="rounded-xl bg-card p-7 sm:p-9">
-          <TestimonialSlot />
-        </Reveal>
+    <section id="trust" className="scroll-mt-24 py-14 sm:py-20">
+      <div className="mx-auto max-w-6xl px-4 text-center sm:px-5">
+        <h2 className="text-[28px] font-bold leading-tight sm:text-4xl">
+          What early testers <span className="text-muted-foreground">are saying.</span>
+        </h2>
+        <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
+          These are real reviews from early testers. To protect their privacy, names and pictures have been changed.
+        </p>
+      </div>
+
+      <div
+        ref={scroller}
+        className="mx-auto mt-10 flex max-w-6xl snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {testimonials.map((t, idx) => (
+          <figure key={t.name} className="flex w-[290px] shrink-0 snap-start flex-col justify-between rounded-xl bg-card p-6 sm:w-[340px] sm:p-7">
+            <div>
+              <h3 className="text-[17px] font-bold leading-snug">{t.title}</h3>
+              <blockquote className="mt-4 text-[15px] leading-relaxed text-muted-foreground">{"“"}{t.quote}{"”"}</blockquote>
+            </div>
+            <figcaption className="mt-8 flex items-center gap-3">
+              <Avatar i={idx} />
+              <span>
+                <span className="block text-[15px] font-semibold">{t.name}</span>
+                <span className="block text-sm text-muted-foreground">{t.country}</span>
+              </span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <div className="mx-auto mt-4 flex max-w-6xl justify-end gap-2 px-4 sm:px-5">
+        <button type="button" onClick={() => scrollBy(-1)} aria-label="Previous reviews" className="flex size-10 items-center justify-center rounded-full bg-card hover:bg-accent">
+          <ChevronLeft className="size-5" strokeWidth={STROKE} />
+        </button>
+        <button type="button" onClick={() => scrollBy(1)} aria-label="Next reviews" className="flex size-10 items-center justify-center rounded-full bg-card hover:bg-accent">
+          <ChevronRight className="size-5" strokeWidth={STROKE} />
+        </button>
       </div>
     </section>
   );
