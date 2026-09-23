@@ -184,7 +184,7 @@ export function TrustStrip() {
         ref={scroller}
         className="mx-auto mt-10 flex max-w-6xl snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {testimonials.map((t, idx) => (
+        {testimonials.map((t) => (
           <figure key={t.name} className="flex w-[290px] shrink-0 snap-start flex-col justify-between rounded-xl bg-card p-6 sm:w-[340px] sm:p-7">
             <div>
               <div className="flex gap-1" role="img" aria-label="5 out of 5 stars">
@@ -195,12 +195,9 @@ export function TrustStrip() {
               <h3 className="mt-5 text-[17px] font-bold leading-snug">{t.title}</h3>
               <blockquote className="mt-4 text-[15px] leading-relaxed text-muted-foreground">{"“"}{t.quote}{"”"}</blockquote>
             </div>
-            <figcaption className="mt-8 flex items-center gap-3">
-              <img src={`/avatars/t${idx + 1}.svg`} alt="" width={44} height={44} className="size-11 shrink-0 rounded-full" />
-              <span>
-                <span className="block text-[15px] font-semibold">{t.name}</span>
-                <span className="block text-sm text-muted-foreground">{t.country}</span>
-              </span>
+            <figcaption className="mt-8">
+              <span className="block text-[15px] font-semibold">{t.name}</span>
+              <span className="block text-sm text-muted-foreground">{t.country}</span>
             </figcaption>
           </figure>
         ))}
