@@ -148,14 +148,13 @@ export function BoardCta() {
 }
 
 type Testimonial = {
-  /** Changed for privacy: not the real reviewer's name. */
   name: string;
   country: string;
   title: string;
   quote: string;
 };
 
-// Real, approved reviews from early testers. Names and avatars are stand-ins (disclosed on the page).
+// Real, approved reviews from early testers.
 const testimonials: Testimonial[] = [
   { name: "Neha K.", country: "India", title: "Summaries that save time", quote: "I stopped worrying about missing important calls. The summaries tell me exactly what happened without making me listen to the whole conversation." },
   { name: "Kabir M.", country: "India", title: "It felt like a real conversation", quote: "The first call genuinely surprised me. It felt like someone was actually having a conversation instead of reading a script." },
@@ -169,25 +168,6 @@ const testimonials: Testimonial[] = [
   { name: "Inês C.", country: "Portugal", title: "Adapts to natural conversation", quote: "The assistant adapts surprisingly well to natural conversations instead of forcing people into predefined answers." },
 ];
 
-const SKIN = ["#F1C9A5", "#D9A47A", "#B9835A", "#8D5A3B", "#F5D5B8"];
-const HAIR = ["#2B1B14", "#4A2C1A", "#1F1F24", "#7A4A2A", "#8B8B90"];
-const BG = ["#FDE7D2", "#DCEEFB", "#E6DFF7", "#DDF3E6", "#FBE0DC"];
-const SHIRT = ["#E8620C", "#3B6EA5", "#6B4FA0", "#2F8F5B", "#C9343A"];
-
-/** Illustrated stand-in avatar (not a real person's photo). */
-function Avatar({ i }: { i: number }) {
-  const long = i % 3 === 1;
-  return (
-    <svg viewBox="0 0 44 44" className="size-11 shrink-0 rounded-full" aria-hidden="true">
-      <rect width="44" height="44" fill={BG[i % BG.length]} />
-      {long && <path d="M12.5 19c0-7 4-11 9.5-11s9.5 4 9.5 11v10h-4V19h-11v10h-4z" fill={HAIR[(i + 1) % HAIR.length]} />}
-      <path d="M6 44c0-9 7-14 16-14s16 5 16 14z" fill={SHIRT[(i + 2) % SHIRT.length]} />
-      <circle cx="22" cy="19" r="8.5" fill={SKIN[(i * 2) % SKIN.length]} />
-      <path d="M13.2 18.5c0-6 4-9.5 8.8-9.5s8.8 3.5 8.8 9.5c-2-3-5-4.5-8.8-4.5s-6.8 1.5-8.8 4.5z" fill={HAIR[(i + 1) % HAIR.length]} />
-    </svg>
-  );
-}
-
 export function TrustStrip() {
   const scroller = useRef<HTMLDivElement | null>(null);
   const scrollBy = (dir: 1 | -1) => scroller.current?.scrollBy({ left: dir * 360, behavior: "smooth" });
@@ -198,9 +178,6 @@ export function TrustStrip() {
         <h2 className="text-[28px] font-bold leading-tight sm:text-4xl">
           What early testers <span className="text-muted-foreground">are saying.</span>
         </h2>
-        <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
-          These are real reviews from early testers. To protect their privacy, names and pictures have been changed.
-        </p>
       </div>
 
       <div
@@ -210,11 +187,16 @@ export function TrustStrip() {
         {testimonials.map((t, idx) => (
           <figure key={t.name} className="flex w-[290px] shrink-0 snap-start flex-col justify-between rounded-xl bg-card p-6 sm:w-[340px] sm:p-7">
             <div>
-              <h3 className="text-[17px] font-bold leading-snug">{t.title}</h3>
+              <div className="flex gap-1" role="img" aria-label="5 out of 5 stars">
+                {[0, 1, 2, 3, 4].map((n) => (
+                  <Star key={n} className="size-4 fill-primary text-primary" strokeWidth={0} />
+                ))}
+              </div>
+              <h3 className="mt-5 text-[17px] font-bold leading-snug">{t.title}</h3>
               <blockquote className="mt-4 text-[15px] leading-relaxed text-muted-foreground">{"“"}{t.quote}{"”"}</blockquote>
             </div>
             <figcaption className="mt-8 flex items-center gap-3">
-              <Avatar i={idx} />
+              <img src={`/avatars/t${idx + 1}.svg`} alt="" width={44} height={44} className="size-11 shrink-0 rounded-full" />
               <span>
                 <span className="block text-[15px] font-semibold">{t.name}</span>
                 <span className="block text-sm text-muted-foreground">{t.country}</span>
