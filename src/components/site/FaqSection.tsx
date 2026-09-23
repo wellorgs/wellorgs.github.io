@@ -68,6 +68,21 @@ export const faqs = [
       "Add or remove numbers, priority contacts and team members whenever you want, and turn features on or off per number.",
   },
   {
+    question: "When can I get access?",
+    answer:
+      "Assisty is invite-only for now and we are onboarding in small batches. Request early access and we will reach out when your batch opens.",
+  },
+  {
+    question: "What if a caller is just testing the bot or exaggerating?",
+    answer:
+      "Assisty flags it instead of crying wolf. Only genuine urgency reaches you directly, so you are not interrupted by calls that only sound urgent.",
+  },
+  {
+    question: "Who is Assisty for?",
+    answer:
+      "Anyone who cannot always pick up: doctors, lawyers, real estate agents, consultants, freelancers, shop owners, founders, and busy people with a personal number.",
+  },
+  {
     question: "How is my data protected?",
     answer:
       "Encrypted in transit and at rest, visible only to the people you invite, and never sold, rented or used for ad targeting. Export your data or delete the account whenever you want.",
@@ -75,8 +90,18 @@ export const faqs = [
 ];
 
 /** Homepage shows only these; the rest live on /faq. */
-const TOP = ["What is Assisty?", "Do I need a new number?", "Are calls recorded?", "How does escalation work?"];
-export const topFaqs = faqs.filter((f) => TOP.includes(f.question));
+const TOP = [
+  "What is Assisty?",
+  "How does it answer my calls?",
+  "Do I need a new number?",
+  "Which languages are supported?",
+  "Are calls recorded?",
+  "How does escalation work?",
+  "Can I choose priority contacts?",
+  "When can I get access?",
+  "How is my data protected?",
+];
+export const topFaqs = TOP.map((q) => faqs.find((f) => f.question === q)!);
 
 export function FaqSection({ all = false }: { all?: boolean }) {
   const list = all ? faqs : topFaqs;

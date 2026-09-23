@@ -11,8 +11,8 @@ import { MobileCtaBar } from "@/components/site/MobileCtaBar";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Reveal } from "@/components/site/Reveal";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { RealCalls } from "@/components/site/RealCalls";
-import { EscalationSpotlight, TrustStrip, WhoFor } from "@/components/site/NewSections";
+// import { RealCalls } from "@/components/site/RealCalls"; // paused, audio not finalized
+import { BoardCta, EscalationSpotlight, TrustStrip, WhoFor } from "@/components/site/NewSections";
 import { LANGUAGE_COUNT } from "@/siteFacts";
 import { WaitlistForm } from "@/components/site/WaitlistForm";
 
@@ -103,7 +103,7 @@ function Landing() {
             {/* VOICE INTRO PAUSED until the audio is final. Restore <VoiceIntro /> and its import above to bring it back. */}
             {/* <VoiceIntro /> */}
 
-            <div className="mx-auto mt-10 max-w-[1200px] sm:mt-12">
+            <div id="screens" className="mx-auto mt-10 max-w-[1200px] scroll-mt-24 sm:mt-12">
               <HandMockup />
             </div>
           </div>
@@ -130,7 +130,8 @@ function Landing() {
           </div>
         </section>
 
-        <RealCalls />
+        {/* RealCalls audio section paused until the audio is final. Restore <RealCalls /> and its import above. */}
+        {/* <RealCalls /> */}
 
         <EscalationSpotlight />
 
@@ -144,6 +145,8 @@ function Landing() {
         {/* Pricing */}
         {/* PRICING HIDDEN - restore <Pricing /> (and the import above) once pricing is ready */}
         {/* <Pricing /> */}
+
+        <BoardCta />
 
         <FaqSection />
 

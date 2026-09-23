@@ -1,4 +1,5 @@
-import { Eye, Pause, PhoneCall, Play, Star } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, Eye, MessageCircleHeart, Pause, PhoneCall, Play, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Reveal } from "@/components/site/Reveal";
@@ -108,15 +109,39 @@ export function WhoFor() {
         </h2>
         <div className="mt-8 space-y-2.5">
           {audienceRows.map((row, i) => (
-            <div key={i} className={`mx-auto flex flex-wrap items-center justify-center gap-2 xl:flex-nowrap ${["max-w-3xl", "max-w-5xl", "max-w-6xl"][i]}`}>
+            <Reveal key={i} delay={i * 120} className={`mx-auto flex flex-wrap items-center justify-center gap-2 xl:flex-nowrap ${["max-w-3xl", "max-w-5xl", "max-w-6xl"][i]}`}>
               {row.map((a) => (
                 <span key={a} className="whitespace-nowrap rounded-lg bg-card px-3.5 py-2 text-sm font-medium text-foreground/85">
                   {a}
                 </span>
               ))}
-            </div>
+            </Reveal>
           ))}
         </div>
+      </Reveal>
+    </section>
+  );
+}
+
+export function BoardCta() {
+  return (
+    <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-5 sm:pb-16">
+      <Reveal className="flex flex-col gap-6 rounded-xl bg-card p-6 sm:p-10 md:flex-row md:items-center md:justify-between">
+        <div className="max-w-xl">
+          <span className="flex size-12 items-center justify-center rounded-full bg-tint-amber">
+            <MessageCircleHeart className="size-5 text-foreground/80" strokeWidth={STROKE} />
+          </span>
+          <h2 className="mt-5 text-[26px] font-bold leading-tight sm:text-[32px]">You decide what we build next</h2>
+          <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground sm:text-base">
+            Our roadmap is public. Post an idea, upvote what you need, and watch it move from exploring to shipped on the live board.
+          </p>
+        </div>
+        <Link
+          to="/features"
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-[15px] font-semibold text-background transition-opacity hover:opacity-90"
+        >
+          Open the live board <ArrowRight className="size-4" strokeWidth={2} />
+        </Link>
       </Reveal>
     </section>
   );
