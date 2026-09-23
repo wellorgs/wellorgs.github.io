@@ -55,7 +55,7 @@ function toIdea(row: IdeaRow): BoardIdea {
   };
 }
 
-export async function fetchBoard(): Promise<{ ideas: BoardIdea[]; votedIds: string[] }> {
+export async function fetchBoard(): Promise<{ ideas: BoardIdea[]; myVotes: Record<string, number> }> {
   const voterKey = getVoterKey();
   const { getMyVotes } = await import("@/lib/board.functions");
   const [ideasRes, votesRes] = await Promise.all([
@@ -64,15 +64,15 @@ export async function fetchBoard(): Promise<{ ideas: BoardIdea[]; votedIds: stri
       .select("id,slug,title,detail,category,status,author,votes,created_at")
       .order("votes", { ascending: false }),
     voterKey
-      ? getMyVotes({ data: { voterKey } }).catch(() => ({ votedIds: [] as string[] }))
-      : Promise.resolve({ votedIds: [] as string[] }),
+      ? getMyVotes({ data: { voterKey } }).catch(() => ({ votes: {} as Record<string, number> }))
+      : Promise.resolve({ votes: {} as Record<string, number> }),
   ]);
 
   if (ideasRes.error) throw ideasRes.error;
 
   return {
     ideas: (ideasRes.data ?? []).map((row) => toIdea(row as IdeaRow)),
-    votedIds: votesRes.votedIds ?? [],
+    myVotes: votesRes.votes ?? {},
   };
 }
 
@@ -105,16 +105,15 @@ export function subscribeBoard(onChange: () => void): () => void {
 
 
 
-/** Records one vote for this browser. Returns false if already voted. */
+/** Sets (1 / -1) or removes (0) this browser's vote on one idea. */
+export async function voteOnIdea(ideaId: string, value: 1 | -1 | 0): Promise<void> {
+  const { setVote } = await import("@/lib/board.functions");
+  await setVote({ data: { ideaId, voterKey: getVoterKey(), value } });
+}
+
+/** Upvote helper kept for pages that only upvote. */
 export async function castVote(ideaId: string): Promise<boolean> {
-  const voter_key = getVoterKey();
-  const { error } = await supabase
-    .from("feature_votes")
-    .insert({ idea_id: ideaId, voter_key });
-  if (error) {
-    if (error.code === "23505") return false; // already voted
-    throw error;
-  }
+  await voteOnIdea(ideaId, 1);
   return true;
 }
 
@@ -177,7 +176,7 @@ export async function fetchIdeaBySlug(
     try {
       const { getMyVotes } = await import("@/lib/board.functions");
       const res = await getMyVotes({ data: { voterKey } });
-      voted = (res.votedIds ?? []).includes(data.id as string);
+      voted = res.votes?.[data.id as string] === 1;
     } catch {
       voted = false;
     }

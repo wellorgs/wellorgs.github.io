@@ -14,6 +14,7 @@ import {
   type FeatureRequest,
   type FeatureStatus,
 } from "@/lib/feature-requests";
+import { hasJoinedWaitlist } from "@/components/site/BoardSignupPrompt";
 import { cn } from "@/lib/utils";
 
 const statusStyles: Record<FeatureStatus, string> = {
@@ -93,6 +94,10 @@ function FeatureDetail() {
   }, [slug]);
 
   const upvote = async () => {
+    if (!hasJoinedWaitlist()) {
+      toast("Request early access to vote", { description: "Voting is open to early-access members." });
+      return;
+    }
     if (voted || pending || !liveId) return;
     setPending(true);
     setVoted(true);

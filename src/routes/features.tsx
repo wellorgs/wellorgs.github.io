@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ChevronUp, Loader2, Plus, Search } from "lucide-react";
+import { ChevronDown, ChevronUp, Loader2, Plus, Search } from "lucide-react";
 import { toast } from "@/lib/toast";
 
 import { SiteFooter } from "@/components/site/SiteFooter";
@@ -27,6 +27,7 @@ import {
 import {
   castVote,
   fetchBoard,
+  voteOnIdea,
   submitIdea,
   subscribeBoard,
   type BoardIdea,
@@ -102,7 +103,7 @@ const seedFallback: BoardRow[] = seedRequests.map((r) => ({ ...r, slug: requestS
 
 function FeatureBoard() {
   const [requests, setRequests] = useState<BoardRow[]>(seedFallback);
-  const [voted, setVoted] = useState<Record<string, boolean>>({});
+  const [mine, setMine] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
   const [pending, setPending] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -111,7 +112,7 @@ function FeatureBoard() {
   const [sort, setSort] = useState<SortKey>("most-requested");
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
-  const [signup, setSignup] = useState<null | "vote" | "idea">(null);
+  const [signup, setSignup] = useState<null | "vote" | "idea" | "gate">(null);
   const [joined, setJoined] = useState(true); // assume joined until we read storage
   const refreshJoined = useCallback(() => setJoined(hasJoinedWaitlist()), []);
   useEffect(refreshJoined, [refreshJoined]);
@@ -124,9 +125,9 @@ function FeatureBoard() {
 
   const load = useCallback(async (silent = false) => {
     try {
-      const { ideas, votedIds } = await fetchBoard();
+      const { ideas, myVotes } = await fetchBoard();
       setRequests(ideas);
-      setVoted(Object.fromEntries(votedIds.map((id) => [id, true])));
+      setMine(myVotes);
     } catch {
       if (!silent) toast.error("Could not load the live board. Showing the latest saved list.");
     } finally {
@@ -204,20 +205,25 @@ function FeatureBoard() {
   const isDefaultView =
     filter === "all" && category === "All" && sort === "most-requested" && !query.trim();
 
-  const upvote = async (id: string) => {
-    if (voted[id] || pending) return;
+  const vote = async (id: string, dir: 1 | -1) => {
+    if (!hasJoinedWaitlist()) {
+      setSignup("gate");
+      return;
+    }
+    if (pending) return;
+    const before = mine[id] ?? 0;
+    const next = before === dir ? 0 : dir;
+    const delta = next - before;
     setPending(id);
-    // Optimistic bump.
-    setVoted((v) => ({ ...v, [id]: true }));
-    setRequests((rs) => rs.map((r) => (r.id === id ? { ...r, votes: r.votes + 1 } : r)));
+    // Optimistic update.
+    setMine((v) => ({ ...v, [id]: next }));
+    setRequests((rs) => rs.map((r) => (r.id === id ? { ...r, votes: r.votes + delta } : r)));
     try {
-      const added = await castVote(id);
-      if (!added) toast("You already voted for this one");
-      if (added && !hasJoinedWaitlist()) setSignup("vote");
+      await voteOnIdea(id, next as 1 | -1 | 0);
       void load(true);
     } catch {
-      setVoted((v) => ({ ...v, [id]: false }));
-      setRequests((rs) => rs.map((r) => (r.id === id ? { ...r, votes: r.votes - 1 } : r)));
+      setMine((v) => ({ ...v, [id]: before }));
+      setRequests((rs) => rs.map((r) => (r.id === id ? { ...r, votes: r.votes - delta } : r)));
       toast.error("Couldn't record your vote. Try again.");
     } finally {
       setPending(null);
@@ -266,6 +272,9 @@ function FeatureBoard() {
             What should we build next?{" "}
             <span className="text-muted-foreground">Upvote what you need most.</span>
           </h1>
+          <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+            Early beta: we are testing these with a small group. Early-access members can upvote, downvote and post ideas.
+          </p>
         </header>
 
         {!joined && <BoardSignupCard className="mt-8" />}
@@ -287,7 +296,15 @@ function FeatureBoard() {
             </div>
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
-                <Button className="h-12 rounded-2xl px-6 font-semibold">
+                <Button
+                  className="h-12 rounded-2xl px-6 font-semibold"
+                  onClick={(e) => {
+                    if (!hasJoinedWaitlist()) {
+                      e.preventDefault();
+                      setSignup("gate");
+                    }
+                  }}
+                >
                   <Plus className="size-4" />
                   Post an idea
                 </Button>
@@ -448,31 +465,37 @@ function FeatureBoard() {
               )}
             >
 
-              <button
-                onClick={() => void upvote(r.id)}
-                disabled={!!voted[r.id] || pending === r.id}
-                aria-pressed={!!voted[r.id]}
-                aria-label={
-                  voted[r.id]
-                    ? `You upvoted ${r.title}, ${r.votes} votes`
-                    : `Upvote ${r.title}, ${r.votes} votes`
-                }
-                className={cn(
-                  "flex h-[68px] w-14 shrink-0 flex-col items-center justify-center rounded-2xl transition-all duration-200 disabled:cursor-default",
-                  voted[r.id]
-                    ? "bg-primary/10 text-primary"
-                    : "bg-muted text-foreground/70 hover:text-primary active:scale-95",
-                )}
+              <div
+                className="flex w-14 shrink-0 flex-col items-center self-start rounded-2xl bg-muted py-1"
+                role="group"
+                aria-label={`Vote on ${r.title}, ${r.votes} votes`}
               >
-                {pending === r.id ? (
-                  <Loader2 className="size-5 animate-spin" />
-                ) : (
-                  <ChevronUp className="size-5" strokeWidth={2.4} />
-                )}
-                <span className="text-sm font-semibold tabular-nums">
-                  {r.votes.toLocaleString()}
-                </span>
-              </button>
+                <button
+                  onClick={() => void vote(r.id, 1)}
+                  disabled={pending === r.id}
+                  aria-pressed={mine[r.id] === 1}
+                  aria-label={mine[r.id] === 1 ? `Remove upvote from ${r.title}` : `Upvote ${r.title}`}
+                  className={cn(
+                    "flex h-8 w-full items-center justify-center rounded-xl transition-colors active:scale-95",
+                    mine[r.id] === 1 ? "text-primary" : "text-foreground/60 hover:text-primary",
+                  )}
+                >
+                  {pending === r.id ? <Loader2 className="size-5 animate-spin" /> : <ChevronUp className="size-5" strokeWidth={2.4} />}
+                </button>
+                <span className="text-sm font-semibold tabular-nums">{r.votes.toLocaleString()}</span>
+                <button
+                  onClick={() => void vote(r.id, -1)}
+                  disabled={pending === r.id}
+                  aria-pressed={mine[r.id] === -1}
+                  aria-label={mine[r.id] === -1 ? `Remove downvote from ${r.title}` : `Downvote ${r.title}`}
+                  className={cn(
+                    "flex h-8 w-full items-center justify-center rounded-xl transition-colors active:scale-95",
+                    mine[r.id] === -1 ? "text-destructive" : "text-foreground/60 hover:text-destructive",
+                  )}
+                >
+                  <ChevronDown className="size-5" strokeWidth={2.4} />
+                </button>
+              </div>
 
 
               <div className="min-w-0 flex-1">

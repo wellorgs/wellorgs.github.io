@@ -36,7 +36,7 @@ type DialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   /** What the visitor just did, used in the headline. */
-  reason: "vote" | "idea";
+  reason: "vote" | "idea" | "gate";
 };
 
 export function BoardSignupDialog({ open, onOpenChange, reason }: DialogProps) {
@@ -50,14 +50,15 @@ export function BoardSignupDialog({ open, onOpenChange, reason }: DialogProps) {
         <DialogHeader>
           <span className="inline-flex w-fit items-center gap-2 rounded-full bg-tint-green px-3 py-1 text-xs font-semibold">
             <Check className="size-3.5" strokeWidth={3} />
-            {reason === "vote" ? "Vote counted" : "Idea posted"}
+            {reason === "gate" ? "Early-access members only" : reason === "vote" ? "Vote counted" : "Idea posted"}
           </span>
           <DialogTitle className="mt-3 text-2xl font-semibold tracking-tight">
-            Want to know when this gets built?
+            {reason === "gate" ? "Request early access to vote" : "Want to know when this gets built?"}
           </DialogTitle>
           <DialogDescription className="text-[15px] leading-relaxed">
-            Votes are anonymous, so we cannot tell you when your request ships unless
-            you leave an email. Add yours and we will tell you the day it goes live.
+            {reason === "gate"
+              ? "Voting and posting ideas are open to early-access members while we test. Request access below and you can vote straight away."
+              : "Votes are anonymous, so we cannot tell you when your request ships unless you leave an email. Add yours and we will tell you the day it goes live."}
           </DialogDescription>
         </DialogHeader>
 
@@ -102,11 +103,11 @@ export function BoardSignupCard({ className }: { className?: string }) {
         First 7 days free at launch
       </span> */}
       <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
-        Voting is anonymous. Leave your email so we can tell you when it ships.
+        Voting is open to early-access members.
       </h2>
       <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
-        We do not track who voted for what. An email is the only way we can reach you
-        when your request goes live.
+        Request early access to upvote, downvote and post ideas. Votes stay anonymous, and we will email you when
+        what you voted for ships.
       </p>
       <WaitlistForm compact className="mt-4" />
     </section>
