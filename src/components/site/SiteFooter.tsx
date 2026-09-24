@@ -4,7 +4,7 @@ export function SiteFooter() {
       <div className="flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-sm text-muted-foreground sm:flex-row">
         <p className="flex items-center gap-2.5 text-center sm:text-left">
           <img src="/logo-mark.png" alt="" className="h-6 w-auto shrink-0" />
-          <span>© {new Date().getFullYear()} Assisty AI. Someone should always pick up.</span>
+          <span>© {new Date().getFullYear()} Assisty AI.</span>
         </p>
         <a
           href="mailto:hello@assistyai.in"

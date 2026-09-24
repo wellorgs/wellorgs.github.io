@@ -50,7 +50,7 @@ export function VoiceIntro() {
   };
 
   return (
-    <div className="relative mx-auto mt-20 max-w-3xl rounded-xl bg-card p-5 text-left sm:p-8 xl:mt-14">
+    <div className="relative mx-auto mt-20 max-w-3xl rounded-xl bg-card p-5 text-left sm:p-8">
       <audio ref={audio} playsInline preload="auto" />
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-2" role="tablist" aria-label="Language">
@@ -80,31 +80,20 @@ export function VoiceIntro() {
           {muted ? "Tap to play" : "Sound on"}
         </button>
           {muted && (
-            <div aria-hidden className="pointer-events-none xl:hidden">
+            <div aria-hidden className="pointer-events-none">
               <span
-                className="absolute bottom-full right-0 mb-[38px] w-[13rem] -rotate-2 text-right text-[20px] leading-[1.05] text-foreground/75"
+                className="absolute bottom-full right-[-24px] mb-[44px] w-[13rem] -rotate-2 text-right text-[20px] leading-[1.05] text-foreground/75"
                 style={{ fontFamily: "Caveat, cursive" }}
               >
                 Turn the sound on, see how Assisty speaks
               </span>
-              <svg width="156" height="70" viewBox="0 0 156 70" fill="none" className="absolute -left-[104px] -top-[40px] text-foreground/60">
-                <path d="M150 4 C 110 -6, 46 6, 44 30 C 42 52, 76 62, 100 58 M91 53.7 L100 58 L93 65" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              <svg width="36" height="70" viewBox="0 0 36 70" fill="none" className="absolute -right-[38px] -top-[40px] text-foreground/60">
+                <path d="M28 2 C 38 14, 36 50, 6 58 M14.5 61.1 L6 58 L11.8 51.1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
           )}
         </div>
       </div>
-
-      {muted && (
-        <div aria-hidden className="pointer-events-none absolute left-full top-8 -ml-7 hidden w-56 items-center gap-1 xl:flex">
-          <svg width="64" height="34" viewBox="0 0 64 34" fill="none" className="shrink-0 text-foreground/60">
-            <path d="M62 28 C 48 32, 26 30, 8 14 M19 15 L8 14 L11 25" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          <span className="mt-6 -rotate-3 text-[22px] leading-[1.05] text-foreground/75" style={{ fontFamily: "Caveat, cursive" }}>
-            Turn the sound on, see how Assisty speaks
-          </span>
-        </div>
-      )}
 
       <p lang="en" className="mt-6 min-h-[10rem] text-xl font-semibold leading-relaxed sm:min-h-[8rem] sm:text-2xl">
         {words.map((w, i) => (
