@@ -91,7 +91,7 @@ export function VoiceIntro() {
         </div>
       )}
 
-      <p lang={lang.id === "hinglish" ? "en" : lang.id} className="mt-6 min-h-[10rem] text-xl font-semibold leading-relaxed sm:min-h-[8rem] sm:text-2xl">
+      <p lang="en" className="mt-6 min-h-[10rem] text-xl font-semibold leading-relaxed sm:min-h-[8rem] sm:text-2xl">
         {words.map((w, i) => (
           <span key={i} className={`transition-colors duration-200 ${i < shown ? "text-foreground" : "text-foreground/20"}`}>
             {w}{" "}

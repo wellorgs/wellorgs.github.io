@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { HandMockup } from "@/components/site/HandMockup";
 
 import { FaqSection, topFaqs } from "@/components/site/FaqSection";
-// import { VoiceIntro } from "@/components/site/VoiceIntro"; // paused, see the hero
+import { VoiceIntro } from "@/components/site/VoiceIntro";
 import { FeatureSections } from "@/components/site/FeatureSections";
 import { MobileCtaBar } from "@/components/site/MobileCtaBar";
 // PRICING HIDDEN - section exists in components/site/Pricing.tsx, commented out until pricing is finalised
@@ -100,8 +100,7 @@ function Landing() {
               (also re-add: import { Sparkles } from "lucide-react") */}
             </div>
 
-            {/* VOICE INTRO PAUSED until the audio is final. Restore <VoiceIntro /> and its import above to bring it back. */}
-            {/* <VoiceIntro /> */}
+            <VoiceIntro />
 
             <div id="screens" className="mx-auto mt-10 max-w-[1200px] scroll-mt-24 sm:mt-12">
               <HandMockup />
