@@ -50,7 +50,7 @@ export function VoiceIntro() {
   };
 
   return (
-    <div className="relative mx-auto mt-10 max-w-3xl rounded-xl bg-card p-5 text-left sm:mt-14 sm:p-8">
+    <div className="relative mx-auto mt-20 max-w-3xl rounded-xl bg-card p-5 text-left sm:p-8 xl:mt-14">
       <audio ref={audio} playsInline preload="auto" />
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-2" role="tablist" aria-label="Language">
@@ -69,6 +69,7 @@ export function VoiceIntro() {
             </button>
           ))}
         </div>
+        <div className="relative">
         <button
           type="button"
           onClick={toggle}
@@ -78,18 +79,21 @@ export function VoiceIntro() {
           {muted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
           {muted ? "Tap to play" : "Sound on"}
         </button>
-      </div>
-
-      {muted && (
-        <div aria-hidden className="pointer-events-none mt-2 flex items-start justify-end gap-1 xl:hidden">
-          <span className="mt-6 max-w-[9rem] -rotate-2 text-right text-[20px] leading-[1.05] text-foreground/75" style={{ fontFamily: "Caveat, cursive" }}>
-            Turn the sound on, see how Assisty speaks
-          </span>
-          <svg width="34" height="58" viewBox="0 0 34 58" fill="none" className="mr-8 shrink-0 text-foreground/60 sm:mr-10">
-            <path d="M10 56 C 2 40, 14 24, 20 6 M11 12 L20 6 L23 17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          {muted && (
+            <div aria-hidden className="pointer-events-none xl:hidden">
+              <span
+                className="absolute bottom-full right-0 mb-[38px] w-[13rem] -rotate-2 text-right text-[20px] leading-[1.05] text-foreground/75"
+                style={{ fontFamily: "Caveat, cursive" }}
+              >
+                Turn the sound on, see how Assisty speaks
+              </span>
+              <svg width="156" height="70" viewBox="0 0 156 70" fill="none" className="absolute -left-[104px] -top-[40px] text-foreground/60">
+                <path d="M150 4 C 110 -6, 46 6, 44 30 C 42 52, 76 62, 100 58 M91 53.7 L100 58 L93 65" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       {muted && (
         <div aria-hidden className="pointer-events-none absolute left-full top-8 -ml-7 hidden w-56 items-center gap-1 xl:flex">
